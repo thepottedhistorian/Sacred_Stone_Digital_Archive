@@ -4,20 +4,7 @@
  * Part of the SCA Webministry Suite - Sacred Stone
  */
 
-/**
- * CONFIGURATION HELPER
- * Retrieves values from Script Properties to keep code clean and secure.
- */
-const CONFIG = {
-  get(key) {
-    const value = PropertiesService.getScriptProperties().getProperty(key);
-    if (!value) {
-      console.warn(`Missing Script Property: ${key}`);
-      return "";
-    }
-    return value;
-  }
-};
+
 
 /* ============================================================
    SECTION I: autoRefreshOnlineDigestData

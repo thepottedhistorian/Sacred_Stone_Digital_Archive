@@ -4,17 +4,7 @@
  * Part of the SCA Webministry Suite - Sacred Stone
  */
 
-/**
- * CONFIGURATION HELPER
- * Retrieves values from Script Properties.
- */
-const CONFIG = {
-  get(key) {
-    const value = PropertiesService.getScriptProperties().getProperty(key);
-    if (!value) console.warn(`Missing Property: ${key}`);
-    return value || "";
-  }
-};
+
 
 /* ============================================================
    SECTION I: TITLE CASE UTILITY
@@ -193,13 +183,19 @@ function launchThisWeekGG() {
   const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   const end = new Date(start);
   end.setDate(end.getDate() + 7);
+  
   const baronyCalId = CONFIG.get("BARONIAL_CALENDAR_ID");
   const baronyCal = CalendarApp.getCalendarById(baronyCalId);
   const baronyEvents = baronyCal.getEvents(start, end);
   const kingdomEvents = getICSEvents(start, end);
+  
   const digest = formatForSocialMedia(baronyEvents, kingdomEvents, start, end, "social");
-  Logger.log(digest.header + digest.barony + digest.kingdom + digest.online + digest.footer);
-  SpreadsheetApp.getUi().alert("This Week Digest ready. Check Logs.");
+  
+  // Combine the parts into the full body string
+  const fullBody = digest.header + digest.barony + digest.kingdom + digest.online + digest.footer;
+  
+  // Launch the custom modal instead of the alert
+  showDigestModal(fullBody, "Digest for " + start.toLocaleDateString());
 }
 
 function launchNextWeekGG() {
@@ -207,11 +203,14 @@ function launchNextWeekGG() {
   const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
   const end = new Date(start);
   end.setDate(end.getDate() + 7);
+  
   const baronyCalId = CONFIG.get("BARONIAL_CALENDAR_ID");
   const baronyCal = CalendarApp.getCalendarById(baronyCalId);
   const baronyEvents = baronyCal.getEvents(start, end);
   const kingdomEvents = getICSEvents(start, end);
+  
   const digest = formatForSocialMedia(baronyEvents, kingdomEvents, start, end, "social");
-  Logger.log(digest.header + digest.barony + digest.kingdom + digest.online + digest.footer);
-  SpreadsheetApp.getUi().alert("Next Week Digest ready. Check Logs.");
+  const fullBody = digest.header + digest.barony + digest.kingdom + digest.online + digest.footer;
+  
+  showDigestModal(fullBody, "Next Week Digest");
 }

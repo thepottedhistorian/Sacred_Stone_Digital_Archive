@@ -5,29 +5,23 @@
  */
 
 /**
- * CONFIGURATION HELPER
+ * Getter for the Kingdom ICS URL
  */
-const CONFIG = {
-  get(key) {
-    const value = PropertiesService.getScriptProperties().getProperty(key);
-    if (!value) console.warn(`Missing Property: ${key}`);
-    return value || "";
-  }
-};
-
-// SANITIZED: Moved URL to Script Properties
-const ICS_URL = CONFIG.get("KINGDOM_ICS_URL");
+function getKingdomIcsUrl() {
+  return CONFIG.get("KINGDOM_ICS_URL");
+}
 
 /************************************************************
  * getICSEvents(startDate, endDate)
  ************************************************************/
 function getICSEvents(startDate, endDate) {
-  if (!ICS_URL) {
+  const url = getKingdomIcsUrl();
+  if (!url) {
     console.error("KINGDOM_ICS_URL property not set.");
     return [];
   }
   
-  const response = UrlFetchApp.fetch(ICS_URL);
+  const response = UrlFetchApp.fetch(url);
   const ics = response.getContentText();
   const events = parseICS(ics);
 
@@ -108,14 +102,14 @@ function formatDateRange(start, end) {
 
 /************************************************************
  * TEST FUNCTION — testICSEvent() 
- * (Retained as requested)
  ************************************************************/
 function testICSEvent() {
-  if (!ICS_URL) {
+  const url = getKingdomIcsUrl();
+  if (!url) {
     SpreadsheetApp.getUi().alert("Error: KINGDOM_ICS_URL property not set.");
     return;
   }
-  const ics = UrlFetchApp.fetch(ICS_URL).getContentText();
+  const ics = UrlFetchApp.fetch(url).getContentText();
   const events = parseICS(ics);
 
   if (!events.length) {
@@ -131,6 +125,7 @@ function testICSEvent() {
 }
 
 function refreshICSNow() {
-  UrlFetchApp.fetch(ICS_URL);
+  const url = getKingdomIcsUrl();
+  UrlFetchApp.fetch(url);
   SpreadsheetApp.getUi().alert("ICS feed refreshed.");
 }

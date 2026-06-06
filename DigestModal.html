@@ -181,22 +181,29 @@
          prompt ensures that the Webminister does not send it by
          accident.
          ============================================================ */
-      function sendOfficial() {
-        if (!confirm("Send to official Google Group?")) return;
+function sendOfficial() {
+  if (!confirm("Send to official Google Group?")) return;
 
-        var btn = document.getElementById('mainBtn');
-        btn.disabled = true;
-        btn.innerText = "Sending...";
+  var btn = document.getElementById('mainBtn');
+  btn.disabled = true;
+  btn.innerText = "Sending...";
 
-        google.script.run.withSuccessHandler(function(res) {
-          alert(res);
-          google.script.host.close();
-        }).sendToGroup(
-          document.getElementById("subjectLine").value,
-          document.getElementById("digestBox").value,
-          false
-        );
-      }
+  google.script.run
+    .withSuccessHandler(function(res) {
+      alert(res);
+      google.script.host.close();
+    })
+    .withFailureHandler(function(err) {
+      alert("Error: " + err); // This will tell you if the server-side code failed
+      btn.disabled = false;
+      btn.innerText = "📧 Send to Group";
+    })
+    .sendToGroup(
+      document.getElementById("subjectLine").value,
+      document.getElementById("digestBox").value,
+      false
+    );
+}
     </script>
 
   </body>

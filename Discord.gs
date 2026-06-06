@@ -4,17 +4,7 @@
  * Part of the SCA Webministry Suite - Sacred Stone
  */
 
-/**
- * CONFIGURATION HELPER
- * Retrieves values from Script Properties.
- */
-const CONFIG = {
-  get(key) {
-    const value = PropertiesService.getScriptProperties().getProperty(key);
-    if (!value) console.warn(`Missing Property: ${key}`);
-    return value || "";
-  }
-};
+
 
 /* ============================================================
    SECTION I: CORE FUNCTION — sendDiscordDigest

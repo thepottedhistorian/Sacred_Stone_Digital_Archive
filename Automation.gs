@@ -5,23 +5,10 @@
  * Part of the SCA Webministry Suite - Sacred Stone
  */
 
-/**
- * CONFIGURATION HELPER
- * Retrieves values from Script Properties to keep code clean and secure.
- */
-const CONFIG = {
-  get(key) {
-    const value = PropertiesService.getScriptProperties().getProperty(key);
-    if (!value) {
-      console.error(`Missing Script Property: ${key}`);
-      return "";
-    }
-    return value;
-  }
-};
 
-const OFFICE_EMAIL = CONFIG.get("ADMIN_TEST_EMAIL"); 
-const TIME_ZONE = "America/New_York"; 
+function getOfficeEmail() {
+  return CONFIG.get("ADMIN_TEST_EMAIL");
+}
 
 /**
  * TRIGGER: installedOnEdit
