@@ -10,7 +10,7 @@ This repository serves as the official archival space for the web and automation
 
 ## 📁 PROJECT DIRECTORY
 *   **[/BaronialSocialTools](./BaronialSocialTools/):** The primary automation suite governing event digests, email communications, and Discord broadcasting.
-*   *Planned Additions:* Future directories will be added here as new web projects (such as regional event sites or historical displays) are digitized and archived.
+*   *Planned Additions:* Future directories will be added here as new web projects (such as regional event sites or other scripting projects) are digitized and archived.
 
 ## 📜 STEWARDSHIP GUIDELINES
 This archive is maintained by the Barony of the Sacred Stone Webministry. All code, scripts, and web assets hosted within this repository are intended for the service of the Society for Creative Anachronism (SCA).
