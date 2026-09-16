@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Embers | Barony of the Sacred Stone</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="nav-logo-link">
+    <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+    <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+</a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    <h2 class="section-title">Martial Activities</h2>
+    <p class="page-subtitle">Trials of Valor and Skill</p>
+
+    <div class="staff-grid">
+        <article class="staff-card">
+            <div class="role">Heavy Combat</div>
+            <div class="name">Armored Combat</div>
+            <p style="margin-top: 15px;">Tournaments and melees held upon the main field. Requirements per Kingdom of Atlantia conventions.</p>
+        </article>
+
+        <article class="staff-card">
+            <div class="role">Fencing</div>
+            <div class="name">Rapier Combat</div>
+            <p style="margin-top: 15px;">The art of the blade, featuring the Baronial Rapier Championship trials.</p>
+        </article>
+
+        <article class="staff-card">
+            <div class="role">Missile</div>
+            <div class="name">Target Archery</div>
+            <p style="margin-top: 15px;">Testing the eye and the pull of the bow across varied ranges.</p>
+        </article>
+
+        <article class="staff-card">
+            <div class="role">Range</div>
+            <div class="name">Thrown Weapons</div>
+            <p style="margin-top: 15px;">Axes and knives, proving accuracy against the wooden mark.</p>
+        </article>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+<script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

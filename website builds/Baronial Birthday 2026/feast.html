@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Feast | Ancient Embers</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/gif" href="favicon.gif">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Ensures the Feast Page flexes correctly on mobile */
+        @media screen and (max-width: 768px) {
+            /* Force the grid into a single column stack */
+            .staff-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+
+            /* Remove the desktop "span 2" from the Finale card */
+            .staff-card {
+                grid-column: span 1 !important;
+                width: 100% !important;
+            }
+
+            /* Stack the two columns inside the Finale card */
+            .staff-card div[style*="display: grid"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 10px;
+            }
+
+            /* Ensure the intro paragraph fits the screen */
+            section[style*="max-width: 800px"] {
+                width: 90% !important;
+                font-size: 1rem !important;
+            }
+        }
+    </style>
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="nav-logo-link">
+    <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+    <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+</a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+<p style="text-align: center; color: var(--stone); font-style: italic;">
+    Note: Lunch is included in your registration. The evening feast requires a separate reservation.
+</p>
+
+    <h2 class="section-title">A Feast of the Ancient World</h2>
+    <p class="page-subtitle">Ancient Greece · Egypt · Rome</p>
+
+    <div style="text-align: center; margin-bottom: 40px; font-family: 'Spectral', serif; border-bottom: 1px double var(--gold); padding-bottom: 30px;">
+        <p style="font-weight: bold; color: var(--flame); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">Prepared by Patronne Murienne l’aloiere</p>
+        <p style="font-style: italic; color: var(--stone);">Maison Fait Accompli</p>
+    </div>
+
+    <section style="margin: 0 auto 50px auto; max-width: 800px; line-height: 1.8; font-size: 1.1rem; text-align: left;">
+        <p style="margin-bottom: 20px;">Every phoenix story starts the same way: the bird gathers spice. Cinnamon. Cassia. Cumin. Coriander. It builds something worth burning. The Nest of Spice is that gathering. Patronne Murienne l’aloiere has gone to the ancient sources and brought back a feast from the same world that first told this story.</p>
+        <p>From the banks of the Nile to the shores of the Aegean, every dish is traced to the texts and the tombs. Come eat from the nest before it catches flame. Some recipes are quoted directly from authors who wrote them two thousand years ago; others are careful reconstructions using ingredients found in archaeological digs and tomb paintings. Egypt, Greece, and Rome traded food and spices and ideas constantly. This feast draws from all three and allows you to taste that on every plate.</p>
+    </section>
+
+    <div style="background-color: rgba(44, 44, 44, 0.03); padding: 15px; text-align: center; border: 1px solid var(--gold); margin-bottom: 50px; font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 1px;">
+        GF <span style="color: var(--stone); font-family: 'Spectral';">Gluten-Free</span> &nbsp;·&nbsp; 
+        V <span style="color: var(--stone); font-family: 'Spectral';">Vegetarian</span> &nbsp;·&nbsp; 
+        VEG <span style="color: var(--stone); font-family: 'Spectral';">Vegan</span> &nbsp;·&nbsp; 
+        DF <span style="color: var(--stone); font-family: 'Spectral';">Dairy-Free</span> &nbsp;·&nbsp; 
+        NF <span style="color: var(--stone); font-family: 'Spectral';">Nut-Free</span>
+    </div>
+
+    <div class="staff-grid">
+        <article class="staff-card">
+            <div class="role">First Course</div>
+            <div class="name">On Table</div>
+            <div style="margin-top: 15px; font-size: 1rem;">
+                <p><strong>Egyptian-Style Flatbread</strong> <small>(V, VEG, DF, NF)</small><br>Techniques documented in 18th Dynasty tombs.</p>
+                <p><strong>Mashed Fava Beans</strong> <small>(GF, V, VEG, DF, NF)</small><br>Garlic and cumin deposits found in Tutankhamun’s tomb.</p>
+                <p><strong>Olive Oil with Fresh Herbs</strong> <small>(GF, V, VEG, DF, NF)</small><br>Documented in Theophrastus and medical papyri.</p>
+                <p><strong>Epityrum (Olive Relish)</strong> <small>(GF, V, VEG, DF, NF)</small><br>Cato’s recipe (160 BCE): Olives, coriander, fennel, and mint.</p>
+                <p><strong>Pickled Turnips</strong> <small>(GF, V, VEG, DF, NF)</small><br>As described by Columella and Athenaeus.</p>
+            </div>
+        </article>
+
+        <article class="staff-card">
+            <div class="role">Second Course</div>
+            <div class="name">Main Service</div>
+            <div style="margin-top: 15px; font-size: 1rem;">
+                <p><strong>Braised Beef</strong> <small>(GF, DF, NF)</small><br>Prepared with coriander and wine per Egyptian tomb profiles.</p>
+                <p><strong>Roasted Chicken with Honey</strong> <small>(GF, DF, NF)</small><br>Honey-glazed poultry as documented since the 5th Dynasty.</p>
+                <p><strong>Saffron Chickpeas</strong> <small>(GF, V, VEG, DF, NF)</small><br>Plump chickpeas marinated in saffron, preserved by Athenaeus.</p>
+                <p><strong>Braised Cabbage</strong> <small>(GF, V, VEG, DF, NF)</small><br>Prepared with vinegar and caraway; a favorite of Cato.</p>
+            </div>
+        </article>
+
+        <article class="staff-card">
+            <div class="role">Intermezzo</div>
+            <div class="name">Palate Cleansers</div>
+            <div style="margin-top: 15px; font-size: 1rem;">
+                <p><strong>Honeyed Goat Cheese</strong> <small>(GF, V, NF)</small><br>A tradition referenced in Homer’s Odyssey.</p>
+                <p><strong>Dried Dates & Figs</strong> <small>(GF, V, VEG, DF, NF)</small><br>Found in archaeological food deposits across all periods.</p>
+                <p><strong>Roasted Spiced Nuts</strong> <small>(GF, V, DF)</small><br>Almonds and walnuts served in the dessert course.</p>
+                <p><strong>Sesame Flatbread</strong> <small>(V, VEG, DF, NF)</small><br>Breads "toasted with sesame" per Athenaeus.</p>
+            </div>
+        </article>
+
+        <article class="staff-card">
+            <div class="role">Third Course</div>
+            <div class="name">Final Savories</div>
+            <div style="margin-top: 15px; font-size: 1rem;">
+                <p><strong>Honey-Glazed Shrimp</strong> <small>(GF, DF, NF)</small><br>Reconstructed from The Classical Cookbook.</p>
+                <p><strong>Dressed Cucumber</strong> <small>(GF, V, VEG, DF, NF)</small><br>Standard Greek oil-and-vinegar dressing.</p>
+                <p><strong>Dressed Lentils</strong> <small>(GF, V, VEG, DF, NF)</small><br>Cooked lentil balls found in Theban tombs.</p>
+                <p><strong>Beet Greens & Chard</strong> <small>(GF, V, VEG, DF, NF)</small><br>Utilizing the plant greens as practiced in antiquity.</p>
+            </div>
+        </article>
+
+        <article class="staff-card" style="grid-column: span 2;">
+            <div class="role">Finale</div>
+            <div class="name">Sweets & Sipping Drink</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; font-size: 1rem;">
+                <div>
+                    <p><strong>Sesame Honey Brittle</strong> <small>(GF, V, DF, NF)</small><br>Modern Pasteli, made since the 8th Century BCE.</p>
+                    <p><strong>Enkhytoi Honey Cakes</strong> <small>(V, DF, NF)</small><br>A simple documented recipe of honey, flour, and eggs.</p>
+                </div>
+                <div>
+                    <p><strong>Poached Pears</strong> <small>(GF, V, VEG, DF, NF)</small><br>Spiced with cumin and grape syrup per Apicius.</p>
+                    <p><strong>Spiced Honey Grape Drink</strong> <small>(GF, V, DF, NF)</small><br>A chilled, non-alcoholic version of Roman mulsum.</p>
+                </div>
+            </div>
+        </article>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

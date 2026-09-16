@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule | Ancient Embers</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/gif" href="favicon.gif">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Schedule-specific archival table styling */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0 60px 0;
+            font-family: 'Spectral', serif;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .schedule-table th {
+            background-color: var(--stone);
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 3px solid var(--gold);
+        }
+        .schedule-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(44, 44, 44, 0.1);
+            color: var(--stone);
+        }
+        .schedule-table tr:nth-child(even) {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        .time-col { width: 28%; font-weight: bold; color: var(--flame); }
+        .activity-col { width: 44%; }
+        .location-col { width: 28%; font-style: italic; }
+
+        .tentative-notice {
+            background-color: rgba(230, 92, 23, 0.1);
+            border-left: 4px solid var(--flame);
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            font-family: 'Spectral', serif;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-table thead { display: none; }
+            .schedule-table td { display: block; width: 100%; box-sizing: border-box; }
+            .time-col { padding-top: 20px; }
+            .location-col { padding-bottom: 20px; border-bottom: 2px solid var(--gold); }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="nav-logo-link">
+        <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+        <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+    </a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Event Schedule</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+
+    <div class="tentative-notice">
+        <p style="font-weight: bold; margin: 0; color: var(--flame); font-family: 'Cinzel', serif;">
+            ✨ TENTATIVE SCHEDULE — SUBJECT TO CHANGE ✨
+        </p>
+        <p style="margin: 5px 0 0 0; font-size: 0.95rem; font-style: italic;">
+            The following scrolls detail our current plans; however, times, specific activities, and locations remain tentative.
+        </p>
+    </div>
+    
+    <div style="position: relative; width: 100%; height: 650px; border: 2px solid var(--gold, #d4af37); border-radius: 8px; overflow: hidden; background: #14181d; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
+            <iframe 
+                src="SSBB FINAL MAP.html" 
+                title="Ancient Embers Interactive Site Map" 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                allowfullscreen="true">
+            </iframe>
+        </div>
+
+    <h2 class="section-title">Friday, September 11th</h2>
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="time-col">5:00 PM</td>
+                <td class="activity-col">Site and Gate Opens (General)</td>
+                <td class="location-col">Gate / Fairground Entrance</td>
+            </tr>
+            <tr>
+                <td class="time-col">9:00 PM</td>
+                <td class="activity-col">Gate Closes (General)</td>
+                <td class="location-col">Gate / Fairground Entrance</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="section-title">Saturday, September 12th</h2>
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="time-col">8:00 AM</td>
+                <td class="activity-col">Gate Opens (General)</td>
+                <td class="location-col">Gate / Fairground Entrance</td>
+            </tr>
+            <tr>
+                <td class="time-col">8:00 AM</td>
+                <td class="activity-col">Newcomers Opens (General)</td>
+                <td class="location-col">Gazebo</td>
+            </tr>
+            <tr>
+                <td class="time-col">10:00 AM</td>
+                <td class="activity-col">Morning Court (Court)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Children's Opens (Children's Activities)</td>
+                <td class="location-col">Family Hall / Kids Activities</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Display Drop-Off (A&S)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Archery Opens (Martial)</td>
+                <td class="location-col">Archery Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Thrown Weapons Opens (Martial)</td>
+                <td class="location-col">Thrown Weapons Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Sir Marc d'Aubigny Sword Tourney (Martial)</td>
+                <td class="location-col">Armored Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Sacred Stone Rapier Champion Competition (Martial)</td>
+                <td class="location-col">Rapier Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">11:00 AM <br><small>(or After Morning Court)</small></td>
+                <td class="activity-col">Inkle Weaving 101 (Class)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">Display Set-Up <br><small>After Morning Court</small></td>
+                <td class="activity-col">Sacred Stone A&S Champion Competition (A&S)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">Schedule with MIC <br><small>Prior to Event</small></td>
+                <td class="activity-col">Authorizations, Armored (Martial)</td>
+                <td class="location-col">Armored Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">Schedule with MIC <br><small>Prior to Event</small></td>
+                <td class="activity-col">Authorizations, Rapier (Martial)</td>
+                <td class="location-col">Rapier Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">Noon</td>
+                <td class="activity-col">Lunch Provided with Site Fee (General)</td>
+                <td class="location-col">Phoenix Market Hearth</td>
+            </tr>
+            <tr>
+                <td class="time-col">Noon</td>
+                <td class="activity-col">Baltic Weaving (Class)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">1:00 PM</td>
+                <td class="activity-col">Sacred Stone Bardic Champion Competition (A&S)</td>
+                <td class="location-col">Performing Arts</td>
+            </tr>
+            <tr>
+                <td class="time-col">1:00 PM</td>
+                <td class="activity-col">Sacred Stone Archery Champion Competition (Martial)</td>
+                <td class="location-col">Archery Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">1:00 PM</td>
+                <td class="activity-col">From the Wine Dark Sea - A History of Tyrian Purple (Class)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">1:30 PM</td>
+                <td class="activity-col">Annual Kubb Competition (Sponsored by Morvyth the Victorious)</td>
+                <td class="location-col">Lawn next to Performing Arts</td>
+            </tr>
+            <tr>
+                <td class="time-col">1:30 PM</td>
+                <td class="activity-col">Beyond the Bull: What We Really Know About the Minoans and Mycenaeans (Class)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+            <tr>
+                <td class="time-col">After Sir Marc d'Aubigny<br>Sword Tourney</td>
+                <td class="activity-col">Sacred Stone Armored Champion Competition (Martial)</td>
+                <td class="location-col">Armored Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">After Champions Tourney</td>
+                <td class="activity-col">Rapier Titan Tourney / Sir Marc d'Aubigny Dagger Tourney (Martial)</td>
+                <td class="location-col">Rapier Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">After Champions Tourney</td>
+                <td class="activity-col">Armored Titan Tourney (Martial)</td>
+                <td class="location-col">Armored Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">2:00 PM</td>
+                <td class="activity-col">Gate Closes (General)</td>
+                <td class="location-col">Gate / Fairground Entrance</td>
+            </tr>
+            <tr>
+                <td class="time-col">2:00 PM</td>
+                <td class="activity-col">Newcomers Closes (General)</td>
+                <td class="location-col">Gazebo</td>
+            </tr>
+            <tr>
+                <td class="time-col">3:00 PM</td>
+                <td class="activity-col">Archery Closes (Martial)</td>
+                <td class="location-col">Archery Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">3:00 PM</td>
+                <td class="activity-col">Thrown Weapons Closes (Martial)</td>
+                <td class="location-col">Thrown Weapons Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">3:30 PM</td>
+                <td class="activity-col">Children's Activities Closes (Children's Activities)</td>
+                <td class="location-col">Family Hall / Kids Activities</td>
+            </tr>
+            <tr>
+                <td class="time-col">4:00 PM</td>
+                <td class="activity-col">Evening Court (Court)</td>
+                <td class="location-col">Entertainment Building</td>
+            </tr>
+            <tr>
+                <td class="time-col">6:00 PM</td>
+                <td class="activity-col">Feast (Food)</td>
+                <td class="location-col">Phoenix Market Hearth</td>
+            </tr>
+            <tr>
+                <td class="time-col">After Feast Has Cleared</td>
+                <td class="activity-col">Bardic (A&S)</td>
+                <td class="location-col">Performing Arts</td>
+            </tr>
+            <tr>
+                <td class="time-col">TBD</td>
+                <td class="activity-col">Sacred Stone Thrown Weapons Champion Competition (Martial)</td>
+                <td class="location-col">Thrown Weapons Field</td>
+            </tr>
+            <tr>
+                <td class="time-col">TBD</td>
+                <td class="activity-col">We Are All Going to Dye - Ukrainian Eggs! (Class)</td>
+                <td class="location-col">Court / A&S</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="section-title">Sunday, September 13th</h2>
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="time-col">Noon</td>
+                <td class="activity-col">Site Closes (General)</td>
+                <td class="location-col">Gate / Fairground Entrance</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: center; font-style: italic; color: var(--flame); margin-top: 40px;">
+        *All times and activities are subject to change at the discretion of the Autocrats.*
+    </p>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

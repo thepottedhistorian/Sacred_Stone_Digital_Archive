@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+================================================================================
+PROJECT:       Ancient Embers — Barony of the Sacred Stone Birthday & Investiture
+FILE:          arts_sciences.html
+DESCRIPTION:   Arts & Sciences Populace Competitions, Displays, & Activities.
+               Includes judged challenges, populace voting, open hearth display,
+               and evening bardic gatherings.
+MODIFIED BY:   SCA Webministry Branch / The Digital Steward Aesthetic
+================================================================================
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arts & Sciences | Ancient Embers</title>
+    
+    <!-- BRANDING & ACCESSIBILITY ASSETS -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- TYPOGRAPHY INFRASTRUCTURE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- CENTRAL BARONIAL STYLESHEET -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- PAGE-SPECIFIC STYLE OVERRIDES -->
+    <style>
+        /* -------------------------------------------------------------
+           [COMPONENT] In-page Anchor Navigation Menu
+           ------------------------------------------------------------- */
+        .as-menu-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px auto 40px auto;
+            max-width: 1000px;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        .as-menu-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--stone);
+            border: 2px solid var(--gold);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .as-menu-btn:hover {
+            background-color: var(--flame);
+            color: white;
+            border-color: var(--flame);
+        }
+        
+        /* -------------------------------------------------------------
+           [COMPONENT] Decorative Section Separator Rule
+           ------------------------------------------------------------- */
+        .competition-separator {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 50px auto;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] Semantically Nested Archival Lists
+           ------------------------------------------------------------- */
+        .refined-nest-list {
+            margin: 0;
+            padding-left: 45px !important;
+        }
+        .refined-nest-list li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .refined-nest-list li::marker {
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+
+        /* RESPONSIVE LAYOUT CONFIGURATION OVERRIDES */
+        @media screen and (max-width: 768px) {
+            .as-menu-container {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+            .as-menu-btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .competition-separator {
+                margin: 35px auto;
+            }
+            .refined-nest-list {
+                padding-left: 25px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================================
+     SECTION 1: NAVIGATION ARCHITECTURE
+     ============================================================================ -->
+<nav class="navbar">
+    <a href="index.html" class="nav-logo-link">
+        <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+        <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+    </a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- ============================================================================
+     SECTION 2: HERO BRANDING VIEWPORT
+     ============================================================================ -->
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<!-- ============================================================================
+     SECTION 3: MAIN COMPONENT WRAPPER
+     ============================================================================ -->
+<main class="content-wrapper">
+    <h2 class="section-title">Arts & Sciences</h2>
+    <p class="page-subtitle">The Nest of Spice, Song, & Shuttle: Populace Displays & Activities</p>
+
+    <!-- IN-PAGE NAVIGATION SHORTCUTS -->
+    <nav class="as-menu-container" aria-label="Arts and Sciences competition shortcuts">
+        <a href="#populace-section" class="as-menu-btn">Populace Competitions</a>
+        <a href="#open-display" class="as-menu-btn">Open Display</a>
+        <a href="classes.html" class="as-menu-btn">Educational Classes</a>
+        <a href="#bardic-section" class="as-menu-btn">Bardic Circle</a>
+    </nav>
+
+    <!-- ============================================================================
+         POPULACE COMPETITIONS CATEGORY
+         ============================================================================ -->
+    <div id="populace-section" style="width: 100%; display: flex; flex-direction: column; gap: 40px; scroll-margin-top: 100px; box-sizing: border-box;">
+        
+        <!-- Populace Item 1: From the Flames -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Populace Vote Competition</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">From the Flames</div>
+            <p style="margin-top: 15px;">This is a general “bring your best” populace vote competition. Anything created using flame or phoenix related imagery or methods is welcome.</p>
+            <p style="margin-top: 10px;">Perhaps you created your own lye soap using ashes from a fire, dyed your own cloth over an open flame, forged iron or cast pewter, cooked a succulent meal, or embroidered a mighty phoenix. Show off your artistry to your fellow Sacred Stonies!</p>
+        </article>
+
+        <!-- Populace Item 2: Mini Chariot Tournament -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Youth & Adult Tournament Challenge</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Mini Chariot Tournament</div>
+            <p style="margin-top: 15px; font-style: italic; color: var(--stone); font-size: 1.05rem;">Sponsored by the Baronial Youth Coordinator</p>
+            
+            <p style="margin-top: 15px;">Your goal is to design and craft a mini chariot at home between <strong>12 to 18 inches in size</strong>. Entries may be constructed from any material of your choice, but <strong>cannot be 3D printed</strong>.</p>
+            
+            <p style="margin-top: 10px; font-weight: bold; color: var(--flame);">
+                Turn-in Schedule: Please have your chariot turned in half an hour after court or before noon.
+            </p>
+
+            <div style="margin-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 15px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--flame); display: block; margin-bottom: 5px;">Age Brackets:</strong>
+                <ul class="refined-nest-list" style="margin-bottom: 15px;">
+                    <li><strong>Ages 5–10</strong></li>
+                    <li><strong>Ages 11–13</strong></li>
+                    <li><strong>Ages 14–18</strong></li>
+                    <li><strong>Adults (18+)</strong></li>
+                </ul>
+
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--flame); display: block; margin-bottom: 5px;">Documentation Guidelines:</strong>
+                <p style="margin-bottom: 10px;">Documentation is encouraged but not required. Recommended fields to include with your chariot:</p>
+                <ul class="refined-nest-list">
+                    <li>When the historical chariot was made.</li>
+                    <li>What it was used for.</li>
+                    <li>What materials it was traditionally made from.</li>
+                    <li>What materials you used for your handcrafted model.</li>
+                    <li>Where it was made historically.</li>
+                    <li><em>(Optional)</em> Any famous person who was known to ride in this type of chariot.</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 15px; font-style: italic; font-size: 0.95rem; color: var(--stone);">Feel free to add additional tidbits or curious bits of historical information you might find along the way about your chariot!</p>
+        </article>
+
+        <!-- Populace Item 3: Ancient Textiles -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Judged Competition</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Ancient Textiles</div>
+            <p style="margin-top: 15px; font-style: italic; color: var(--stone); font-size: 1.05rem;">"I am of the opinion when it comes to textiles that the older they are, the better they are!" &mdash; Sponsored by Granny Argent of Sacred Stone</p>
+            
+            <p style="margin-top: 15px;">Artisans are encouraged to create a piece using an ancient textile technique, such as sprang, netting, splicing, twining, nalbinding, braiding, spinning, sewing, or weaving. This may be a recreation of an extent piece or a new piece made with an extent technique. It could be anything from a square or tube of fabric all the way up to a fully recreated peplos.</p>
+            
+            <div style="margin-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 15px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--flame); display: block; margin-bottom: 5px;">Documentation Guidelines:</strong>
+                <p style="margin-bottom: 10px;">Documentation is required and must be provided <strong>one week ahead of time</strong> so that judges have adequate time to review. Both written and verbal documentation formats are highly welcome:</p>
+                
+                <ul class="refined-nest-list" style="margin-bottom: 15px;">
+                    <li><strong>Written Documentation:</strong> Please email your documentation to <a href="mailto:captaincaudipteryx@gmail.com" style="color: var(--gold); text-decoration: underline;">Granny Argent</a> beforehand.</li>
+                    <li><strong>Verbal Documentation:</strong> Please notify Granny Argent a week in advance so she can coordinate with you and the judges to schedule a presentation slot at the event.</li>
+                </ul>
+
+                <p style="margin-top: 15px; font-weight: bold; color: var(--stone);">Examples of what to include in your documentation:</p>
+                <ul class="refined-nest-list">
+                    <li>When and where the craft was practiced, and by whom.</li>
+                    <li>The materials you used and whether they differ from period history.</li>
+                    <li>If your materials differ from period, why did you make the substitutions you did? <em>(Price and affordability are ALWAYS acceptable reasons!)</em></li>
+                    <li>Your process or a how-to (pictures are highly encouraged!).</li>
+                    <li>What you learned along the way.</li>
+                    <li>What you might do differently in the future should you try the craft again.</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 15px; font-style: italic; font-size: 0.95rem; color: var(--stone);">If you have questions about documentation or would like constructive feedback ahead of time, please feel free to reach out to Granny Argent beforehand!</p>
+        </article>
+
+        <!-- Populace Item 4: Garish Statuary -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Populace Competition</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Garish Statuary challenge</div>
+            <p style="margin-top: 15px;">We think of ancient statues as being pristine marble, sterile and stark white. However, research has shown that these statues were actually painted in incredibly garish colors! This competition aims to have you recreate the garish painted statues of the ancient world.</p>
+            
+            <p style="margin-top: 10px;">The model or statue you paint may be anything that is identifiably humanoid, animal, or mythical from the ancient world. To keep judging manageable, please ensure your entry is tabletop-sized (roughly under 12 inches/30 cm in any direction). Things like tabletop miniatures to reconstructed extant statues are welcome. The point of this competition is the painting of the model or statue, but I hope you will have fun with it as well! Feel free to make a model or statue of your own—this would be a great use for air-dry clay or Sculpey!</p>
+            
+            <p style="margin-top: 10px;">Paints are welcome to be modern paints or recreations of extant paints. All painting styles are welcome. The point is to take a boring statue or model and make it fun!</p>
+            
+            <div style="margin-top: 15px; border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 10px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--flame); display: block; margin-bottom: 5px;">Three Entry Categories:</strong>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.4;">
+                    <li><strong>Kids:</strong> Age 14 and under.</li>
+                    <li><strong>Historically Informed Models:</strong> Recreation of an extant statue and/or historically informed paint choices.</li>
+                    <li><strong>Everything Else:</strong> Open category (e.g., tabletop RPG models).</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 15px; font-style: italic; font-size: 0.95rem; color: var(--stone);">Lord Albrecht Wellman will be kindly donating a prize of a ProAcryl paint set for the "Everything Else" category.</p>
+        </article>
+
+        <!-- Populace Item 5: Everybody Knows Punt -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Populace Competition | Performance & Storytelling</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Everybody Knows Punt!</div>
+            <p style="margin-top: 15px;">There once was a Land of Punt that ancient Egypt frequently traded with. Everyone in the ancient world knew Punt! So much so that no one wrote down where it actually was. Thus, modernly no one truly knows where Punt was!</p>
+            <p style="margin-top: 15px; font-weight: bold; font-family: 'Cinzel', serif; color: var(--stone); text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.5px;">The Challenge:</p>
+            <p style="margin-top: 5px; font-size: 1.1rem; font-style: italic; color: var(--stone);">Provide a short tale (under 5 minutes) about Punt and why they were so well known that no one needed to write anything down about them!</p>
+        </article>
+
+        <!-- Populace Item 6: Open A&S Display (The Scholar's Hearth) -->
+        <article id="open-display" class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Populace Display</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">The Scholar's Hearth: Open A&S Display</div>
+            
+            <p style="margin-top: 15px;">If you have a project that doesn't fit this weekend's focus on flame and spice, the open display tables are the perfect place to share your work! The Scholar's Hearth is a non-competitive, relaxed space open to artisans of every discipline, era, and skill level.</p>
+            
+            <p style="margin-top: 15px;">Bring your completed items, your works-in-progress, your research notes, or simply a curiosity you are currently untangling. Whether you want to demonstrate a favorite craft, get feedback on a tricky technique, or just chat with people who share your interests, your work belongs here. Come sit by the hearth to share your passion, swap ideas with fellow artisans, and enjoy seeing what everyone has been creating!</p>
+            
+            <div style="margin-top: 15px; border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 10px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--flame); display: block; margin-bottom: 5px;">How to Participate:</strong>
+                <ul class="refined-nest-list">
+                    <li><strong>No Registration Required:</strong> Simply bring your items to the designated open display tables during the day.</li>
+                    <li><strong>All Formats Welcome:</strong> Completed objects, binders of documentation, visual aids, or active step-by-step demonstrations are all encouraged.</li>
+                    <li><strong>Connect and Share:</strong> Leave a note with your name and local group so fellow gentles can find you to talk shop later in the weekend!</li>
+                </ul>
+            </div>
+        </article>
+    </div>
+
+    <!-- PRIMARY CATEGORY DIVIDER LINE -->
+    <hr class="competition-separator">
+
+    <!-- ============================================================================
+         BARDIC & SOCIAL CATEGORY
+         ============================================================================ -->
+    <div id="bardic-section" style="width: 100%; display: flex; flex-direction: column; scroll-margin-top: 100px; box-sizing: border-box;">
+        <!-- Saturday Night Bardic Card -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Social Gathering & Bardic</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Saturday Night Bardic</div>
+            <p style="margin-top: 15px;">Led by <strong>Granny Argent of Sacred Stone</strong>. Join us at the hearth at 7:00 PM for tales of old and songs of renewal following Feast and Evening Court.</p>
+        </article>
+    </div>
+</main>
+
+<!-- ============================================================================
+     SECTION 4: LEGAL DISCLAIMERS & SITE FOOTER
+     ============================================================================ -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================================================================
+     SECTION 5: SCRIPTS
+     ============================================================================ -->
+<script>
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

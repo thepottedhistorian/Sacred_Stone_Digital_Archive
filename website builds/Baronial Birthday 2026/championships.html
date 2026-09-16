@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Embers | Barony of the Sacred Stone</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <style>
+        /* In-page Anchor Menu Styles */
+        .as-menu-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px auto 40px auto;
+            max-width: 1000px;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        .as-menu-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--stone);
+            border: 2px solid var(--gold);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .as-menu-btn:hover {
+            background-color: var(--flame);
+            color: white;
+            border-color: var(--flame);
+        }
+        
+        /* Section Separator Line Style */
+        .competition-separator {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 50px auto;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        /* Refined list items for sub-sections */
+        .refined-nest-list {
+            margin: 0;
+            padding-left: 45px !important;
+        }
+        .refined-nest-list li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .refined-nest-list li::marker {
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+
+        @media screen and (max-width: 768px) {
+            .as-menu-container {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+            .as-menu-btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .competition-separator {
+                margin: 35px auto;
+            }
+            .refined-nest-list {
+                padding-left: 25px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="nav-logo-link">
+    <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+    <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+</a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    <h2 class="section-title">Baronial Championships & Competitions</h2>
+    <p class="page-subtitle">Sovereignty, Service & Honor on the Field of Flame</p>
+
+    <!-- UPDATED IN-PAGE ANCHOR SUBMENU -->
+    <nav class="as-menu-container" aria-label="Baronial Championship shortcut links">
+        <a href="#arts-sciences" class="as-menu-btn">Arts & Sciences</a>
+        <a href="#beekeeper" class="as-menu-btn">Beekeeper</a>
+        <a href="#armored-warlord" class="as-menu-btn">Armored Warlord</a>
+        <a href="#armored" class="as-menu-btn">Armored Champion</a>
+        <a href="#thrown-weapons" class="as-menu-btn">Thrown Weapons</a>
+        <a href="#rapier" class="as-menu-btn">Rapier</a>
+        <a href="#bardic-track" class="as-menu-btn">Bardic</a>
+        <a href="#archery" class="as-menu-btn">Archery</a>
+        <a href="#kubb" class="as-menu-btn">Kubb</a>
+    </nav>
+
+    <!-- CHAMPIONSHIP CONTAINER WRAPPER -->
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 40px; box-sizing: border-box;">
+        
+        <!-- Track Item 1: Arts & Sciences Champion -->
+        <article id="arts-sciences" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Baronial Championships</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">The Baronial Arts & Sciences Champion Competition<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Phoenix Nest: Add a Little Spice</span></div>
+            
+            <p style="margin-top: 15px;">Like the Phoenix of old, artisans will gather spices and use them to create something new. Whether you set them aflame or steep them in water, at least one spice (such as cinnamon, cardamom, saffron, etc.) must be the central focus of your entry for the Sacred Stone Baronial Arts & Sciences Champion Competition.</p>
+            
+            <div style="margin-top: 15px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--flame); display: block; margin-bottom: 5px;">Inspirational Entry Examples:</strong>
+                <ul class="refined-nest-list">
+                    <li>A tasty cinnamon bread</li>
+                    <li>Spun fiber dyed with turmeric</li>
+                    <li>Paint pigments created with saffron</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-weight: bold; font-family: 'Cinzel', serif; color: var(--stone); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px;">Documentation Guidelines:</p>
+            <p style="margin-top: 5px;">Documentation is key for this competition and should reflect pre-17th century products, methods, and materials where possible. Citations should be included with at least one reference to the historical inspiration. An executive summary is recommended for documentation more than three pages.</p>
+            
+            <p style="margin-top: 10px;">Whether you are making food, dyeing fiber, or creating pigments, we look forward to seeing what new form your spices take!</p>
+            
+            <p style="margin-top: 15px; font-style: italic; font-size: 0.95rem; color: var(--stone); border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 10px;">
+                Judging details will be provided after consultation with the incoming baronage. For questions regarding the competition or the A&S Champion role, please contact Lady Margot Leclerc at <a href="mailto:margotleclersca@gmail.com" style="color: var(--flame); text-decoration: none; font-weight: bold;">margotleclersca@gmail.com</a>.
+            </p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 2: Beekeeper Championship -->
+        <article id="beekeeper" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Baronial Championships</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Beekeeper Championship Contest<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">Ancient Embers & The Gilded Hive</span></div>
+            
+            <p style="margin-top: 15px;">All competitors must be current, active beekeepers managing their own honeybee colonies. This ensures the Barony maintains a living connection to the craft, keeping our tables supplied with local honey and our courts bright with traditional beeswax.</p>
+            
+            <div style="margin-top: 20px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 1rem; color: var(--flame); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;">The Continuity Pledge: The Triple-Jar Requirement</strong>
+                <p style="margin-top: 5px; margin-bottom: 10px;">Entrants must provide their honey harvest in three distinct vessels. This act symbolizes the renewal of the Barony and the beekeeper's pledge of ongoing service:</p>
+                <ul class="refined-nest-list">
+                    <li><strong>The Judging Jar (The "Sun-Drenched" Terroir):</strong> A technical assessment of your spring or summer harvest, celebrating the capture of raw sunlight within a jar. Entrants should present at least 2 oz of their lightest honey in a clear, unadorned glass vessel for color, clarity, and taste evaluation.</li>
+                    <li><strong>The Ember Jar:</strong> One jar (size at the entrant's discretion) gifted to the Outgoing Baronage to honor the light of their past leadership.</li>
+                    <li><strong>The Renewal Jar:</strong> One jar (size at the entrant's discretion) gifted to the Incoming Baronage to serve as fuel for the light of the future.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 1rem; color: var(--flame); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;">Your Apiary Story</strong>
+                <p style="margin-top: 5px; margin-bottom: 10px;">Along with your honey, please include a short, written companion to introduce us to your bees. There is no page limit; please feel free to share as much or as little of your story as you like, covering these two areas:</p>
+                <ul class="refined-nest-list">
+                    <li><strong>Your Nectar Flow & Flora:</strong> A brief look at your local forage and how the seasonal honey flow shaped the taste and clarity of your judging jar.</li>
+                    <li><strong>The Apiary Chronicle:</strong> A personal history of how you got into beekeeping and the story behind your current hives.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 3: Armored Warlord -->
+        <article id="armored-warlord" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Martial Fields | Armored Combat</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Armored Warlord Tournament<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Muster of Shield and Steel</span></div>
+            
+            <p style="margin-top: 15px;">To determine who possesses the tactical brilliance and martial prowess required to lead our powerful vanguard into battle, a grand tournament shall be contested on the auspicious occasion of our glorious Barony’s Birthday.</p>
+            
+            <p style="margin-top: 10px;">It is my desire to witness the strength of unity and strategic fellowship. Therefore, this championship track will be fought as a <strong>Three-Fighter Team Tournament</strong>. The field will be met in an exhausting <strong>Round Robin</strong> format, testing the endurance and coordination of every alliance present.</p>
+            
+            <p style="margin-top: 10px; font-weight: bold; color: var(--flame);">When the dust of the lists settles, the martial leader of the ultimate victorious team shall be named and recognized as the rightful Warlord of the Sacred Stone.</p>
+            
+            <p style="margin-top: 15px; font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 10px;">
+                In service and honor,<br>
+                <strong>Achbar</strong>
+            </p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 4: Armored Combat Champion -->
+        <article id="armored" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Martial Fields | Armored Combat</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Armored Combat Championship<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Trial of Precision & Spirit</span></div>
+            
+            <p style="margin-top: 15px;">To all who aspire to become the next Baronial Champion,</p>
+            <p style="margin-top: 10px;">The path to championship is not won through title alone, but through dedication, courage, and honor. Every hour spent training, every lesson learned, and every challenge faced prepares you for the day you step onto the field to prove your worth.</p>
+            <p style="margin-top: 10px; font-weight: bold; color: var(--flame);">This year, the competition to determine the next Baronial Champion will be a knife fight. It will test not only your skill and precision, but also your composure, determination, and spirit. Victory belongs to the one who meets the challenge with both confidence and respect.</p>
+            <p style="margin-top: 10px;">Whether you seek the honor of the championship or simply the opportunity to test yourself against worthy opponents, I encourage you to enter the list and give your best effort. Great champions are forged by their willingness to stand, compete, and strive for excellence.</p>
+            <p style="margin-top: 10px; font-style: italic;">May your blades be swift, your judgment sound, and your hearts steadfast.</p>
+            
+            <p style="margin-top: 15px; font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 10px;">
+                In service and honor,<br>
+                <strong>Iurii Vasilovich</strong>
+            </p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 5: Thrown Weapons Champion -->
+        <article id="thrown-weapons" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Martial Fields</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Thrown Weapons Championship<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Trial of Flight & Steel</span></div>
+            
+            <p style="margin-top: 15px;">Call to the marksmen, throwers, and scouts of the Sacred Stone! The hour has arrived to test your precision, steady your hand, and determine who will step forward as the Barony's next sovereign protector of the targets.</p>
+            
+            <p style="margin-top: 15px;">This year's competition will try your mastery across different distances and traditional implements to find the thrower with the truest aim. The parameters of the championship list are declared as follows:</p>
+            
+            <div style="margin-top: 15px;">
+                <ul class="refined-nest-list">
+                    <li><strong>The Format:</strong> The tournament will be contested as a formal <strong>Royal Round</strong>.</li>
+                    <li><strong>The Arsenal:</strong> Competitors will throw both <strong>knives and axes</strong>.</li>
+                    <li><strong>The Marks:</strong> Target lines will be set cleanly at distances of both <strong>10 feet and 20 feet</strong>.</li>
+                    <li><strong>Loaner Gear Available:</strong> For those traveling light or wishing to try their skill, loaner weapons will be fully available at the range.</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 15px;">From master throwers to those picking up an axe for the first time, all are welcome to step up to the line, test their aim, and compete for the honor of the Barony!</p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 6: Rapier Champion -->
+        <article id="rapier" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Martial Fields</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Rapier Championship<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Duel of Wit & Steel</span></div>
+            
+            <p style="margin-top: 15px;">To the swiftest blades, cunning tacticians, and dedicated duelists of the Sacred Stone! The call is issued for all who aspire to serve the Barony as Their Excellencies' next sovereign defender of the white scarf and steel.</p>
+            
+            <p style="margin-top: 15px;">This year's field will demand endurance, adaptability, and unwavering honor as you test your defense against every challenger in the list. The parameters of the championship tournament are declared as follows:</p>
+            
+            <div style="margin-top: 15px;">
+                <ul class="refined-nest-list">
+                    <li><strong>The Ultimate Honor:</strong> Competitors will fight for the distinguished privilege of serving as the Baronial Rapier Champion to Their Excellencies of the Sacred Stone.</li>
+                    <li><strong>The Tournament Format:</strong> The crown will be contested in a grueling and thorough <strong>Round Robin</strong> tournament, ensuring every blade meets face-to-face on the field.</li>
+                    <li><strong>The Standard of Entry:</strong> All combatants must be fully authorized and field-ready according to Kingdom standards at the time of the list's opening.</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 15px;">From master duelists to those stepping into their very first championship list, all are welcome to take the field, test their steel, and compete for the honor of the Barony!</p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 7: Bardic Champion -->
+        <article id="bardic-track" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Sovereign Performance Track</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Bardic Championship</div>
+            
+            <p style="margin-top: 15px; font-size: 1.1rem; font-style: italic; font-family: 'Spectral', serif; color: var(--flame);">"Hearken, good gentles of Sacred Stone! I, Lord Gawain de Barri, call for those who would seek the mantle of Bardic Champion."</p>
+            
+            <p style="margin-top: 15px;">To step forward into this noble office, candidates must submit a formal <strong>Letter of Intent</strong> and prepare <strong>three distinct performance works</strong> tailored to the pillars of our populace:</p>
+            
+            <div style="margin-top: 15px;">
+                <ul class="refined-nest-list">
+                    <li><strong>The First Work:</strong> Crafted especially for our youth.</li>
+                    <li><strong>The Second Work:</strong> Intended to inspire newcomers to the Dream.</li>
+                    <li><strong>The Third Work:</strong> Honoring the experiences of those who have walked these roads for many years.</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 15px;">Through story, song, poetry, or other bardic arts, show how you would serve the people of Sacred Stone as their Champion.</p>
+            
+            <p style="margin-top: 15px; font-size: 1.0rem; font-style: italic; color: var(--stone); background: rgba(0,0,0,0.01); padding: 10px; border-left: 2px solid var(--gold); line-height: 1.5;">
+            Details on where to send your letters of intent are being finalized. Check back soon for submission paths—we cannot wait to hear your stories and songs!</p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 8: Archery Champion -->
+        <article id="archery" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Martial Fields | Target Fields</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Baronial Archery Championship<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Gathering of Bowmen</span></div>
+            
+            <p style="margin-top: 15px;">The grand lists of the Sacred Stone stand ready to test the target disciplines of our barony's finest archers. The tournament to determine the incoming Archery champion will take place across the weekend festivity.</p>
+            
+            <p style="margin-top: 15px; font-weight: bold; color: var(--flame);">For the Baronial Archery Champion, the competition will be a head-to-head shoot at targets whose design has not yet been finalized (though a 'monsters' theme is strongly considered!).</p>
+            
+            <p style="margin-top: 10px;">Plans are underway to have other targets readily available for fun, as well as formal <strong>Royal Rounds</strong> prior to the start of the main Archery Champion competition.</p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Track Item 9: Kubb Competition -->
+        <article id="kubb" class="staff-card" style="width: 100%; border-left: 4px solid var(--gold); box-sizing: border-box; margin: 0 auto; scroll-margin-top: 100px;">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px;">Lawn Competitions | 1:30 PM</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px;">Annual Kubb Competition<br><span style="font-size: 1.2rem; color: var(--stone); text-transform: none; font-style: italic; font-family: 'Spectral', serif;">The Battle of Pitch and Wooden Batons</span></div>
+            <p style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); margin-top: -5px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Sponsored by Morvyth the Victorious</p>
+            
+            <p style="margin-top: 15px; font-style: italic; font-size: 1.1rem; color: var(--stone);">"Take the title if you can!"</p>
+            
+            <p style="margin-top: 10px;">Gather on the green at <strong>1:30 PM on the lawn next to Performing Arts</strong> for the annual battle of pitch and strategy. Challenge the defending champion, test your aim with the wooden batons, and claim glory for your hearth!</p>
+        </article>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | Ancient Embers</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/gif" href="favicon.gif">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* -------------------------------------------------------------
+           [COMPONENT] Action Buttons
+           ------------------------------------------------------------- */
+        .btn-gold {
+            display: inline-block;
+            padding: 18px 35px;
+            background-color: var(--flame);
+            color: white !important;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 2px solid var(--gold);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .btn-gold:hover {
+            background-color: var(--stone);
+            color: var(--gold) !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-disabled {
+            background-color: var(--stone) !important;
+            border-color: #666 !important;
+            color: #ccc !important;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] Closed Notice Banner
+           ------------------------------------------------------------- */
+        .registration-closed-banner {
+            background-color: rgba(139, 0, 0, 0.1);
+            border: 2px solid #8b0000;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .registration-closed-banner h3 {
+            font-family: 'Cinzel', serif;
+            color: #8b0000;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .registration-closed-banner p {
+            font-family: 'Spectral', serif;
+            font-size: 1.15rem;
+            color: var(--stone);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] Modal Pop-Up Dialog
+           ------------------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+            box-sizing: border-box;
+            backdrop-filter: blur(3px);
+        }
+        .modal-box {
+            background: #fdfbf7;
+            border: 3px double var(--gold);
+            border-radius: 8px;
+            max-width: 580px;
+            width: 100%;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-box h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--flame);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            padding-bottom: 10px;
+        }
+        .modal-box p {
+            font-family: 'Spectral', serif;
+            font-size: 1.1rem;
+            color: var(--stone);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .modal-box .notice-highlight {
+            background-color: rgba(139, 0, 0, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #8b0000;
+        }
+        .modal-close-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--flame);
+            color: white;
+            border: 2px solid var(--gold);
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            background-color: var(--stone);
+            color: var(--gold);
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] Financial & Legal Policy Blocks
+           ------------------------------------------------------------- */
+        .refund-policy {
+            margin-top: 60px;
+            padding: 40px;
+            background-color: rgba(44, 44, 44, 0.03);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .refund-policy h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--flame);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .refund-policy p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--stone);
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] Interactive FAQ Accordion Matrix
+           ------------------------------------------------------------- */
+        .faq-wrapper {
+            width: 100%;
+            max-width: 100%; 
+            margin: 40px auto;
+            padding: 0; 
+            box-sizing: border-box;
+        }
+                
+        .faq-category-title {
+            font-family: 'Cinzel', serif;
+            color: var(--flame);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .faq-item {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-left: 4px solid var(--gold);
+            border-radius: 4px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item[open] {
+            border-color: var(--flame);
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-item summary {
+            padding: 15px 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--stone);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-item summary::after {
+            content: '┼';
+            font-family: monospace;
+            color: var(--gold);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+            color: var(--flame);
+        }
+        
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        .faq-content {
+            padding: 0 20px 20px 20px;
+            line-height: 1.6;
+            cursor: pointer; 
+        }
+        
+        .faq-content p {
+            margin: 0 0 10px 0;
+        }
+        
+        .faq-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] Semantically Nested Archival Lists
+           ------------------------------------------------------------- */
+        .refined-nest-list {
+            margin: 0;
+            padding-left: 45px !important;
+        }
+        .refined-nest-list li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: var(--stone);
+        }
+        .refined-nest-list li::marker {
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+
+        /* RESPONSIVE LAYOUT CONFIGURATION OVERRIDES */
+        @media screen and (max-width: 768px) {
+            .refined-nest-list {
+                padding-left: 25px !important;
+            }
+        }
+
+        /* -------------------------------------------------------------
+           [COMPONENT] RV ALLOTMENT LIVE COUNTER
+           ------------------------------------------------------------- */
+        #rv-live-slots {
+            display: flex;                 
+            justify-content: center;       
+            align-items: center;           
+            width: 100%;                   
+            height: 100%;                  
+            font-size: 3.5rem;             
+            font-family: 'Cinzel', serif;  
+            text-align: center;            
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="notice-modal" class="modal-overlay">
+    <div class="modal-box">
+        <h3 id="modal-title">Pre-Registration Closes Tonight</h3>
+        <p id="modal-body">
+            Online pre-registration for <strong>Ancient Embers</strong> via SCORES closes tonight at midnight.
+            <br><br>
+            <strong>On-Site Registration:</strong> Cash and check will be accepted at Gate upon arrival.
+        </p>
+        
+        <div class="notice-highlight">
+            🍽️ <strong>Feast Notice:</strong> Feast is officially <strong>SOLD OUT</strong>. 
+            A waitlist is available at Gate for any available openings.
+        </div>
+
+        <button class="modal-close-btn" onclick="closeModal()">Proceed to Site Info</button>
+    </div>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="nav-logo-link">
+        <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+        <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+    </a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    
+    <h2 class="section-title">Join the Story</h2>
+    
+    <div id="closed-banner" class="registration-closed-banner" style="display: none;">
+        <h3>🔒 Online Pre-Registration Closed</h3>
+        <p>Online registration via SCORES is now closed. Gate fees and on-site registration will be accepted at the door upon arrival via cash or check.</p>
+    </div>
+
+    <p style="text-align: center; font-style: italic; margin-bottom: 30px; font-size: 1.1rem;">
+        Event fees include camping; see below for camping details.
+    </p>
+    
+    <div class="pricing-table">
+        <div class="price-card">
+            <h3>Adult Member</h3>
+            <p class="price">$20.00</p>
+        </div>
+        <div class="price-card">
+            <h3>Children (6-17)</h3>
+            <p class="price">$10.00</p>
+        </div>
+        <div class="price-card" style="border-color: #8b0000; background-color: rgba(139, 0, 0, 0.03);">
+            <h3>Feast</h3>
+            <p class="price" style="color: #8b0000; font-size: 1.5rem;">Sold Out</p>
+        </div>
+        <div class="price-card">
+            <h3>On-Site Camping</h3>
+            <p class="price">Included</p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin: 40px 0; padding: 20px; background-color: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold);">
+        <p style="font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--flame); font-weight: bold; margin: 0;">
+            Lunch will be provided to the populace included in the event fee.
+        </p>
+    </div>  
+    
+    <div class="rules-flex-container" style="display: flex; gap: 30px; align-items: stretch; justify-content: center; margin: 40px 0 50px 0;">
+        <div style="flex: 1; background-color: rgba(139, 0, 0, 0.08); padding: 30px; border: 2px solid #8b0000; border-radius: 8px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h3 style="font-family: 'Cinzel', serif; color: #8b0000; font-weight: bold; margin-bottom: 15px; font-size: 1.5rem; text-align: center; border-bottom: 2px double rgba(139, 0, 0, 0.3); padding-bottom: 10px;">
+                🔥 Mandates of the Ancient Embers
+            </h3>
+            <p style="font-size: 1.25rem; line-height: 1.7; margin-bottom: 15px; color: var(--stone); text-align: center; font-style: italic;">
+                "As we gather by the shared flame, let our conduct reflect the honor of the Barony."
+            </p>
+            <p style="font-size: 1.2rem; line-height: 1.7; margin: 0; color: var(--stone);">
+                Pray, take note of the following site restrictions mandated by the architects of this gathering:
+            </p>
+            <ul style="font-size: 1.2rem; line-height: 1.7; color: var(--stone); margin-top: 15px;">
+                <li><strong>No Open Fires or flames (including fire pits, candles or lamps):</strong> No open fires are allowed with the exception of camp stoves and cooking grills. The site has a strict rule against all torches and fire pits both in-ground and above-ground. Violating this rule will be grounds for removal from site as it could cost us access to the site in the future. All must gather at the shared ceremonial flames.</li>
+                <li><strong>Alcohol Policy:</strong> The Site has approved limited alcohol for the event. No alcohol sales are permitted. No distilled, fortified alcohol, or hard alcohols are permitted. IDs must be checked and alcohol that you bring must be monitored. Federal, state, and local laws apply. For questions, please contact the Event Steward.</li>
+            </ul>
+            <p style="font-size: 1.1rem; margin-top: 20px; color: #8b0000; font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
+                By Order of the Event Stewards
+            </p>
+        </div>
+
+        <div id="encampment-protocol-card" style="flex: 1; background-color: rgba(139, 0, 0, 0.08); padding: 30px; border: 2px solid #8b0000; border-radius: 8px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h3 style="font-family: 'Cinzel', serif; color: #8b0000; font-weight: bold; margin-bottom: 15px; font-size: 1.5rem; text-align: center; border-bottom: 2px double rgba(139, 0, 0, 0.3); padding-bottom: 10px;">
+                📜 A Note on Encampment Protocol
+            </h3>
+            <p style="font-size: 1.25rem; line-height: 1.7; margin-bottom: 20px; color: var(--stone);">
+                Please be advised that the <strong>Encampment Registry is separate</strong> from your SCORES registration. 
+            </p>
+            <p style="font-size: 1.25rem; line-height: 1.7; margin: 0; color: var(--stone);">
+                Following a protocol similar to <i>War of the Wings</i>, if you intend to camp and wish to be placed within a specific Quarter or alongside your friends and household, <strong>you must fill out the Camping & RV Registration form.</strong>
+            </p>
+            <p style="font-size: 1.25rem; line-height: 1.7; margin: 15px 0 0 0; color: var(--stone);">
+                Travelers who register via SCORES but do not submit a petition for land may be placed at the discretion of the Site Steward in the open fields.
+            </p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px 0; font-family: 'Spectral', serif; color: var(--stone);">
+        <p style="font-weight: bold; font-size: 1.3rem; margin-bottom: 10px;">Cash and checks accepted at the door.</p>
+        <p style="font-size: 1.1rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; color: var(--flame); font-weight: bold;">Checks Payable To:</p>
+        <p style="font-size: 1.2rem; font-style: italic;">Barony of The Sacred Stone, SCA, Inc.</p>
+    </div>
+    
+    <div style="text-align:center; margin: 30px 0 60px 0;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; margin-bottom: 30px;">
+            <a id="scores-btn" href="https://sca.app.neoncrm.com/np/clients/sca/event.jsp?event=2905" target="_blank" class="btn-gold">Register for the event via SCORES</a>
+            <span id="scores-disabled-btn" class="btn-gold btn-disabled" style="display: none;">Online Registration Closed</span>
+            
+            <a href="encampment.html" class="btn-gold">Camping & RV Registration</a>
+        </div>
+    
+        <div style="display: flex; justify-content: center; margin: 20px auto 40px auto; max-width: 240px; box-sizing: border-box;">
+            <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; display: block;">
+                <img src="Revision_v2.png" alt="RV Allotments" style="width: 100%; height: 100%; display: block; object-fit: contain;">
+                <div style="position: absolute; top: 53.5%; left: 50%; transform: translate(-50%, -50%); width: 50%; text-align: center; pointer-events: none; display: flex; justify-content: center; align-items: center;">
+                    <span id="rv-live-slots">--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="refund-policy">
+        <h3>Baronial Event Refund Policy</h3>
+        <p>Event Refunds shall be provided as follows: The Exchequer, the Autocrat, or Event Reservationist must receive refund requests, in writing, no later than five days after the event ends. Exceptions may be made by the approval of the Emergency Financial Committee. No refund shall be issued until the event books have been closed.</p>
+        <p>No refund(s) will be issued until all financial obligations of the event have been fulfilled and only if it is ensured that the requested refund(s) will not hinder the event's ability to fulfill those financial obligations. No refund(s) will be given to those who have checked in at gate. Approved funds will be issued minus any processing fees assessed. The Baronial Event Refund Policy Shall be posted on Baronial Event websites. Refund checks must be cashed or deposited within 90 days of the date of the check, or they will be forfeited, and the face value of the check returned to the General Fund.</p>
+    </section>
+
+    <section class="faq-wrapper">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">Event FAQ & Site Policies</h2>
+        <p style="text-align: center; font-style: italic; color: var(--stone); margin-bottom: 30px; font-family: 'Spectral', serif; font-size: 1.1rem;">
+            Our core guideline is simple: care for the site and be mindful of your fellow attendees. Every specific protocol detailed below flows from that single baseline obligation, provided to ensure an environment free of incident.
+        </p>
+
+        <div class="faq-category-title">Logistics & Camping</div>
+
+        <details class="faq-item">
+            <summary>Can I bring my dog to the event site?</summary>
+            <div class="faq-content">
+                <p>While the hounds of the Sacred Stone are a welcome sight across our lands, the bustling environment of a tournament camp requires care and vigilance. To ensure a safe, clean, and peaceable environment for all two- and four-legged attendees, please adhere to the following site edicts:</p>
+                <ul class="refined-nest-list" style="margin-top: 10px;">
+                    <li><strong>Bound by Leash:</strong> All dogs must be kept on a secure leash and remain under the active control of a responsible handler at all times to ensure they do not wander into harm's way amidst the excitement of the event.</li>
+                    <li><strong>Vaccination & Local Law:</strong> In accordance with county and city ordinances, all pets brought onto the event grounds must be fully compliant with local vaccination laws. Handlers should ensure their companions' documentation is up to date.</li>
+                    <li><strong>Keeping the Camp Clean:</strong> It is the sole duty of the handler to immediately pick up any waste left behind by their companion. Trash cans are conveniently available across the event site for proper disposal.</li>
+                    <li><strong>The Great Halls & Food Areas:</strong> Gentle companions are welcome to accompany their handlers inside the halls. However, to maintain health and safety standards, we strictly request that no animals enter any designated food preparation areas.</li>
+                    <li><strong>Peaceable Accord:</strong> Companions who show aggression, exhibit distress, or disrupt the peace of the camp with persistent barking must be escorted back to their owner's tent or off-site by their handlers to ensure the comfort of the populace.</li>
+                    <li><strong>Full Financial Liability:</strong> By bringing a pet onto the event grounds, the handler assumes full legal and financial responsibility for the animal's behavior and any damages incurred.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>How can I charge my CPAP batteries?</summary>
+            <div class="faq-content">
+                <p>A designated charging station will be available at the Gate for medical equipment batteries. It is the responsibility of the individual to clearly label their equipment and supply their own battery units.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Can I pitch my tent where the RVs are parked?</summary>
+            <div class="faq-content">
+                <p>No. RV parking spaces on site are severely limited; therefore, designated RV camping areas are strictly restricted to RVs only. General tent camping must be set up within the standard designated populace camping fields.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What are the designated Quiet Hours?</summary>
+            <div class="faq-content">
+                <p><strong>Quiet Hours run from 11:00 PM until 7:00 AM.</strong> Out of courtesy for those resting, please keep musical instruments, loud performances, and high-decibel camp activities inside these hours well-contained.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What is the site policy on Smoking & Vaping?</summary>
+            <div class="faq-content">
+                <p>Smoking and vaping are strictly barred from all communal and public areas. Please be mindful of where the breeze carries any exhaust, and ensure all filters or waste are placed into proper disposal bins.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What are the rules regarding campsite boundaries and site property?</summary>
+            <div class="faq-content">
+                <p>Please exercise absolute respect for the fairground facilities, physical resources, and permanent structures on site. The personal camp, property, and privacy of your fellow attendees should be fully honored—do not enter another group's encampment without an explicit invitation, and never take items that are not yours, even in jest.</p>
+            </div>
+        </details>
+
+        <div class="faq-category-title">Code of Conduct & Safety</div>
+
+        <details class="faq-item">
+            <summary>What are the behavioral expectations for the event?</summary>
+            <div class="faq-content">
+                <p>Our community thrives on mutual courtesy and respect, standards that apply both on-site and across all digital spaces where our members interact. While we welcome individual expression, speech that crosses into bullying, defamation, or malicious behavior will not be tolerated.</p>
+                <p style="margin-top: 10px;">We hold a zero-tolerance policy for targeted mistreatment or actions that disrupt the safety and peace of the populace. Actions that violate these community standards—regardless of whether they breach modern statutes—are grounds for formal disciplinary measures, up to and including the removal of your membership and a permanent ban from society activities. Ill intent and hostility have no place at our hearth.</p>
+                <p style="margin-top: 10px; font-style: italic; font-size: 0.9rem; color: var(--stone);">These policies align with the core standards established in the SCA Code of Conduct and Sanction Guide.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What is the policy regarding Harassment & Bullying?</summary>
+            <div class="faq-content">
+                <p><em>The SCA prohibits the harassment and bullying of all individuals and groups. Anyone who engages in it is subject to appropriate sanction.</em></p>
+                <p style="margin-top: 10px;">If you are subjected to harassment, bullying, or retaliation, or if you become aware of anyone else being harassed, you do not have to handle it alone. Help is close at hand, and reaching for it is always the right call.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What should I do if something goes wrong or I feel unsafe?</summary>
+            <div class="faq-content">
+                <p><strong>SPEAK UP.</strong></p>
+                <p style="margin-top: 10px;">If you ever encounter an emergency, feel threatened, or simply need an immediate refuge from a situation, a private location has been set aside on site where you will remain fully protected while the Event Steward and Seneschals are briefed. You will not be asked to navigate the issue alone or justify your distress first—notify any member of the event staff or walk directly to the gate, and our team will handle everything from there. When on site, flagging down any staff member is your fastest path to assistance.</p>
+            </div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Are Firearms allowed on site?</summary>
+            <div class="faq-content">
+                <p>Firearms are not allowed on site.</p>
+            </div>
+        </details>
+
+        <div class="faq-category-title">Children & Minors</div>
+
+        <details class="faq-item">
+            <summary>What are the policies and safety rules regarding minors?</summary>
+            <div class="faq-content">
+                <ul class="refined-nest-list">
+                    <li><strong>Non-Guardians:</strong> Adults sponsoring a minor who is not their legal child must possess a notarized Minor Medical Authorization Form at all times during the event.</li>
+                    <li><strong>Supervision Standards:</strong> Families are fully liable for the actions and conduct of their children. To ensure their safety, any child under the age of 12 must remain within clear visual or hearing range of an assigned responsible adult or youth supervisor.</li>
+                    <li><strong>Nighttime Curfew:</strong> A strict curfew takes effect at 11:59 PM, at which point all minors must return to and remain within their designated household encampments.</li>
+                    <li><strong>Protocol for Lost Children:</strong> If you spot an unsupervised child who appears separated from their group, please request that an independent bystander remain with you and the youth as a witness, then immediately alert the nearest event staff member.</li>
+                </ul>
+            </div>
+        </details>
+    </section>
+
+    <div class="map-embed-container" style="max-width: 1200px; margin: 40px auto 60px auto; padding: 0 15px;">
+        <h3 style="font-family: 'Cinzel', serif; color: var(--flame, #6b2222); text-align: center; margin-bottom: 15px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px;">
+            Interactive Encampment Grid
+        </h3>
+        <p style="text-align: center; font-style: italic; color: var(--stone, #555); margin-bottom: 20px; font-family: 'Spectral', serif; font-size: 1.05rem;">
+            Explore the layout of the fairgrounds, locate designated quarters, and plan your encampment.
+        </p>
+        <div style="position: relative; width: 100%; height: 650px; border: 2px solid var(--gold, #d4af37); border-radius: 8px; overflow: hidden; background: #14181d; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
+            <iframe 
+                src="SSBB FINAL MAP.html" 
+                title="Ancient Embers Interactive Site Map" 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                allowfullscreen="true">
+            </iframe>
+        </div>
+    </div>
+    
+    <section class="site-info">
+        <h2 class="section-title">Location & Directions</h2>
+        <p><strong>Site:</strong> Burke County Fairgrounds<br>
+        <strong>Address:</strong> 145 Bost Rd, Morganton, NC 28655</p>
+        
+        <p>To reach the Burke County Fairgrounds, you can use several major highway points in the area:</p>
+
+        <h3>From Interstate 40 (I-40)</h3>
+        <p>I-40 is the primary east-west artery serving Morganton.</p>
+        <ul>
+            <li><strong>From the East (Hickory/Asheville):</strong> Take Exit 103 for US-64 toward Morganton/Rutherfordton. Turn onto US-64 and continue toward the fairgrounds area.</li>
+            <li><strong>From the West:</strong> Take Exit 103 and follow signs for Morganton.</li>
+        </ul>
+
+        <h3>From US-64</h3>
+        <p>US-64 runs directly through Morganton and provides a straightforward path to the fairgrounds.</p>
+        <ul>
+            <li>Follow US-64 toward the southern side of Morganton.</li>
+            <li>Turn onto Bost Road. The fairgrounds will be located at 145 Bost Rd.</li>
+        </ul>
+
+        <h3>From NC-18</h3>
+        <p>If you are arriving from the north (Lenoir area) or south (Shelby area):</p>
+        <ul>
+            <li>Follow NC-18 into Morganton. NC-18 intersects with US-64 and I-40, allowing you to transition toward the fairgrounds via the US-64 corridor.</li>
+        </ul>
+
+        <p><a href="https://maps.google.com" target="_blank" style="color: var(--flame); font-weight: bold; text-decoration: underline;">View Interactive Map & Directions</a></p>
+    </section>
+
+    <section class="local-provisions">
+        <h2 class="section-title">Local Provisions & Lodging</h2>
+        
+        <h3>🛠️ Retail & Home Improvement</h3>
+        <ul>
+            <li><strong>Lowe’s:</strong> 1224 Burkemont Ave (1.5 miles). Hardware and garden supplies.</li>
+            <li><strong>Walmart Supercenter:</strong> 120 Morganton Heights Blvd (2.2 miles). Groceries, pharmacy, and garden center.</li>
+            <li><strong>Note:</strong> There is no Home Depot in Morganton. The nearest one is in Hickory, NC (approx. 20 miles away).</li>
+        </ul>
+
+        <h3>🛒 Grocery & Pharmacy</h3>
+        <ul>
+            <li><strong>Food Lion:</strong> 120 Bost Rd. (Practically across the street).</li>
+            <li><strong>Walmart Neighborhood Market:</strong> 1001 N Green St (2 miles).</li>
+            <li><strong>ALDI:</strong> 115 Fiddlers Run Blvd (2 miles).</li>
+        </ul>
+
+        <h3>🍴 Dining & Takeout</h3>
+        <ul>
+            <li><strong>AJ’s Family Steakhouse:</strong> 101 Bost Rd. (Next to site; buffet & salad bar).</li>
+            <li><strong>Abele’s Family Restaurant:</strong> 2115 S Sterling St. (Home-style favorite).</li>
+            <li><strong>Butch’s Barbeque:</strong> 1234 Burkemont Ave. (Quick BBQ & breakfast).</li>
+            <li><strong>The Town Tavern:</strong> 315 Sanford Dr. (Burgers and local beer).</li>
+            <li><strong>Carolina Diner:</strong> 1016 Jamestown Rd. (Classic 24/7 diner food).</li>
+            <li><strong>Moondog Pizza:</strong> 101 W Union St. (Local favorite for pizza in downtown).</li>
+            <li><strong>Tony's Pizza:</strong> 124 Crossroads Dr. (New York-style pizza and takeout).</li>
+            <li><strong>Domino's / Pizza Hut / Little Caesars:</strong> Various locations within 3 miles for delivery and carryout.</li>
+            <li><strong>Granny's Quick Pick:</strong> 114 Bost Rd. (Directly across from the fairgrounds).</li>
+        </ul>
+
+        <h3>🏨 Lodging</h3>
+        <ul>
+            <li><strong>Hampton Inn:</strong> 115 Bush Dr. (2.5 miles).</li>
+            <li><strong>Fairfield Inn & Suites:</strong> 400 N Green St. (2 miles).</li>
+            <li><strong>Comfort Inn & Suites:</strong> 1273 Burkemont Ave. (1.5 miles).</li>
+            <li><strong>Quality Inn:</strong> 2400 S Sterling St. (3 miles).</li>
+        </ul>
+
+        <h3>⛽ Convenience & Fuel</h3>
+        <ul>
+            <li><strong>RaceTrac:</strong> 1215 Burkemont Ave. (High-volume pumps).</li>
+            <li><strong>Shell:</strong> 2302 S Sterling St. (Open 24 hours).</li>
+            <li><strong>Dollar General:</strong> 114 Bost Rd. (Directly across from the fairgrounds).</li>
+        </ul>
+
+        <p style="font-style: italic; color: var(--flame); margin-top: 30px; text-align: left;">
+            Tip for your trip: The Food Lion and AJ's Family Steakhouse on Bost Road are your "walking distance" anchors, while Exit 103 holds almost everything else.
+        </p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="footer-legal">
+            <p>Copyright © 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // --------------------------------------------------------------------------
+    // AUTOMATED MIDNIGHT DEADLINE SWITCH LOGIC
+    // --------------------------------------------------------------------------
+    // Target Cutoff: September 10, 2026 at 00:00:00 EDT (04:00:00 UTC)
+    const DEADLINE = new Date('2026-09-10T04:00:00Z').getTime();
+
+    function applyDeadlineState() {
+        const now = new Date().getTime();
+        const isPastDeadline = now >= DEADLINE;
+
+        const scoresBtn = document.getElementById('scores-btn');
+        const disabledBtn = document.getElementById('scores-disabled-btn');
+        const closedBanner = document.getElementById('closed-banner');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const encampmentCard = document.getElementById('encampment-protocol-card');
+
+        if (isPastDeadline) {
+            // State: AFTER Midnight (Registration Closed)
+            if (scoresBtn) scoresBtn.style.display = 'none';
+            if (disabledBtn) disabledBtn.style.display = 'inline-block';
+            if (closedBanner) closedBanner.style.display = 'block';
+            if (encampmentCard) encampmentCard.style.display = 'none';
+
+            if (modalTitle) modalTitle.innerText = "Online Registration Closed";
+            if (modalBody) {
+                modalBody.innerHTML = `
+                    Online pre-registration for <strong>Ancient Embers</strong> via SCORES is now closed. 
+                    <br><br>
+                    <strong>On-Site Registration:</strong> Gate fees will be accepted at the door upon arrival via cash or check.
+                `;
+            }
+        } else {
+            // State: BEFORE Midnight (Registration Open)
+            if (scoresBtn) scoresBtn.style.display = 'inline-block';
+            if (disabledBtn) disabledBtn.style.display = 'none';
+            if (closedBanner) closedBanner.style.display = 'none';
+            if (encampmentCard) encampmentCard.style.display = 'block';
+
+            if (modalTitle) modalTitle.innerText = "Pre-Registration Closes Tonight";
+            if (modalBody) {
+                modalBody.innerHTML = `
+                    Online pre-registration for <strong>Ancient Embers</strong> via SCORES closes tonight, September 10, 2026 at midnight.
+                    <br><br>
+                    <strong>On-Site Registration:</strong> Cash and check will be accepted at Gate upon arrival.
+                `;
+            }
+        }
+    }
+
+    // Execute check on page load
+    applyDeadlineState();
+
+    // Modal Dismissal Logic
+    function closeModal() {
+        const modal = document.getElementById('notice-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Mobile Navigation Toggle
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Interactive FAQ Auto-Collapse
+    document.querySelectorAll('.faq-content').forEach(contentBlock => {
+        contentBlock.addEventListener('click', (event) => {
+            if (event.target.tagName !== 'A' && event.target.tagName !== 'BUTTON') {
+                const parentDetails = contentBlock.closest('.faq-item');
+                if (parentDetails) {
+                    parentDetails.removeAttribute('open');
+                    parentDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        });
+    });
+
+    // Live RV Slot Counter JSONP Pipeline
+    function displayRVSlots(slotsData) {
+        const displayField = document.getElementById("rv-live-slots");
+        if (!displayField) return;
+        const trimmedData = slotsData.trim();
+
+        if (trimmedData === "WAITLIST") {
+            displayField.style.fontSize = "0.95rem";
+            displayField.innerText = trimmedData;
+            return;
+        }
+
+        if (trimmedData === "ERROR" || trimmedData === "" || trimmedData === "--") {
+            displayField.style.fontSize = "3.5rem";
+            displayField.innerText = "--";
+            return;
+        }
+
+        displayField.style.fontSize = "3.5rem";
+        displayField.innerText = trimmedData;
+    }
+
+    (function() {
+        const baseEndpoint = "https://script.google.com/macros/s/AKfycbx3_YBWBJ1mD5OO-jvSQmYlXLBWtGdn1-1ZKx8Fyxr4EAnKzzdSLWUhVEeGI8jiNmXS/exec";
+        const cacheBuster = new Date().getTime();
+        const fullyQualifiedUrl = baseEndpoint + "?callback=displayRVSlots&_t=" + cacheBuster;
+
+        const scriptTag = document.createElement("script");
+        scriptTag.src = fullyQualifiedUrl;
+        document.body.appendChild(scriptTag);
+    })();
+</script>
+</body>
+</html>

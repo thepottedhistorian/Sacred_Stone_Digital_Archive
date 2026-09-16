@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- =======================================================================
+PROJECT: Ancient Embers Website - Barony of the Sacred Stone
+FILE: classes.html
+DESCRIPTION: Classes & Academies page with proposal submission deadline.
+======================================================================= -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes & Academies | Ancient Embers</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <style>
+        /* Section Separator Line Style */
+        .competition-separator {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 50px auto;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        /* Custom refined list items to push right and shrink the bullet markers */
+        .refined-nest-list {
+            margin: 0;
+            padding-left: 45px !important;
+        }
+        .refined-nest-list li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .refined-nest-list li::marker {
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+
+        /* Teacher Form Callout Container */
+        .teacher-callout-box {
+            background-color: rgba(212, 175, 55, 0.08);
+            border: 2px double var(--gold);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 50px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .teacher-callout-box h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--flame);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .teacher-callout-box p {
+            font-family: 'Spectral', serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--stone);
+            max-width: 750px;
+            margin: 0 auto 20px auto;
+        }
+
+        .submission-deadline {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--flame);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        /* Form Button Style matching registration.html */
+        .btn-gold {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--flame);
+            color: white !important;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 2px solid var(--gold);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .btn-gold:hover {
+            background-color: var(--stone);
+            color: var(--gold) !important;
+            transform: translateY(-2px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .competition-separator {
+                margin: 35px auto;
+            }
+            .refined-nest-list {
+                padding-left: 25px !important;
+            }
+            .teacher-callout-box {
+                padding: 25px 20px;
+            }
+            .btn-gold {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="nav-logo-link">
+        <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+        <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+    </a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    <h2 class="section-title">Educational Opportunities</h2>
+    <p class="page-subtitle">Igniting the Mind: Classes, Lectures, & Interactive Academies</p>
+
+    <!-- TEACHER SIGN-UP CALLOUT SECTION -->
+    <section class="teacher-callout-box">
+        <h3>Share Your Knowledge</h3>
+        <p>
+            Do you have a pre-17th-century craft, martial theory, or historical research project you are passionate about? The Great Scriptorium of the Sacred Stone stands ready to welcome your voice. Help us stoke the flames of curiosity by adding your session to the weekend schedule!
+        </p>
+        <div class="submission-deadline">
+            ⏳ Class Submission Close Date: August 23rd
+        </div>
+        <a href="https://forms.gle/uVmXMj5yzw5SkAdA7" target="_blank" class="btn-gold">Submit a Proposal to Teach</a>
+    </section>
+
+    <!-- CLASS LISTINGS CONTAINER -->
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 40px; box-sizing: border-box;">
+
+        <!-- Class 1: Inkle Weaving 101 -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; border-left: 4px solid var(--gold);">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Class Academy | 10:00 AM</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Inkle Weaving 101</div>
+            
+            <p style="margin-top: 15px;">New to weaving? Have an inkle loom sitting around, but you aren't sure how to thread it up? This is the class for you! Students will explore the best methods for tying string heddles, threading the layout blocks, and stepping into the basic mechanics of throwing a beautiful inkle band.</p>
+            
+            <div style="margin-top: 15px; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 10px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;">Student Supplies & Tools:</strong>
+                <ul class="refined-nest-list">
+                    <li>Students are strongly encouraged to bring their own mobile looms—whether they are inkle, card, rigid heddle, or backstrap frames.</li>
+                    <li>Bring whatever warps or threads you are most comfortable working with. Crochet cotton will also be provided by the range for class testing.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Class 2: Baltic Weaving -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; border-left: 4px solid var(--gold);">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Class Academy | 12:00 PM</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Baltic Weaving</div>
+            
+            <p style="margin-top: 15px;">Take your narrow-band crafts to the next level with a foundational introduction to the Baltic Pickup weaving method. This session outlines the mechanics of pattern execution and structural threading specific to this premium northern style.</p>
+            
+            <div style="margin-top: 15px; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 10px;">
+                <strong style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;">What You Will Learn:</strong>
+                <ul class="refined-nest-list">
+                    <li>How to cleanly map, interpret, and track historical pickup pattern drafting charts.</li>
+                    <li>Practical execution of the pickup manipulation steps across active structural warp lines.</li>
+                    <li>Students are highly encouraged to bring their own working loom frames along to practice the manual set-up steps live.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Class 3: Tyrian Purple -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; border-left: 4px solid var(--gold);">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Historical Lecture & Dye Demo | Class Limit: No Limit</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">From the Wine Dark Sea - A History of Tyrian Purple</div>
+            <p style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); margin-top: -5px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Presented by Granny Argent of Sacred Stone</p>
+            
+            <p style="margin-top: 15px;">This session is structured as a lecture-style class, immediately followed by an interactive dyepot demonstration. The foundational lecture will unpack the complex history behind Tyrian purple, tracing how it was traditionally extracted from murex sea snails, and exploring the deep political and social reasons why this vivid hue became universally associated with royalty and imperial power throughout antiquity.</p>
+            
+            <p style="margin-top: 10px;">Following the historical brief, join us at the hearth for a live dyepot demo showcasing practical alternative options for achieving gorgeous purple hues. We will experiment with accessible color choices like logwood, cochineal, and even Kool-Aid! Because murex remains one of the most costly chemical substances on earth, alternative substitutions are absolutely A-ok in the SCA!</p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Class 4: Ukrainian Eggs -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; border-left: 4px solid var(--gold);">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Lecture & Hands-On | Length: 1 Hour | Student Limit: 10 | Materials Cost: Free</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">We are all going to dye - Ukrainian eggs!</div>
+            <p style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); margin-top: -5px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Presented by Baroness Elspeth Mclur delarsey</p>
+            
+            <p style="margin-top: 15px;">This session functions as a hybrid lecture and hands-on workshop guiding students cleanly through the steps of constructing traditional Ukrainian Pysanky eggs.</p>
+            
+            <p style="margin-top: 10px; font-style: italic; background-color: rgba(212, 175, 55, 0.05); padding: 15px; border-left: 3px solid var(--gold); color: var(--stone); line-height: 1.5;">
+                <strong>Safety Note & Requirements:</strong> This is explicitly not a children's class. The dye mixtures used throughout the decoration workflow are poisonous, and the process involves active exposure to open candle flames and hot liquid wax. Because processing the intricate wax line adjustments requires steady, uniform heat sources, this workspace must be located entirely indoors away from drafts and heavy wind currents to allow safe handling of candle-lit wax applicators.
+            </p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Class 5: Beyond the Bull (Minoans & Mycenaeans) -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; border-left: 4px solid var(--gold);">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Historical Review & Lecture | Length: 2 Hours | Class Limit: No Limit | Materials Cost: $1 (for handout)</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Beyond the Bull: What We Really Know About the Minoans and Mycenaeans</div>
+            <p style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); margin-top: -5px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Presented by Sylvie la chardonnière</p>
+            
+            <p style="margin-top: 15px;">Step into the vibrant world of Bronze Age Aegean civilizations with a critical examination of both the archaeological evidence and its interpretation. This class explores the Minoans and Mycenaeans through their stunning frescoes, intricate figurines, and distinctive fashion, while examining how Victorian archaeologist Sir Arthur Evans' imaginative interpretations shaped (and distorted) our understanding of these ancient cultures.</p>
+            
+            <p style="margin-top: 10px;">We'll examine the modern understanding of what men and women probably wore in Bronze Age Crete and mainland Greece, analyze the material evidence these civilizations left behind, and discuss the pitfalls of archaeological interpretation. By the end, you'll have a grounded understanding of these fascinating Bronze Age societies.</p>
+        </article>
+
+        <!-- MACRO-CATEGORY SEPARATOR -->
+        <hr class="competition-separator">
+
+        <!-- Class 6: Ancient Greek Weaving -->
+        <article class="staff-card" style="width: 100%; box-sizing: border-box; margin: 0 auto; border-left: 4px solid var(--gold);">
+            <div class="role" style="font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">Historical Lecture & Display</div>
+            <div class="name" style="font-family: 'Cinzel', serif; color: var(--flame); font-weight: bold; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-bottom: 12px;">Ancient Greek Weaving on a Warp-Weighted Loom</div>
+            <p style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--stone); margin-top: -5px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Presented by Domina Stella da Lodi</p>
+            
+            <p style="margin-top: 15px;">The tapestry narratives of Ancient Greece are literally legendary. Figures like Penelope, Arachne, Circe, and the goddess Athena loom large as archetypal weavers within Greek mythology, while vivid depictions of textile production frequently decorate period pottery surviving from antiquity. However, because the organic components of the craft could not withstand the ages, our physical evidence for their tools remains scant and sparse.</p>
+            
+            <p style="margin-top: 10px;">Through careful modern analysis of period art, forensic archaeological data, and exceedingly rare textiles, historians have reconstructed how these ancient artisans operated warp-weighted looms. I built one of these monumental structures myself, and am absolutely delighted to share my structural triumphs and archival discoveries with you!</p>
+            
+            <p style="margin-top: 15px; font-style: italic; background-color: rgba(212, 175, 55, 0.05); padding: 15px; border-left: 3px solid var(--gold); color: var(--stone); line-height: 1.5;">
+                <strong>Please Note:</strong> I am happily a novice weaver. This lecture is focused squarely on the fascinating historical, cultural, and mythological contexts of warp-weighted systems in the classical world, alongside a functional study of the loom apparatus itself. For technical weaving execution tips, we are incredibly fortunate to have many premier master fiber experts present right here inside our glorious Barony of the Sacred Stone!
+            </p>
+        </article>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+            <p class="disclaimer">This is a recognized event website of the Barony of the Sacred Stone, Kingdom of Atlantia.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Embers | Barony of the Sacred Stone</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="nav-logo-link">
+    <img src="frick-n-frack.png" alt="Sacred Stone Crest">
+    <div class="nav-logo">Sacred Stone Baronial<br>Birthday & Investiture</div>
+</a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        
+        <li class="dropdown">
+            <span class="dropdown-title">Activities</span>
+            <ul class="dropdown-menu">
+                <li><a href="championships.html">Championships</a></li>
+                <li><a href="arts_sciences.html">A&S</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="martial.html">Martial</a></li>
+            </ul>
+        </li>
+        <li><a href="Merchants.html">Merchants</a></li>
+        <li><a href="feast.html">Feast</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="overlay">
+        <h1>Ancient Embers</h1>
+        <p class="subtitle">A Celebration of Flame and Renewal<br>September 11 - 13, 2026</p>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    <h2 class="section-title">A Word for the Watch</h2>
+    <p style="text-align: center; margin-bottom: 15px;">Pray, leave thy mark and message that we may answer in due course. Thy petition will be directed to the appropriate officer with all haste.</p>
+    
+    <!-- CONTACT STAFF NOTE -->
+    <p style="text-align: center; font-style: italic; color: var(--stone); max-width: 600px; margin: 0 auto 30px auto; font-family: 'Spectral', serif; font-size: 1.1rem;">
+        Please use this missive form to contact event staff members with any inquiries, requests, or considerations regarding the festivities.
+    </p>
+    
+    <!-- CONTACT FORM BUTTON -->
+    <div class="form-container" style="text-align: center; margin-bottom: 60px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfT_lDw8QiRPUWWFNXuSpHBHghIIACYl9CBfvk-BMZF8CfWKw/viewform?usp=header" target="_blank" style="display: inline-block; padding: 15px 30px; font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff; background-color: #6b2222; text-decoration: none; border-radius: 4px; transition: background-color 0.3s; font-weight: bold; letter-spacing: 0.5px;">
+            Send a Message to Staff
+        </a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://sacredstone.atlantia.sca.org/" target="_blank">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" target="_blank">Kingdom Home</a>
+            <a href="https://www.sca.org/" target="_blank">SCA Home</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Barony of the Sacred Stone, SCA Inc.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

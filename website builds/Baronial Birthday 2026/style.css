@@ -1,0 +1,535 @@
+/* ==========================================================================
+   0. MOBILE TEXT RESET
+   ========================================================================== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* ==========================================================================
+   1. CORE THEME VARIABLES
+   ========================================================================== */
+:root {
+    --gold: #d4af37;
+    --flame: #b22222;
+    --sand: #f4ece0;
+    --stone: #2c2c2c;
+}
+
+/* ==========================================================================
+   2. GLOBAL BODY & LAYOUT
+   ========================================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Spectral', serif;
+    background-color: var(--sand);
+    color: var(--stone);
+    font-size: 18px; 
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* ==========================================================================
+   3. TOP NAVIGATION (NAVBAR) - TIGHTENED FOR LOGO
+   ========================================================================== */
+.navbar {
+    background: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Removed vertical padding entirely; 0 left padding to push image to edge */
+    padding: 0 5% 0 0; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--gold);
+    height: 60px; /* Fixed height matches image height */
+}
+
+/* New helper class for the image and text alignment */
+.nav-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px;
+    height: 100%;
+}
+
+.nav-logo-link img {
+    height: 60px; /* Matches navbar height for a flush look */
+    width: auto;
+    display: block;
+}
+
+.nav-logo {
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    font-size: 1.1rem; 
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1.1; 
+    display: block;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: var(--gold);
+    border-radius: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.1rem; /* Slightly smaller to prevent wrapping */
+    font-family: 'Cinzel', serif;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--gold);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-title {
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-family: 'Cinzel', serif;
+    cursor: default; /* Changes cursor to default pointer instead of a link hand */
+    transition: color 0.3s ease;
+}
+
+.dropdown:hover .dropdown-title {
+    color: var(--gold);
+}
+
+/* The actual hidden panel */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the panel nicely under "Activities" */
+    background-color: var(--stone);
+    border: 2px solid var(--gold);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.dropdown-menu li {
+    width: 100%;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 1rem !important; /* Slightly smaller for the panel item view */
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Reveals the sub-links when mouse hovers over parent item */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://upload.wikimedia.org/wikipedia/commons/d/da/The_Parthenon_in_Athens.jpg');
+    background-color: var(--stone); 
+    background-size: cover;
+    background-position: center 30%;
+    height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.overlay h1 {
+    font-size: 4.5rem;
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    text-shadow: 3px 3px 12px rgba(0,0,0,1);
+}
+
+header.hero .overlay .subtitle {
+    font-size: 40px !important; 
+    color: #ffffff !important;
+    font-family: 'Spectral', serif !important;
+    font-style: italic !important;
+    font-weight: 700 !important;
+    text-shadow: 3px 3px 10px rgba(0,0,0,1) !important;
+    margin-top: 20px !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* ==========================================================================
+   5. CONTENT WRAPPING
+   ========================================================================== */
+.content-wrapper {
+    max-width: 1200px; 
+    margin: 0 auto;    
+    padding: 20px 40px 60px 40px; 
+    text-align: left;  
+}
+
+.page-subtitle {
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    text-align: center;
+    color: var(--stone);
+    margin-bottom: 40px;
+    display: block;
+}
+
+h2.section-title {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 15px;
+    margin-top: 40px;
+    font-size: 2.8rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* ==========================================================================
+   6. GRID & UI COMPONENTS
+   ========================================================================== */
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.staff-card {
+    background-color: white;
+    padding: 25px;
+    border-bottom: 5px solid var(--gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* REGISTRATION TABLE FIX: Forces 4 boxes in one row on desktop */
+.pricing-table {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    gap: 15px;                
+    margin: 40px auto;
+    max-width: 1200px; /* Spans the full content width */
+    width: 100%;
+}
+
+.price-card {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid var(--gold);
+    text-align: center;
+    flex: 1; /* Forces all boxes to be the same width */
+    min-width: 0; /* Prevents overflow */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.price-card h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--flame);
+    margin-top: 0;
+    font-size: 1.1rem; /* Smaller to fit 4-across comfortably */
+}
+
+.price {
+    font-size: 1.8rem;
+    color: var(--flame);
+    font-weight: bold;
+    margin: 10px 0;
+}
+/* ==========================================================================
+   7. FORM CONTAINER
+   ========================================================================== */
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    overflow: hidden;
+}
+
+.form-container iframe {
+    width: 83.3%; 
+    height: 2600px; 
+    border: none;
+    zoom: 1.2; 
+    -webkit-transform: scale(1.2);
+    -webkit-transform-origin: 0 0;
+}
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+.site-footer {
+    background-color: var(--stone);
+    color: #ffffff;
+    padding: 80px 0 40px 0;
+    margin-top: 100px;
+    border-top: 5px solid var(--gold);
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.footer-nav a {
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   9. MOBILE RESPONSIVENESS & DROPDOWN ENGINE
+   ========================================================================== */
+
+/* --- Desktop Dropdown Structural Rules --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-title {
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    font-family: 'Cinzel', serif;
+    cursor: default;
+    transition: color 0.3s ease;
+}
+
+.dropdown:hover .dropdown-title {
+    color: var(--gold);
+}
+
+/* Hidden container that floats cleanly underneath */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--stone);
+    border-top: 3px solid var(--gold); /* Matches the main navbar base line */
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    z-index: 1002;
+}
+
+.dropdown-menu li {
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 1.1rem !important;
+    color: white !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Hover effect on dropdown links */
+.dropdown-menu a:hover {
+    background-color: rgba(214, 175, 55, 0.15); /* Subtle gold tint hint */
+    color: var(--gold) !important;
+}
+
+/* Triggers desktop dropdown visibility */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+/* --- Mobile Media Query Overrides (Screens 768px and down) --- */
+@media screen and (max-width: 768px) {
+    /* Navbar Hamburger Fix */
+    .menu-toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .nav-links {
+        display: none; /* Hidden by default on mobile */
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background-color: var(--stone) !important;
+        padding: 20px 0 !important;
+        border-bottom: 3px solid var(--gold) !important;
+        text-align: center !important;
+        gap: 15px !important;
+        z-index: 1001;
+    }
+
+    /* This class is added by the JavaScript when you click the hamburger */
+    .nav-links.active {
+        display: flex !important; 
+    }
+
+    /* Activities Dropdown Mobile Layout Fixes */
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-title {
+        display: block;
+        padding: 10px 0;
+        color: var(--gold) !important; /* Clearly highlights parent title in mobile view stack */
+    }
+
+    .dropdown-menu {
+        display: block !important; /* Unrolls the submenu automatically into the mobile panel vertical stack */
+        position: static !important;
+        transform: none !important;
+        background-color: rgba(0, 0, 0, 0.15) !important; /* Dark nesting accentuation */
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .dropdown-menu li {
+        margin: 5px 0 !important;
+        text-align: center; /* Center links to match mobile style profile */
+    }
+
+    .dropdown-menu a {
+        padding: 8px 0 !important;
+        font-size: 1.1rem !important;
+    }
+	
+    /* PRICING TABLE MOBILE FIX */
+    .pricing-table {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
+    }
+
+    .price-card {
+        width: 90% !important;
+        max-width: 400px;
+        flex: none !important; 
+    }
+
+    /* FEAST / STAFF GRID MOBILE FIX */
+    .staff-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    .staff-card {
+        width: 100% !important;
+        grid-column: span 1 !important;
+        box-sizing: border-box;
+    }
+
+    /* Fixes the internal 2-column grid in the Feast Finale */
+    .staff-card div[style*="display: grid"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px;
+    }
+
+    /* Rules Boxes Stack Fix */
+    .rules-flex-container {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .rules-flex-container div {
+        width: 90% !important;
+        margin-bottom: 20px;
+    }
+
+    /* Hero and Content scaling */
+    .hero .overlay h1 {
+        font-size: 2.5rem;
+    }
+    
+    header.hero .overlay .subtitle {
+        font-size: 1.2rem !important;
+        margin-top: 10px !important;
+    }
+
+    .content-wrapper {
+        padding: 20px 10px;
+        width: auto;
+    }
+
+    /* Scale the Intro Section for Mobile */
+    section[style*="max-width: 800px"] {
+        width: 95% !important;
+        font-size: 1rem !important;
+    }
+}
