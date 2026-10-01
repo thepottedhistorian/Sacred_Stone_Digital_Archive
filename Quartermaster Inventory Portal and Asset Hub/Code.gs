@@ -1,141 +1,354 @@
 /**
  * ==============================================================================
- * PROJECT:     Barony of the Sacred Stone — Master Inventory Aggregator
- * MODULE:      Backend Controller (`Code.gs`)
- * PURPOSE:     Dynamically aggregates category sheets into "Master Inventory" 
- *              to maintain accurate data sourcing for the Quartermaster portal.
+ * PROJECT:     Barony of the Sacred Stone — Quartermaster Portal Backend
+ * MODULE:      Master Inventory Synchronizer & Portal Controller (`Code.gs`)
+ * PURPOSE:     Consolidates category inventory sheets into "Master Inventory",
+ *              handles rich-text/URLs, serves Web App, and logs checkout requests.
  * ==============================================================================
  */
 
-/**
- * Retrieves the spreadsheet ID from Script Properties.
- * @return {string} The active spreadsheet ID.
- * @private
+
+/* ============================================================================
+ * SECTION 1 — HTML ENTRYPOINT & ROUTING
+ * ============================================================================
  */
-function getSpreadsheetId_() {
-  const scriptProps = PropertiesService.getScriptProperties();
-  const id = scriptProps.getProperty("SPREADSHEET_ID");
-  if (!id) {
-    throw new Error("SPREADSHEET_ID is not configured in Script Properties.");
+
+function doGet(e) {
+  try {
+    return HtmlService.createHtmlOutputFromFile('Index')
+      .setTitle('Barony of the Sacred Stone — Portal')
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  } catch (err) {
+    return HtmlService.createHtmlOutput(
+      "<h3>Server Error:</h3><p>" + err.toString() + "</p>"
+    );
   }
-  return id;
+}
+
+
+/* ============================================================================
+ * SECTION 2 — URL & RICH-TEXT EXTRACTION HELPERS
+ * ============================================================================
+ */
+
+function isLikelyUrl(text) {
+  if (!text) return false;
+  const t = String(text).trim();
+  return /^https?:\/\//i.test(t) || /^www\./i.test(t);
+}
+
+function extractUrlFromHyperlinkFormula(formula) {
+  if (!formula) return "";
+  const match = formula.match(/=HYPERLINK\("([^"]+)"/i);
+  return match ? match[1] : "";
+}
+
+function extractUrlFromImageFormula(formula) {
+  if (!formula) return "";
+  const match = formula.match(/=IMAGE\("([^"]+)"/i);
+  return match ? match[1] : "";
 }
 
 /**
- * ==============================================================================
- * SECTION: AGGREGATION & SYNCHRONIZATION ENGINE
- * ==============================================================================
+ * Extracts URL from Rich-Text, HYPERLINK(), IMAGE(), or plain text.
  */
+function getCellUrl(value, formula, richText) {
+  try {
+    if (richText && typeof richText.getLinkUrl === "function") {
+      const rtUrl = richText.getLinkUrl();
+      if (rtUrl && isLikelyUrl(rtUrl)) return rtUrl;
+    }
+  } catch (err) {}
+
+  if (formula && /^=HYPERLINK\(/i.test(formula)) {
+    const hUrl = extractUrlFromHyperlinkFormula(formula);
+    if (hUrl && isLikelyUrl(hUrl)) return hUrl;
+  }
+
+  if (formula && /^=IMAGE\(/i.test(formula)) {
+    const iUrl = extractUrlFromImageFormula(formula);
+    if (iUrl && isLikelyUrl(iUrl)) return iUrl;
+  }
+
+  if (value && isLikelyUrl(value)) {
+    return String(value).trim();
+  }
+
+  return "";
+}
 
 /**
- * Compiles items from all designated category sheets into the Master Inventory sheet.
+ * Extracts TEXT from rich-text Item Name cells.
  */
-function updateMasterInventory() {
+function getRichTextOrValue(value, richText) {
   try {
-    const ss = SpreadsheetApp.openById(getSpreadsheetId_());
-    const masterSheetName = "Master Inventory";
-    let masterSheet = ss.getSheetByName(masterSheetName);
-    
-    // Create Master Inventory sheet if it doesn't already exist
-    if (!masterSheet) {
-      masterSheet = ss.insertSheet(masterSheetName);
+    if (richText && typeof richText.getText === "function") {
+      const txt = richText.getText();
+      if (txt && txt.trim() !== "") return txt.trim();
     }
-    
-    // List of category sheets corresponding to the workbook tabs
-    const categorySheets = [
-      "Regalia", 
-      "A&S Supplies", 
-      "Decor", 
-      "Marshal Items", 
-      "Tents", 
-      "Camp Gear", 
-      "Food Items", 
-      "Misc Equip", 
-      "WOW", 
-      "CooksGuild"
-    ];
-    
-    let headers = [];
-    let allData = [];
-    
-    // Loop through each category sheet to aggregate data safely
-    categorySheets.forEach((sheetName) => {
-      const sheet = ss.getSheetByName(sheetName);
-      if (sheet) {
-        const lastRow = sheet.getLastRow();
-        const lastCol = sheet.getLastColumn();
-        
-        if (lastRow > 1 && lastCol > 0) {
-          // Capture headers from the first valid sheet encountered
-          if (headers.length === 0) {
-            headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
-            headers.push("Category"); // Append source tracker column matching portal schema
-          }
-          
-          // Extract data rows excluding the header row
-          const dataRows = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
-          
-          // Append the source sheet name to each row for tracking and web app categorization
-          dataRows.forEach(row => {
-            row.push(sheetName);
-            allData.push(row);
-          });
+  } catch (err) {}
+
+  return value || "";
+}
+
+
+/* ============================================================================
+ * SECTION 3 — MASTER INVENTORY SYNCHRONIZER
+ * ============================================================================
+ */
+
+function updateMasterInventory() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  let masterSheet = ss.getSheetByName("Master Inventory");
+  if (!masterSheet) masterSheet = ss.insertSheet("Master Inventory");
+
+  const categorySheetsList = [
+    "Regalia",
+    "A&S Supplies",
+    "Decor",
+    "Marshal Items",
+    "Tents",
+    "Camp Gear",
+    "Food Items",
+    "Misc Equip",
+    "WOW",
+    "CooksGuild"
+  ];
+
+  const sheetMap = {};
+  ss.getSheets().forEach(s => {
+    sheetMap[s.getName().trim()] = s;
+  });
+
+  let headers = [];
+  let allData = [];
+
+  const TOTAL_COLS = 18; // Columns A–R
+
+  categorySheetsList.forEach(sheetName => {
+    const sheet = sheetMap[sheetName.trim()];
+    if (!sheet) return;
+
+    const lastRow = sheet.getLastRow();
+    if (lastRow <= 1) return;
+
+    if (headers.length === 0) {
+      headers = sheet.getRange(1, 1, 1, TOTAL_COLS).getValues()[0];
+    }
+
+    const numDataRows = lastRow - 1;
+    const range = sheet.getRange(2, 1, numDataRows, TOTAL_COLS);
+
+    const rawValues = range.getValues();
+    const rawFormulas = range.getFormulas();
+    const rawRichText = range.getRichTextValues();
+
+    rawValues.forEach((rawRow, r) => {
+      const itemId = rawRow[0] ? String(rawRow[0]).trim() : "";
+      if (!itemId || itemId === "Item ID") return;
+
+      let row = new Array(TOTAL_COLS).fill("");
+
+      for (let c = 0; c < TOTAL_COLS; c++) {
+        const value = rawValues[r][c];
+        const formula = rawFormulas[r][c];
+        const richText = rawRichText[r][c];
+
+        if (c === 1) {
+          row[c] = getRichTextOrValue(value, richText);
+        }
+        else if (c === 14 || c === 15) {
+          row[c] = getCellUrl(value, formula, richText);
+        }
+        else {
+          row[c] = value !== undefined && value !== null ? value : "";
         }
       }
+
+      allData.push(row);
     });
-    
-    // Clear previous master content before repopulating
-    masterSheet.clear();
-    
-    if (headers.length > 0) {
-      // Write headers to the Master Inventory sheet with portal styling standards
-      masterSheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-      
-      // Write compiled item rows if data exists
-      if (allData.length > 0) {
-        masterSheet.getRange(2, 1, allData.length, headers.length).setValues(allData);
-      }
-      
-      // Apply archival table styling and freeze the header row
-      masterSheet.getRange(1, 1, 1, headers.length)
-        .setFontWeight("bold")
-        .setBackground("#1b3b22")
-        .setFontColor("#FFFFFF");
-      masterSheet.setFrozenRows(1);
+  });
+
+  masterSheet.clear();
+
+  if (headers.length > 0) {
+    masterSheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+
+    if (allData.length > 0) {
+      const targetRange = masterSheet.getRange(2, 1, allData.length, headers.length);
+      targetRange.setValues(allData);
+      targetRange.setFontColor("#000000");
     }
-    
-    Logger.log("Master Inventory successfully updated from category sheets.");
+
+    masterSheet.getRange(1, 1, 1, headers.length)
+      .setFontWeight("bold")
+      .setBackground("#1b3b22")
+      .setFontColor("#FFFFFF");
+
+    masterSheet.setFrozenRows(1);
+  }
+
+  Logger.log("Master Inventory updated. Rows written: " + allData.length);
+}
+
+
+/* ============================================================================
+ * SECTION 4 — TRIGGER SETUP
+ * ============================================================================
+ */
+
+function setupAutomationTrigger() {
+  const triggers = ScriptApp.getProjectTriggers();
+  triggers.forEach(t => ScriptApp.deleteTrigger(t));
+
+  ScriptApp.newTrigger('updateMasterInventory')
+    .forSpreadsheet(SpreadsheetApp.getActive())
+    .onChange()
+    .create();
+
+  Logger.log("Installed onChange trigger for updateMasterInventory().");
+}
+
+
+/* ============================================================================
+ * SECTION 5 — WEB APP DATA PROVIDER & CHECKOUT LOGGER
+ * ============================================================================
+ */
+
+function formatDateValue(val, tz) {
+  if (!val) return "";
+  if (val instanceof Date) {
+    return Utilities.formatDate(val, tz || "GMT", "MM/dd/yyyy");
+  }
+  return String(val).trim();
+}
+
+function getInventoryData() {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName("Master Inventory");
+
+    if (!sheet) throw new Error("Master Inventory sheet not found.");
+
+    const data = sheet.getDataRange().getValues();
+    if (data.length < 2) return [];
+
+    const tz = ss.getSpreadsheetTimeZone();
+    const rows = data.slice(1);
+
+    return rows.map((row, rIdx) => {
+      const itemId = row[0] ? String(row[0]).trim() : "ITEM-" + (rIdx + 1);
+      const itemName = row[1] ? String(row[1]).trim() : "";
+      if (!itemName) return null;
+
+      return {
+        itemId: itemId,
+        itemName: itemName,
+        category: row[2] ? String(row[2]).trim() : "General",
+        subCategory: row[3] ? String(row[3]).trim() : "",
+        classification: row[4] ? String(row[4]).trim() : "",
+        status: row[5] ? String(row[5]).trim() : "Storage",
+        totalQty: Number(row[6]) || 1,
+        signedOutQty: Number(row[7]) || 0,
+        accountedFor: row[8] !== undefined && row[8] !== null ? String(row[8]).trim() : "",
+        condition: row[9] ? String(row[9]).trim() : "Good",
+        storageLocation: row[10] ? String(row[10]).trim() : "Unassigned Storage",
+        signOutDate: formatDateValue(row[11], tz),
+        signedOutTo: row[12] ? String(row[12]).trim() : "",
+        expectedReturn: formatDateValue(row[13], tz),
+        photoUrl: row[14] ? String(row[14]).trim() : "",
+        photoUrl2: row[15] ? String(row[15]).trim() : "",
+        notes: row[16] ? String(row[16]).trim() : ""
+      };
+    }).filter(x => x !== null);
+
   } catch (err) {
-    Logger.log("CRITICAL ERROR in updateMasterInventory: " + err.toString());
+    Logger.log("CRITICAL ERROR in getInventoryData: " + err.toString());
     throw new Error(err.toString());
   }
 }
 
 /**
- * ==============================================================================
- * SECTION: AUTOMATION INSTALLER
- * ==============================================================================
+ * Handles incoming checkout form submissions from Index.html.
  */
-
-/**
- * Installs an automated onEdit trigger so the master sheet updates 
- * dynamically whenever changes are made across category sheets.
- */
-function setupAutomationTrigger() {
+function submitCheckoutRequest(requestData) {
   try {
-    // Clear existing triggers to prevent duplicates
-    const triggers = ScriptApp.getProjectTriggers();
-    triggers.forEach(trigger => ScriptApp.deleteTrigger(trigger));
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let logSheet = ss.getSheetByName('Checkout Log');
     
-    // Create a new edit trigger tied to the target spreadsheet
-    ScriptApp.newTrigger('updateMasterInventory')
-      .forSpreadsheet(SpreadsheetApp.openById(getSpreadsheetId_()))
-      .onEdit()
-      .create();
-      
-    Logger.log("Automation trigger successfully configured for MasterInventorySync.");
+    if (!logSheet) {
+      logSheet = ss.insertSheet('Checkout Log');
+      logSheet.appendRow([
+        "Timestamp", "SCA Name", "Legal Name", "Email", 
+        "Sponsoring Group", "Event/Purpose", "Item ID", "Quantity", 
+        "Pickup Date", "Expected Return", "Status"
+      ]);
+    }
+
+    logSheet.appendRow([
+      new Date(),
+      requestData.scaName,
+      requestData.legalName,
+      requestData.email,
+      requestData.group || "N/A",
+      requestData.event,
+      requestData.itemId,
+      requestData.quantity || 1,
+      requestData.eventDate,
+      requestData.returnDate || "N/A",
+      "Pending Approval"
+    ]);
+
+    const quartermasterEmail = "quartermaster@sacredstone.atlantia.sca.org"; 
+    const subject = `[Quartermaster Request] ${requestData.itemId} — ${requestData.scaName}`;
+
+    const qmBody = 
+      `Greetings Quartermaster,\n\n` +
+      `A new baronial inventory checkout request has been submitted:\n\n` +
+      `• Item ID: ${requestData.itemId}\n` +
+      `• SCA Name: ${requestData.scaName}\n` +
+      `• Legal Name: ${requestData.legalName}\n` +
+      `• Contact Email: ${requestData.email}\n` +
+      `• Event / Location: ${requestData.event}\n` +
+      `• Date of Event: ${requestData.eventDate}\n\n` +
+      `Please review and process this request in the Checkout Log.\n\n` +
+      `In Service,\n` +
+      `Barony of the Sacred Stone Quartermaster System`;
+
+    MailApp.sendEmail({
+      to: quartermasterEmail,
+      subject: subject,
+      body: qmBody
+    });
+
+    if (requestData.email) {
+      const requesterBody = 
+        `Unto ${requestData.scaName},\n\n` +
+        `Thank you for submitting a checkout request for Baronial inventory item ${requestData.itemId}.\n\n` +
+        `Request Details:\n` +
+        `• Event/Purpose: ${requestData.event}\n` +
+        `• Requested Date: ${requestData.eventDate}\n` +
+        `• Status: Pending Quartermaster Approval\n\n` +
+        `Your request has been logged and routed to the Baronial Quartermaster for review.\n\n` +
+        `In Service,\n` +
+        `Barony of the Sacred Stone Quartermaster Office`;
+
+      MailApp.sendEmail({
+        to: requestData.email,
+        subject: `Confirmation: Baronial Inventory Request (${requestData.itemId})`,
+        body: requesterBody
+      });
+    }
+
+    return { 
+      success: true, 
+      message: "Checkout request logged successfully. Confirmation emails sent to borrower and Quartermaster." 
+    };
+
   } catch (err) {
-    Logger.log("CRITICAL ERROR in setupAutomationTrigger: " + err.toString());
-    throw new Error(err.toString());
+    Logger.log("Error in submitCheckoutRequest: " + err.toString());
+    throw new Error("Failed to submit request: " + err.message);
   }
 }
