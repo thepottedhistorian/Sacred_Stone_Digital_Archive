@@ -282,17 +282,17 @@
 
     .loading { text-align: center; padding: 3rem; font-size: 1.1rem; color: var(--text-muted); }
 
-    /* Modals */
     .modal-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.6);
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       z-index: 1000;
-      padding: 1rem;
+      padding: 2rem 1rem;
       box-sizing: border-box;
+      overflow-y: auto;
     }
 
     .modal {
@@ -301,11 +301,10 @@
       border-radius: 8px;
       width: 100%;
       max-width: 850px;
-      max-height: 90vh;
-      overflow-y: auto;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       border-top: 5px solid var(--baronial-green);
       box-sizing: border-box;
+      margin-top: 1rem;
     }
 
     .modal h2 { margin-top: 0; color: var(--baronial-dark); font-family: Georgia, serif; }
@@ -369,7 +368,7 @@
     <span onclick="openInfoModal()">Storage Location &amp; Terms</span>
     <span onclick="openGlossaryModal()">Status &amp; Condition Glossary</span>
     <span onclick="openChangelogModal()">Changelog / Release Notes</span>
-    <span onclick="window.open('https://sacredstone.atlantia.sca.org/baronial-asset-request-form/', '_blank')">📥 Bulk Request Form</span>
+    <span onclick="window.open('https://sacredstone.atlantia.sca.org/baronial-asset-request-form-2/', '_blank')">📥 Bulk Request Form</span>
   </div>
 
   <div class="container">
@@ -396,7 +395,7 @@
     <div id="inventoryContainer" class="loading">Loading baronial inventory records...</div>
   </div>
 
-<!-- Storage Location & Terms Modal -->
+  <!-- Storage Location & Terms Modal -->
   <div id="infoModal" class="modal-overlay" onclick="closeInfoModal()">
     <div class="modal" onclick="event.stopPropagation()">
       <h2>Baronial Asset Request Form &amp; Storage Terms</h2>
@@ -420,6 +419,14 @@
         </p>
       </div>
 
+      <!-- Placement 2: Info Modal Disclaimer Box -->
+      <div class="liability-box" style="margin-bottom: 1.25rem;">
+        <strong style="display:block; margin-bottom: 0.3rem; color: var(--baronial-dark);">Notice on Request Approvals:</strong>
+        <p style="margin: 0;">
+          Submitting a checkout request through this portal logs your inquiry for Quartermaster and Exchequer review, but does not guarantee or constitute immediate asset issuance. All gear allocations—especially restricted officer regalia and high-value baronial assets—remain subject to formal review, officer verification, and written approval in accordance with Baronial Policy.
+        </p>
+      </div>
+
       <h3 style="color: var(--baronial-dark); font-family: Georgia, serif; margin-top: 1.5rem;">Terms &amp; Conditions</h3>
       <ol style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main); padding-left: 1.2rem;">
         <li>Items borrowed are the responsibility of the individual named above. It is the sponsoring branch's responsibility to repair or replace any items which are broken, lost or stolen.</li>
@@ -432,7 +439,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Status & Condition Glossary Modal -->
   <div id="glossaryModal" class="modal-overlay" onclick="closeGlossaryModal()">
@@ -463,15 +469,15 @@
     </div>
   </div>
 
-<!-- Changelog & Release Notes Modal -->
+  <!-- Changelog & Release Notes Modal -->
   <div id="changelogModal" class="modal-overlay" onclick="closeChangelogModal()">
     <div class="modal" onclick="event.stopPropagation()">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
         <div>
           <h2 style="margin-bottom: 0.2rem;">Changelog &amp; Release Notes</h2>
           <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">
-            Created &amp; Maintained by <strong>Ailis inghean Uí Riagáin</strong> (Baronial Webminister)<br>
-            <em>Last Updated: August 2026</em>
+            Created &amp; Maintained by <strong>Ailís inghean Uí Riagáin</strong> (Baronial Webminister)<br>
+            <em>Last Updated: September 2026 (v1.5.0)</em>
           </p>
         </div>
         <button type="button" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="toggleChangelogView()" id="changelogToggleBtn">
@@ -495,11 +501,12 @@
       <div id="technicalLogView" style="display: none; background: #f7fafc; border-left: 4px solid var(--baronial-green); padding: 1rem; border-radius: 0 6px 6px 0; margin-bottom: 1rem;">
         <h3 style="margin-top:0; color:var(--baronial-dark); font-family:Georgia, serif;">⚡ App &amp; Workbook Technical Log</h3>
         <ul style="font-size: 0.88rem; line-height: 1.6; padding-left: 1.2rem; margin-bottom: 0;">
-          <li><strong>August 2026 — Secure Email Routing:</strong> Configured automated notification dispatch for checkout requests routing directly to the Quartermaster with the Exchequer and Webminister CC'd via secure Script Properties.</li>
-          <li><strong>August 2026 — Script Sanitization:</strong> Migrated Spreadsheet IDs and recipient email strings out of the codebase and into Apps Script Script Properties.</li>
-          <li><strong>18-Column Schema Flattening:</strong> Standardized Master Inventory mapping for high-performance retrieval across `Code.gs` and UI binders.</li>
-          <li><strong>Google Drive Image Integration:</strong> Configured `lh3.googleusercontent.com` thumbnail translation to bypass browser cross-origin frame blocks.</li>
-          <li><strong>Automated Checkout Logging:</strong> Integrated backend logger targeting the `Checkout Log` tab with timestamping and approval states.</li>
+          <li><strong>September 2026 [v1.5.0] — Unified Backend Controller:</strong> Consolidated <code>MasterInventorySync.gs</code> and <code>MasterInventoryBuilder.gs</code> into a single, cohesive <code>Code.gs</code> entry point.</li>
+          <li><strong>September 2026 [v1.5.0] — Automated Checkout Log:</strong> Integrated <code>submitCheckoutRequest()</code> handler to write checkout requests directly to the <code>Checkout Log</code> tab with "Pending Approval" status.</li>
+          <li><strong>September 2026 [v1.5.0] — Automated Email Dispatch:</strong> Implemented double-dispatch email notifications via <code>MailApp.sendEmail()</code>, routing requests to the Quartermaster with a confirmation copy to the requester.</li>
+          <li><strong>September 2026 [v1.5.0] — Dynamic Re-Aggregation:</strong> Maintained background <code>onChange</code> trigger support for real-time Master Inventory re-synchronization whenever category sheets are modified.</li>
+          <li><strong>August 2026 — 18-Column Schema Flattening:</strong> Standardized Master Inventory mapping (Columns A–R) for high-performance retrieval across <code>Code.gs</code> and UI binders.</li>
+          <li><strong>August 2026 — Google Drive Image Integration:</strong> Configured <code>ImageLinker.gs</code> thumbnail translation to bypass browser cross-origin frame blocks.</li>
         </ul>
       </div>
 
@@ -508,7 +515,6 @@
       </div>
     </div>
   </div>
-  
 
   <!-- Item Details & Preview Modal -->
   <div id="detailsModal" class="modal-overlay" onclick="closeDetailsModal(event)">
@@ -552,7 +558,13 @@
   <!-- Checkout Request Modal -->
   <div id="requestModal" class="modal-overlay">
     <div class="modal" onclick="event.stopPropagation()">
-      <h2 id="modalTitle">Request Asset Checkout</h2>
+      <h2 id="modalTitle" style="margin-bottom: 0.25rem;">Request Asset Checkout</h2>
+      
+      <!-- Placement 3: Subtitle Notice Under Form Header -->
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 1.25rem; font-style: italic;">
+        Submitting a request logs an inquiry for review and does not constitute automatic approval or immediate issuance.
+      </p>
+
       <form id="checkoutForm" onsubmit="handleFormSubmit(event)">
         <input type="hidden" id="modalItemId">
         
@@ -584,6 +596,14 @@
         <div class="form-group">
           <label>Email Address</label>
           <input type="email" id="email" required placeholder="name@domain.com">
+        </div>
+
+        <!-- Placement 1: Request Approval Box Above Financial Liability Box -->
+        <div class="liability-box" style="border-color: var(--baronial-green); background-color: #f0f4f1;">
+          <strong style="display:block; margin-bottom: 0.3rem; color: var(--baronial-dark);">Notice on Request Approvals:</strong>
+          <p style="margin: 0;">
+            Submitting a checkout request through this portal logs your inquiry for Quartermaster and Exchequer review, but does not guarantee or constitute immediate asset issuance. All gear allocations—especially restricted officer regalia and high-value baronial assets—remain subject to formal review, officer verification, and written approval in accordance with Baronial Policy.
+          </p>
         </div>
 
         <!-- Financial Liability Acknowledgement Section -->
