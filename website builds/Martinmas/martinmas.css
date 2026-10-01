@@ -1,0 +1,63 @@
+/* * Martinmas Event Page Styles
+ * Aesthetic: Warm Autumnal Palette
+ */
+
+body {
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    color: #2e2825;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    /* Use the uploaded parchment texture */
+    background-image: url('../images/parchment.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+header {
+    border-bottom: 2px solid #8c5a2b; /* Rich, dark harvest brown */
+    margin-bottom: 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Palatino', serif;
+    color: #5d3a1a; /* Deep, muted brown/burgundy */
+}
+
+/* Blockquote: Now styled to echo the 'warm hearth' theme */
+blockquote {
+    font-style: italic;
+    border-left: 4px solid #b57a3d; /* Golden-brown autumn leaf */
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #4a3e35;
+    background: #f1e9e0; /* Warm beige tone */
+    padding: 15px;
+}
+
+/* Metadata Table: Clean and autumnal */
+#metadata table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#metadata td {
+    padding: 10px;
+    border-bottom: 1px solid #dcd0c4; /* Soft taupe border */
+}
+
+/* Footer Link */
+footer a {
+    color: #8c5a2b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+}

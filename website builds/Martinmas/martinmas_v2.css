@@ -1,0 +1,350 @@
+/* ==========================================================================
+   Martinmas Event Page Styles
+   Aesthetic: Warm Autumnal Palette
+   ========================================================================== */
+
+/* 1. Body & Layout */
+body {
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    color: #2e2825;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px; 
+    background-image: url('https://sacredstone.atlantia.sca.org/martinmas/assets/images/parchment.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: auto; /* Keeps parchment texture crisp and un-stretched on mobile */
+}
+
+.content-wrapper {
+    position: relative;
+    max-width: 800px;
+    /* Increase the first value (60px) to add more space below the nav bar */
+    margin: 60px auto 20px auto; 
+    padding: 40px;
+    padding-left: 120px; 
+    background-color: #fdfaf6;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Decorative Vining Border Overlay (Desktop View) */
+.content-wrapper::before {
+    content: '';
+    position: absolute;
+    /* If the border now sits too low, reduce this negative value (e.g., from -20px to -10px) */
+    top: -30px;   
+    left: -80px;  
+    width: 500px; 
+    height: 900px; 
+    background-image: url('https://sacredstone.atlantia.sca.org/martinmas/assets/images/goose and lantern corner border.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 2. Navigation Bar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: rgba(253, 250, 246, 0.95);
+    border-bottom: 2px solid #8c5a2b;
+    box-sizing: border-box;
+}
+
+.nav-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #5d3a1a;
+    font-family: 'Palatino', serif;
+}
+
+.nav-logo {
+    display: flex;
+    flex-direction: column; /* Stacks the two lines */
+    line-height: 1.0;       /* Very tight spacing */
+}
+
+.logo-top {
+    font-size: 1.4em;       /* Larger text for the top */
+    font-weight: bold;
+}
+
+.logo-bottom {
+    font-size: 0.9em;       /* Slightly smaller text for the bottom */
+    margin-top: 2px;        /* Tiny gap to separate the lines slightly */
+}
+
+/* Ensure the badge stays vertically centered with the new two-line height */
+.nav-badge { 
+    height: 50px; 
+    margin-right: 15px; 
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    padding-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #5d3a1a;
+    font-family: 'Palatino', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.nav-links a:hover { 
+    color: #8c5a2b; 
+    border-bottom: 2px solid #8c5a2b; 
+}
+
+/* 3. Cards & Typography */
+.info-card {
+    background-color: #fdfaf6;
+    border: 1px solid #dcd0c4;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.info-card h2 { 
+    margin-top: 0; 
+    border-bottom: 2px solid #8c5a2b; 
+    padding-bottom: 10px; 
+    color: #5d3a1a; 
+}
+
+h1, h2, h3 { 
+    font-family: 'Palatino', serif; 
+    color: #5d3a1a; 
+}
+
+/* Styling for the proclamation quote */
+#archival-note blockquote {
+    font-style: italic;
+    border-left: 4px solid #d4af37; /* Gold accent */
+    padding: 15px 20px;
+    background-color: #fcfcfc;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Creating the bigger break before Event Details */
+#metadata {
+    margin-top: 40px;
+}
+
+/* 4. Footer & Buttons */
+.site-footer {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fdfaf6;
+    border-radius: 8px;
+    border-top: 2px solid #8c5a2b;
+    text-align: center;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-footer {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5d3a1a;
+    color: #fdfaf6;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: background 0.3s;
+}
+
+.btn-footer:hover { 
+    background-color: #8c5a2b; 
+}
+
+.footer-legal { 
+    font-size: 0.85em; 
+    color: #4a3e35; 
+    line-height: 1.4; 
+}
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fdfaf6;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1001;
+    list-style: none;
+    padding: 10px 0;
+    border: 1px solid #dcd0c4;
+}
+
+/* Links inside the dropdown */
+.dropdown-content li a {
+    color: #5d3a1a;
+    padding: 10px 15px;
+    display: block;
+    text-transform: none;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f0e6da;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ==========================================================================
+   5. Responsive Styles (JavaScript-driven Toggle)
+   ========================================================================== */
+
+/* Base setup for the Menu Toggle container (Hidden on Desktop) */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: auto;
+    z-index: 1002;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #5d3a1a;
+    transition: all 0.3s ease;
+}
+
+/* Tablet Layout Changes (768px and down) */
+@media (max-width: 768px) {
+    /* Content Wrapper Fluid Layout */
+    .content-wrapper {
+        margin: 40px 15px 20px 15px; 
+        padding: 25px; 
+        padding-left: 65px; /* Leaves side margin buffer for shrunken border decoration */
+    }
+
+    /* Scales down the goose/lantern border overlay cleanly for tablet screens */
+    .content-wrapper::before {
+        display: block;        
+        top: -15px;            
+        left: -35px;           
+        width: 180px;          
+        height: 100%;          
+        max-height: 500px;     
+        opacity: 0.85;         
+    }
+
+    /* Displays the three-line grid container icon */
+    .menu-toggle {
+        display: flex; 
+    }
+
+    /* Pulls navigation panel off-screen to the right side */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 250px;
+        height: 100vh;
+        background-color: rgba(253, 250, 246, 0.98);
+        border-left: 2px solid #8c5a2b;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 100px 20px 20px 20px;
+        gap: 25px;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        margin-left: 0;
+    }
+
+    /* Class target appended dynamically by JavaScript click listener */
+    .nav-links.active {
+        right: 0;
+    }
+
+    /* Animated hamburger lines turning into an 'X' on click (if element has class applied) */
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Dropdown structural overrides for mobile touch interactions */
+    .dropdown-content {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding-left: 15px;
+        display: none;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+}
+
+/* Small Mobile Screen Adjustments (480px and down) */
+@media (max-width: 480px) {
+    body {
+        padding-top: 60px;
+    }
+    .navbar {
+        padding: 10px 20px;
+    }
+    .logo-top {
+        font-size: 1.1em;
+    }
+    .logo-bottom {
+        font-size: 0.8em;
+    }
+    .nav-badge {
+        height: 35px;
+        margin-right: 10px;
+    }
+    .content-wrapper {
+        padding: 15px;
+        padding-left: 50px; /* Snaps the text container closer to the left margin on narrow devices */
+        margin: 20px 10px;
+    }
+    .content-wrapper::before {
+        left: -25px;       
+        width: 130px;       /* Shrinks the asset scale one step further for standard smartphone views */
+    }
+}
