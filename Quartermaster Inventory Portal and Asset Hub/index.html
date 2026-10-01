@@ -329,7 +329,8 @@
 
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.3rem; }
-    .form-group input { width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; }
+    .field-hint { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; font-style: italic; }
     
     .liability-box {
       background: #fdfbf7;
@@ -339,6 +340,18 @@
       font-size: 0.85rem;
       margin-bottom: 1rem;
       line-height: 1.5;
+    }
+
+    .alert-box-danger {
+      background: #fff5f5;
+      border: 1px solid #feb2b2;
+      border-left: 4px solid #e53e3e;
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      color: #9b2c2c;
+      line-height: 1.4;
     }
 
     .checkbox-group {
@@ -355,7 +368,92 @@
     .modal-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
     .btn-secondary { background-color: #e2e8f0; color: var(--text-main); }
     .btn-secondary:hover { background-color: #cbd5e0; }
-  </style>
+
+    /* Quantity Quick-Fill Chips */
+    .qty-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+    .btn-chip {
+      background: #e6fffa;
+      color: var(--baronial-green);
+      border: 1px solid #319795;
+      border-radius: 12px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-chip:hover {
+      background: var(--baronial-green);
+      color: white;
+    }
+
+/* Print Document Styling */
+    #printable-release-sheet { display: none; }
+    
+    @media print {
+      /* Hide everything on the page by default */
+      body * {
+        visibility: hidden !important;
+        display: none !important;
+      }
+      
+      /* Make ONLY the printable release sheet visible and position it at the top */
+      #printable-release-sheet, #printable-release-sheet * {
+        visibility: visible !important;
+        display: block !important;
+      }
+      
+      #printable-release-sheet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        color: #000000;
+        font-family: Georgia, serif;
+        background: white;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      /* Ensure table and layout elements display correctly when printing */
+      #printable-release-sheet table {
+        display: table !important;
+      }
+      #printable-release-sheet tr {
+        display: table-row !important;
+      }
+      #printable-release-sheet th, #printable-release-sheet td {
+        display: table-cell !important;
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+        font-size: 0.9rem;
+      }
+      #printable-release-sheet thead {
+        display: table-header-group !important;
+      }
+      #printable-release-sheet tbody {
+        display: table-row-group !important;
+      }
+      
+      .print-header { text-align: center; margin-bottom: 20px; }
+      .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+      }
+      .print-signatures {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 60px !important;
+      }
+      .sig-block { width: 45% !important; text-align: center; }
+      .sig-line { border-bottom: 1px solid #000; height: 35px; margin-bottom: 6px; }
+    }  </style>
 </head>
 <body>
 
@@ -419,7 +517,6 @@
         </p>
       </div>
 
-      <!-- Placement 2: Info Modal Disclaimer Box -->
       <div class="liability-box" style="margin-bottom: 1.25rem;">
         <strong style="display:block; margin-bottom: 0.3rem; color: var(--baronial-dark);">Notice on Request Approvals:</strong>
         <p style="margin: 0;">
@@ -477,7 +574,7 @@
           <h2 style="margin-bottom: 0.2rem;">Changelog &amp; Release Notes</h2>
           <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">
             Created &amp; Maintained by <strong>Ailís inghean Uí Riagáin</strong> (Baronial Webminister)<br>
-            <em>Last Updated: September 2026 (v1.5.0)</em>
+            <em>Last Updated: October 2026 (v1.5.1)</em>
           </p>
         </div>
         <button type="button" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="toggleChangelogView()" id="changelogToggleBtn">
@@ -489,11 +586,11 @@
       <div id="inventoryLogView" style="background: #fdfbf7; border-left: 4px solid var(--accent-gold); padding: 1rem; border-radius: 0 6px 6px 0; margin-bottom: 1rem;">
         <h3 style="margin-top:0; color:var(--baronial-dark); font-family:Georgia, serif;">🛡️ Inventory &amp; Asset Management Log</h3>
         <ul style="font-size: 0.88rem; line-height: 1.6; padding-left: 1.2rem; margin-bottom: 0;">
-          <li><strong>August 2026 — Liability &amp; Policy Integration:</strong> Added mandatory Baronial and Financial Policy acknowledgment checkboxes and event stewardship contact requirements directly into the checkout workflow.</li>
-          <li><strong>August 2026 — Bulk Request Integration:</strong> Linked standalone PDF request forms and streamlined storage pickup/return instructions for event stewards.</li>
-          <li><strong>July/August 2026 — Storage Headquarters Defined:</strong> Cataloged primary asset holding location at Olympic Crown Storage (915 Bendix Drive, Salisbury, NC).</li>
-          <li><strong>Regalia &amp; Equipment Classifications:</strong> Cataloged specialized brackets including Baronage, Champion, Officer, Marshals, Tents, and Feastware.</li>
-          <li><strong>Status Audit Sync:</strong> Synchronized color-coded statuses (Storage, Non-Unit, Elkin Site, Signed Out, Missing) and condition glossary chips with live item inventory records.</li>
+          <li><strong>October 2026 — Status Override Fix:</strong> Fixed availability calculation to force <code>Available = 0</code> whenever item status or location indicates signed out, even if numeric signed-out counts are omitted.</li>
+          <li><strong>October 2026 — Mandatory Identification Requirements:</strong> Enforced complete form field validation requiring verified SCA and Legal Names for processing.</li>
+          <li><strong>October 2026 — Dynamic Quantity &amp; Notes Input:</strong> Added customizable requested quantity inputs (capped dynamically by item availability) and an optional special instructions text area.</li>
+          <li><strong>October 2026 — Missing Item &amp; Regalia Lockouts:</strong> Implemented strict lockouts for missing assets ("Currently Missing") and restricted officer regalia categories to direct Quartermaster inquiries.</li>
+          <li><strong>August 2026 — Liability &amp; Policy Integration:</strong> Added mandatory Baronial and Financial Policy acknowledgment checkboxes directly into the checkout workflow.</li>
         </ul>
       </div>
 
@@ -501,12 +598,10 @@
       <div id="technicalLogView" style="display: none; background: #f7fafc; border-left: 4px solid var(--baronial-green); padding: 1rem; border-radius: 0 6px 6px 0; margin-bottom: 1rem;">
         <h3 style="margin-top:0; color:var(--baronial-dark); font-family:Georgia, serif;">⚡ App &amp; Workbook Technical Log</h3>
         <ul style="font-size: 0.88rem; line-height: 1.6; padding-left: 1.2rem; margin-bottom: 0;">
-          <li><strong>September 2026 [v1.5.0] — Unified Backend Controller:</strong> Consolidated <code>MasterInventorySync.gs</code> and <code>MasterInventoryBuilder.gs</code> into a single, cohesive <code>Code.gs</code> entry point.</li>
-          <li><strong>September 2026 [v1.5.0] — Automated Checkout Log:</strong> Integrated <code>submitCheckoutRequest()</code> handler to write checkout requests directly to the <code>Checkout Log</code> tab with "Pending Approval" status.</li>
-          <li><strong>September 2026 [v1.5.0] — Automated Email Dispatch:</strong> Implemented double-dispatch email notifications via <code>MailApp.sendEmail()</code>, routing requests to the Quartermaster with a confirmation copy to the requester.</li>
-          <li><strong>September 2026 [v1.5.0] — Dynamic Re-Aggregation:</strong> Maintained background <code>onChange</code> trigger support for real-time Master Inventory re-synchronization whenever category sheets are modified.</li>
-          <li><strong>August 2026 — 18-Column Schema Flattening:</strong> Standardized Master Inventory mapping (Columns A–R) for high-performance retrieval across <code>Code.gs</code> and UI binders.</li>
-          <li><strong>August 2026 — Google Drive Image Integration:</strong> Configured <code>ImageLinker.gs</code> thumbnail translation to bypass browser cross-origin frame blocks.</li>
+          <li><strong>October 2026 [v1.5.1] — Status Override Logic:</strong> Patched <code>displayItems()</code> and <code>openDetailsModal()</code> to automatically set <code>signedOutQty = totalQty</code> if text status reflects Signed Out or Missing.</li>
+          <li><strong>October 2026 [v1.5.1] — Strict Validation Rules:</strong> Enforced client-side input validation checking for placeholder or unidentifiable values in identity fields.</li>
+          <li><strong>October 2026 [v1.5.1] — Dynamic Quantity &amp; Notes Schema:</strong> Updated <code>submitCheckoutRequest()</code> to log user-selected item quantities and optional requester notes to the sheet and notification emails.</li>
+          <li><strong>October 2026 [v1.5.1] — Triple Officer Dispatch:</strong> Updated <code>submitCheckoutRequest()</code> in <code>Code.gs</code> to dispatch notification emails simultaneously to the Quartermaster, Exchequer, and Webminister.</li>
         </ul>
       </div>
 
@@ -560,45 +655,60 @@
     <div class="modal" onclick="event.stopPropagation()">
       <h2 id="modalTitle" style="margin-bottom: 0.25rem;">Request Asset Checkout</h2>
       
-      <!-- Placement 3: Subtitle Notice Under Form Header -->
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 1.25rem; font-style: italic;">
-        Submitting a request logs an inquiry for review and does not constitute automatic approval or immediate issuance.
-      </p>
+      <div class="alert-box-danger">
+        <strong>⚠️ Required Identification &amp; Form Notice:</strong><br>
+        All form fields are mandatory. Submissions must contain complete, verifiable contact details (full SCA Name, full Modern/Legal Name, and a valid email). Incomplete, placeholder, or unidentifiable submissions will not be processed by Baronial Officers.
+      </div>
 
       <form id="checkoutForm" onsubmit="handleFormSubmit(event)">
         <input type="hidden" id="modalItemId">
         
         <div class="form-group">
-          <label>Event Steward (Autocrat) / SCA Name</label>
-          <input type="text" id="scaName" required placeholder="e.g., Ailis inghean Ui Riagain">
+          <label>Event Steward (Autocrat) / SCA Name *</label>
+          <input type="text" id="scaName" required placeholder="e.g., Master Reginald, Cook of the Scorched Pot">
+          <span class="field-hint">Must be your full primary SCA name or official persona name.</span>
         </div>
 
         <div class="form-group">
-          <label>Modern Name (Legal Name)</label>
+          <label>Modern Name (Legal Name) *</label>
           <input type="text" id="legalName" required placeholder="Full Legal Name">
+          <span class="field-hint">Required for storage unit sign-out authorization and keyholder identification.</span>
         </div>
 
         <div class="form-group">
-          <label>Event / Location</label>
+          <label>Event / Location *</label>
           <input type="text" id="event" required placeholder="e.g., Baronial Birthday, Site Location">
         </div>
 
         <div class="form-group">
-          <label>Date of Event</label>
+          <label>Date of Event *</label>
           <input type="date" id="eventDate" required>
         </div>
 
         <div class="form-group">
-          <label>Telephone</label>
+          <label>Telephone *</label>
           <input type="tel" id="phone" required placeholder="(555) 555-5555">
         </div>
 
         <div class="form-group">
-          <label>Email Address</label>
+          <label>Email Address *</label>
           <input type="email" id="email" required placeholder="name@domain.com">
         </div>
 
-        <!-- Placement 1: Request Approval Box Above Financial Liability Box -->
+        <div class="form-group">
+          <label id="quantityLabel">Requested Quantity *</label>
+          <input type="number" id="requestQuantity" min="1" value="1" required>
+          <div class="qty-controls-row">
+            <button type="button" class="btn-chip" onclick="setQtyToMax()">Set Max Available</button>
+            <button type="button" class="btn-chip" onclick="setQtyToOne()">Set to 1</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Additional Notes / Special Instructions (Optional)</label>
+          <textarea id="notes" rows="3" placeholder="e.g., Requesting specific colors, pickup time preferences, or event details..."></textarea>
+        </div>
+
         <div class="liability-box" style="border-color: var(--baronial-green); background-color: #f0f4f1;">
           <strong style="display:block; margin-bottom: 0.3rem; color: var(--baronial-dark);">Notice on Request Approvals:</strong>
           <p style="margin: 0;">
@@ -606,7 +716,6 @@
           </p>
         </div>
 
-        <!-- Financial Liability Acknowledgement Section -->
         <div class="liability-box">
           <strong style="display:block; margin-bottom: 0.3rem; color: var(--baronial-dark);">Financial Liability Acknowledgement:</strong>
           <p style="margin: 0 0 0.5rem 0;">
@@ -615,12 +724,12 @@
 
           <label class="checkbox-group">
             <input type="checkbox" id="readBaronialPolicies" required>
-            <span>I have read the current Baronial Policies.</span>
+            <span>I have read the current <a href="https://sacredstone.atlantia.sca.org/baronial-policy/" target="_blank" style="color: var(--baronial-green); text-decoration: underline;">Baronial Policies</a>.</span>
           </label>
 
           <label class="checkbox-group">
             <input type="checkbox" id="readFinancialPolicies" required>
-            <span>I have read the current Baronial Financial Policies.</span>
+            <span>I have read the current <a href="https://exchequer.atlantia.sca.org/branchpolicy.php" target="_blank" style="color: var(--baronial-green); text-decoration: underline;">Baronial Financial Policies</a> <em>(scroll down to the North Carolina section to find Sacred Stone)</em>.</span>
           </label>
         </div>
 
@@ -632,11 +741,76 @@
     </div>
   </div>
 
+  <!-- Summary & Quick Share Modal -->
+  <div id="summaryModal" class="modal-overlay" style="display: none;">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h2>Request Summary &amp; Quick Share</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0;">Your checkout request has been logged successfully. Copy the summary text, open an email draft, or print the official release sheet for unit sign-out.</p>
+      
+      <textarea id="summaryText" readonly style="width:100%; height: 140px; font-family: monospace; font-size: 12px; margin-bottom: 12px; padding: 8px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 4px;"></textarea>
+      
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; margin-bottom: 8px;">
+        <button type="button" class="btn" style="width: auto; background-color: #319795;" onclick="copySummaryText()">Copy Summary</button>
+        <button type="button" class="btn" style="width: auto; background-color: #2b6cb0;" onclick="downloadSummaryFile()">Download .TXT</button>
+        <a id="emailShareBtn" class="btn" style="width: auto; background-color: #d69e2e;" href="#" target="_blank">✉️ Email Request</a>
+      </div>
+      
+      <div style="display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid var(--border-color); padding-top: 12px;">
+        <button type="button" class="btn" style="width: auto; background-color: var(--baronial-green);" onclick="triggerPrintReleaseSheet()">Print Physical Release Form</button>
+        <button type="button" class="btn btn-secondary" style="width: auto;" onclick="closeSummaryModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable Sign-Out Release Sheet Template -->
+  <div id="printable-release-sheet">
+    <div class="print-header">
+      <h2 style="margin:0; font-family: Georgia, serif;">BARONY OF THE SACRED STONE</h2>
+      <p style="margin:2px 0; font-size: 0.9rem;">Equipment Check-Out &amp; Storage Release Form</p>
+    </div>
+    
+    <div style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+      <div><strong>Borrower (SCA Name):</strong> <span id="p-sca"></span></div>
+      <div><strong>Legal Name:</strong> <span id="p-legal"></span></div>
+      <div><strong>Event / Purpose:</strong> <span id="p-event"></span></div>
+      <div><strong>Event Date:</strong> <span id="p-date"></span> | <strong>Contact Email:</strong> <span id="p-email"></span> | <strong>Phone:</strong> <span id="p-phone"></span></div>
+    </div>
+
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th style="width: 15%;">Item ID</th>
+          <th style="width: 40%;">Item Description</th>
+          <th style="width: 15%;">Qty Out</th>
+          <th style="width: 15%;">Qty Ret.</th>
+          <th style="width: 15%;">Condition</th>
+        </tr>
+      </thead>
+      <tbody id="p-items-rows"></tbody>
+    </table>
+
+    <div style="font-size: 0.8rem; margin-top: 15px; font-style: italic;">
+      * Items borrowed must be returned to Olympic Crown Storage no later than 14 days following the conclusion of the event.
+    </div>
+
+    <div class="print-signatures">
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <p style="margin:0; font-size: 0.85rem;">Borrower Signature / Date</p>
+      </div>
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <p style="margin:0; font-size: 0.85rem;">Quartermaster / Keyholder Signature / Date</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     let allInventoryData = [];
     let currentCategory = 'All';
     let currentStatusFilter = 'All';
     let activeSelectedItem = null;
+    let lastSubmittedRequest = null;
 
     window.onload = function() {
       try {
@@ -691,15 +865,33 @@
       container.className = 'inventory-grid';
       container.innerHTML = items.map(item => {
         const rawStatus = (item.status || 'In Storage').trim();
-        const isAvailable = rawStatus.toLowerCase().includes('storage') || rawStatus.toLowerCase().includes('unit') || rawStatus.toLowerCase().includes('site');
-        const isSignedOut = rawStatus.toLowerCase().includes('signed');
+        const rawLocation = (item.storageLocation || '').trim();
         
-        let statusClass = 'status-storage';
-        if (isSignedOut) statusClass = 'status-out';
-        else if (rawStatus.toLowerCase().includes('missing')) statusClass = 'status-missing';
+        const totalQty = item.totalQty !== undefined && item.totalQty !== "" ? Number(item.totalQty) : 1;
+        let signedOutQty = item.signedOutQty !== undefined && item.signedOutQty !== "" ? Number(item.signedOutQty) : 0;
 
-        const totalQty = item.totalQty !== undefined ? item.totalQty : 1;
-        const signedOutQty = item.signedOutQty !== undefined ? item.signedOutQty : 0;
+        const statusLower = rawStatus.toLowerCase();
+        const locationLower = rawLocation.toLowerCase();
+
+        const isMissing = statusLower.includes('missing') || locationLower.includes('missing');
+        const isSignedOut = statusLower.includes('signed') || locationLower.includes('signed');
+
+        if (isMissing) {
+          signedOutQty = totalQty;
+        } else if (isSignedOut && signedOutQty === 0) {
+          signedOutQty = totalQty;
+        }
+
+        const availableQty = Math.max(0, totalQty - signedOutQty);
+        
+        const categoryStr = (item.category || '').toLowerCase();
+        const subCategoryStr = (item.subCategory || '').toLowerCase();
+        const itemIdStr = (item.itemId || '').toLowerCase();
+        const isRegalia = categoryStr.includes('regalia') || subCategoryStr.includes('regalia') || itemIdStr.startsWith('reg-');
+
+        let statusClass = 'status-storage';
+        if (isMissing) statusClass = 'status-missing';
+        else if (availableQty === 0 || isSignedOut) statusClass = 'status-out';
 
         let p1 = getDirectDriveUrl(item.photoUrl);
         let p2 = getDirectDriveUrl(item.photoUrl2);
@@ -710,6 +902,23 @@
           if (p1) imagesHtml += '<img src="' + p1 + '" class="card-image-thumb" alt="Photo 1" onerror="this.style.display=\'none\'">';
           if (p2) imagesHtml += '<img src="' + p2 + '" class="card-image-thumb" alt="Photo 2" onerror="this.style.display=\'none\'">';
           imagesHtml += '</div>';
+        }
+
+        let buttonHtml = '';
+        if (isMissing) {
+          buttonHtml = `<button class="btn" style="background-color: #e2e8f0; color: #742a2a; border: 1px solid #fed7d7; cursor: not-allowed;" disabled>
+            Currently Missing
+          </button>`;
+        } else if (isRegalia) {
+          buttonHtml = `<button class="btn" style="background-color: #e2e8f0; color: #4a5568; border: 1px solid #cbd5e0; cursor: not-allowed;" disabled>
+            🔒 Officer Regalia (Contact Quartermaster)
+          </button>`;
+        } else if (availableQty > 0) {
+          buttonHtml = `<button class="btn" onclick="event.stopPropagation(); openModal('${item.itemId}', '${(item.itemName || '').replace(/'/g, "\\'")}', ${availableQty})">
+            Request Item Checkout (${availableQty} Available)
+          </button>`;
+        } else {
+          buttonHtml = `<button class="btn" disabled>Currently Signed Out</button>`;
         }
 
         return `
@@ -724,13 +933,11 @@
               <div class="card-meta">
                 <div><strong>Category:</strong> ${item.category || 'General'} (${item.subCategory || 'General'})</div>
                 <div><strong>Location:</strong> ${item.storageLocation || 'Unassigned'}</div>
-                <div><strong>Quantity:</strong> Total: ${totalQty} | Available: ${totalQty - signedOutQty}</div>
+                <div><strong>Quantity:</strong> Total: ${totalQty} | Available: ${availableQty}</div>
                 <div><strong>Condition:</strong> ${item.condition || 'Good'}</div>
               </div>
             </div>
-            <button class="btn" onclick="event.stopPropagation(); openModal('${item.itemId}', '${(item.itemName || '').replace(/'/g, "\\'")}')" ${!isAvailable ? 'disabled' : ''}>
-              ${isAvailable ? 'Request Item Checkout' : 'Currently Signed Out'}
-            </button>
+            ${buttonHtml}
           </div>
         `;
       }).join('');
@@ -744,27 +951,46 @@
       document.getElementById('detailItemId').innerText = item.itemId || 'N/A';
       
       const rawStatus = (item.status || 'In Storage').trim();
-      const isAvailable = rawStatus.toLowerCase().includes('storage') || rawStatus.toLowerCase().includes('unit') || rawStatus.toLowerCase().includes('site');
+      const rawLocation = (item.storageLocation || '').trim();
+
+      const totalQty = item.totalQty !== undefined && item.totalQty !== "" ? Number(item.totalQty) : 1;
+      let signedOutQty = item.signedOutQty !== undefined && item.signedOutQty !== "" ? Number(item.signedOutQty) : 0;
       
+      const statusLower = rawStatus.toLowerCase();
+      const locationLower = rawLocation.toLowerCase();
+
+      const isMissing = statusLower.includes('missing') || locationLower.includes('missing');
+      const isSignedOut = statusLower.includes('signed') || locationLower.includes('signed');
+
+      if (isMissing) {
+        signedOutQty = totalQty;
+      } else if (isSignedOut && signedOutQty === 0) {
+        signedOutQty = totalQty;
+      }
+
+      const availableQty = Math.max(0, totalQty - signedOutQty);
+
+      const categoryStr = (item.category || '').toLowerCase();
+      const subCategoryStr = (item.subCategory || '').toLowerCase();
+      const itemIdStr = (item.itemId || '').toLowerCase();
+      const isRegalia = categoryStr.includes('regalia') || subCategoryStr.includes('regalia') || itemIdStr.startsWith('reg-');
+
       const statusPill = document.getElementById('detailStatus');
       statusPill.innerText = rawStatus;
-      statusPill.className = 'status-pill ' + (rawStatus.toLowerCase().includes('signed') ? 'status-out' : (rawStatus.toLowerCase().includes('missing') ? 'status-missing' : 'status-storage'));
+      statusPill.className = 'status-pill ' + (isMissing ? 'status-missing' : (isSignedOut || availableQty === 0 ? 'status-out' : 'status-storage'));
 
       document.getElementById('detailItemName').innerText = item.itemName || 'Unnamed Item';
       document.getElementById('detailCategory').innerText = item.category || 'General';
       document.getElementById('detailSubCategory').innerText = item.subCategory || 'General';
       document.getElementById('detailClassification').innerText = item.classification || 'None';
       document.getElementById('detailLocation').innerText = item.storageLocation || 'Unassigned';
-      
-      const totalQty = item.totalQty !== undefined ? item.totalQty : 1;
-      const signedOutQty = item.signedOutQty !== undefined ? item.signedOutQty : 0;
-      document.getElementById('detailQuantity').innerText = `Total: ${totalQty} | Available: ${totalQty - signedOutQty}`;
+      document.getElementById('detailQuantity').innerText = `Total: ${totalQty} | Available: ${availableQty}`;
       document.getElementById('detailCondition').innerText = item.condition || 'Good';
       document.getElementById('detailAccounted').innerText = item.accountedFor || 'Yes';
       document.getElementById('detailNotes').innerText = item.notes || 'No additional notes recorded for this item.';
 
       const signOutContainer = document.getElementById('detailSignOutContainer');
-      if (!isAvailable && (item.signedOutTo || item.signOutDate)) {
+      if (!isMissing && (isSignedOut || signedOutQty > 0) && (item.signedOutTo || item.signOutDate)) {
         signOutContainer.style.display = 'block';
         document.getElementById('detailSignedOutTo').innerText = item.signedOutTo || 'Unknown';
         document.getElementById('detailSignOutDate').innerText = formatCleanDate(item.signOutDate);
@@ -784,8 +1010,19 @@
       document.getElementById('detailGallery').innerHTML = galleryHtml;
 
       const checkoutBtn = document.getElementById('detailCheckoutBtn');
-      checkoutBtn.disabled = !isAvailable;
-      checkoutBtn.innerText = isAvailable ? 'Request Item Checkout' : 'Currently Signed Out';
+      if (isMissing) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.innerText = 'Currently Missing';
+      } else if (isRegalia) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.innerText = '🔒 Officer Regalia (Contact Quartermaster)';
+      } else if (availableQty > 0) {
+        checkoutBtn.disabled = false;
+        checkoutBtn.innerText = `Request Item Checkout (${availableQty} Available)`;
+      } else {
+        checkoutBtn.disabled = true;
+        checkoutBtn.innerText = 'Currently Signed Out';
+      }
 
       document.getElementById('detailsModal').style.display = 'flex';
     }
@@ -805,8 +1042,20 @@
 
     function triggerCheckoutFromDetails() {
       if (!activeSelectedItem) return;
+      const totalQty = activeSelectedItem.totalQty !== undefined ? Number(activeSelectedItem.totalQty) : 1;
+      let signedOutQty = activeSelectedItem.signedOutQty !== undefined ? Number(activeSelectedItem.signedOutQty) : 0;
+      
+      const rawStatus = (activeSelectedItem.status || '').toLowerCase();
+      const rawLocation = (activeSelectedItem.storageLocation || '').toLowerCase();
+      
+      if (rawStatus.includes('signed') || rawLocation.includes('signed')) {
+        if (signedOutQty === 0) signedOutQty = totalQty;
+      }
+
+      const availableQty = Math.max(0, totalQty - signedOutQty);
+
       closeDetailsModal();
-      openModal(activeSelectedItem.itemId, activeSelectedItem.itemName);
+      openModal(activeSelectedItem.itemId, activeSelectedItem.itemName, availableQty);
     }
 
     function filterByCategory(category, btnElement) {
@@ -846,9 +1095,18 @@
       displayItems(filtered);
     }
 
-    function openModal(itemId, itemName) {
+    function openModal(itemId, itemName, availableQty) {
       document.getElementById('modalItemId').value = itemId;
       document.getElementById('modalTitle').innerText = 'Request: ' + itemName;
+      
+      const qtyInput = document.getElementById('requestQuantity');
+      const maxAvailable = availableQty || 1;
+      
+      qtyInput.value = 1;
+      qtyInput.min = 1;
+      qtyInput.max = maxAvailable;
+      
+      document.getElementById('quantityLabel').innerText = `Requested Quantity * (Max Available: ${maxAvailable})`;
       document.getElementById('requestModal').style.display = 'flex';
     }
 
@@ -857,32 +1115,57 @@
       document.getElementById('checkoutForm').reset();
     }
 
-    function handleFormSubmit(event) {
+    function setQtyToMax() {
+      const qtyInput = document.getElementById('requestQuantity');
+      qtyInput.value = qtyInput.max || 1;
+    }
+    function setQtyToOne() {
+      document.getElementById('requestQuantity').value = 1;
+    }
+
+function handleFormSubmit(event) {
       event.preventDefault();
       
+      const scaName = document.getElementById('scaName').value.trim();
+      const legalName = document.getElementById('legalName').value.trim();
+      const scaNameLower = scaName.toLowerCase();
+
+      if (scaNameLower.includes('same as') || scaNameLower === 'n/a' || scaNameLower === 'none' || scaNameLower === 'test') {
+        alert("Please enter a valid, complete SCA Name or persona name.");
+        return;
+      }
+
+      if (legalName.toLowerCase().includes('same as') || legalName.toLowerCase() === 'n/a' || legalName.toLowerCase() === 'none') {
+        alert("Please enter your full Modern/Legal Name.");
+        return;
+      }
+
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
       submitBtn.innerText = 'Submitting...';
 
       const formData = {
         itemId: document.getElementById('modalItemId').value,
-        scaName: document.getElementById('scaName').value,
-        legalName: document.getElementById('legalName').value,
-        event: document.getElementById('event').value,
+        scaName: scaName,
+        legalName: legalName,
+        event: document.getElementById('event').value.trim(),
         eventDate: document.getElementById('eventDate').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        quantity: Number(document.getElementById('requestQuantity').value) || 1,
+        notes: document.getElementById('notes').value.trim() || "None",
         readBaronialPolicies: document.getElementById('readBaronialPolicies').checked,
-        readFinancialPolicies: document.getElementById('readFinancialPolicies').checked,
-        quantity: 1
+        readFinancialPolicies: document.getElementById('readFinancialPolicies').checked
       };
+
+      lastSubmittedRequest = formData;
 
       google.script.run
         .withSuccessHandler(function(response) {
-          alert(response.message);
           closeModal();
           submitBtn.disabled = false;
           submitBtn.innerText = 'Submit Request';
+          openSummaryModal(formData); // This opens your custom window instead of the browser pop-up!
         })
         .withFailureHandler(function(error) {
           alert('Error submitting request: ' + error.message);
@@ -890,6 +1173,79 @@
           submitBtn.innerText = 'Submit Request';
         })
         .submitCheckoutRequest(formData);
+    }
+
+    function openSummaryModal(data) {
+      const text = [
+        `BARONY OF THE SACRED STONE — ITEM REQUEST SUMMARY`,
+        `==================================================`,
+        `Requester (SCA): ${data.scaName}`,
+        `Legal Name: ${data.legalName}`,
+        `Event / Purpose: ${data.event}`,
+        `Event Date: ${data.eventDate}`,
+        `Contact Email: ${data.email} | Phone: ${data.phone}`,
+        `Requested Item ID: ${data.itemId}`,
+        `Quantity: ${data.quantity}`,
+        `Special Notes: ${data.notes}`,
+        `Status: Logged (Pending Quartermaster Review)`
+      ].join('\n');
+
+      document.getElementById('summaryText').value = text;
+
+      const emailSubject = encodeURIComponent(`Baronial Inventory Request: ${data.itemId} - ${data.scaName}`);
+      const emailBody = encodeURIComponent(text);
+      document.getElementById('emailShareBtn').href = `mailto:quartermaster@sacredstone.atlantia.sca.org?subject=${emailSubject}&body=${emailBody}`;
+
+      document.getElementById('summaryModal').style.display = 'flex';
+    }
+
+    function closeSummaryModal() {
+      document.getElementById('summaryModal').style.display = 'none';
+    }
+
+    function copySummaryText() {
+      const box = document.getElementById('summaryText');
+      box.select();
+      navigator.clipboard.writeText(box.value).then(() => {
+        alert('Request summary copied to clipboard!');
+      });
+    }
+
+    function downloadSummaryFile() {
+      const text = document.getElementById('summaryText').value;
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `SacredStone_Request_${lastSubmittedRequest ? lastSubmittedRequest.itemId : 'Summary'}.txt`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function triggerPrintReleaseSheet() {
+      if (!lastSubmittedRequest) return;
+      
+      document.getElementById('p-sca').innerText = lastSubmittedRequest.scaName;
+      document.getElementById('p-legal').innerText = lastSubmittedRequest.legalName;
+      document.getElementById('p-event').innerText = lastSubmittedRequest.event;
+      document.getElementById('p-date').innerText = lastSubmittedRequest.eventDate;
+      document.getElementById('p-email').innerText = lastSubmittedRequest.email;
+      document.getElementById('p-phone').innerText = lastSubmittedRequest.phone;
+
+      const itemObj = allInventoryData.find(i => i.itemId === lastSubmittedRequest.itemId);
+      const itemName = itemObj ? itemObj.itemName : lastSubmittedRequest.itemId;
+
+      const tbody = document.getElementById('p-items-rows');
+      tbody.innerHTML = `
+        <tr>
+          <td>${lastSubmittedRequest.itemId}</td>
+          <td>${itemName}</td>
+          <td>${lastSubmittedRequest.quantity}</td>
+          <td></td>
+          <td>${itemObj ? itemObj.condition : 'Good'}</td>
+        </tr>
+      `;
+
+      window.print();
     }
 
     function toggleChangelogView() {
