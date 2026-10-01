@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/badge_salesberie.ico">
+    <title>Home | St. Martin’s Proclamation</title>
+    <link rel="stylesheet" href="assets/css/martinmas_v2.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo-link">
+            <img src="assets/images/badge_salesberie.png" alt="Salesberie Glen Badge" class="nav-badge">
+            <div class="nav-logo">
+                <span class="logo-top">Salesberie Glen</span>
+                <span class="logo-bottom">St. Martin’s Proclamation</span>
+            </div>
+        </a>
+        
+        <!-- Adapted from the birthday site: No checkbox needed -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="registration.html">Registration</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li class="dropdown">
+                <a href="#">Activities ▾</a>
+                <ul class="dropdown-content">
+                    <li><a href="arts.html">Arts & Sciences</a></li>
+                    <li><a href="martial.html">Martial Activities</a></li>
+                </ul>
+            </li>
+            <li><a href="feast.html">Feast</a></li>
+            <li><a href="staff.html">Staff</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-wrapper">
+        <h1>The Feast of St. Martin</h1>
+
+        <div class="info-card">
+            <p>In the sixteenth century, the <em>Martinimahl</em> was a final, joyous gathering of the guild and the hearth before the winter's turning. As the fields are cleared and the grain is safely stored, our community gathers to break bread in a spirit of thanksgiving and fellowship.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>The Evening’s Fare</h2>
+            <p>We are currently finalizing a 16th-century German feast menu. Please check back soon for further details and the expected offerings for the table.</p>
+            <p><strong>Note:</strong> There will be no day board provided. However, to keep our guests warm and refreshed, coffee, tea, and water will be available in the hall throughout the day.</p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <nav class="footer-nav">
+                <a href="https://salesberieglen.atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Salesberie Glen Home</a>
+                <a href="https://sacredstone.atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Baronial Home</a>
+                <a href="https://atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Kingdom Home</a>
+                <a href="https://www.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">SCA Home</a>
+                <a href="contact.html" class="btn-footer">Contact Us</a>
+            </nav>
+            <div class="footer-legal">
+                <p>Copyright &copy; 2026 Canton of Salesberie Glen, Barony of the Sacred Stone, SCA Inc.</p>
+            </div>
+        </div>
+    </footer>
+	
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                // Toggles the panel visibility
+                navLinks.classList.toggle('active');
+                // Optional: Toggles the hamburger lines into an 'X'
+                mobileMenu.classList.toggle('active');
+            });
+        }
+    </script>
+
+</body>
+</html>

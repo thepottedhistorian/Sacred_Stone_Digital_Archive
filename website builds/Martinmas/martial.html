@@ -1,0 +1,107 @@
+<!-- 
+====================================================================
+  Canton of Salesberie Glen — St. Martin's Proclamation
+  Page: Martial Activities (martial.html)
+==================================================================== 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/badge_salesberie.ico">
+    <title>Martial Activities | St. Martin’s Proclamation</title>
+    <link rel="stylesheet" href="assets/css/martinmas_v2.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo-link">
+            <img src="assets/images/badge_salesberie.png" alt="Salesberie Glen Badge" class="nav-badge">
+            <div class="nav-logo">
+                <span class="logo-top">Salesberie Glen</span>
+                <span class="logo-bottom">St. Martin’s Proclamation</span>
+            </div>
+        </a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="registration.html">Registration</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li class="dropdown">
+                <a href="#">Activities ▾</a>
+                <ul class="dropdown-content">
+                    <li><a href="arts.html">Arts & Sciences</a></li>
+                    <li><a href="martial.html">Martial Activities</a></li>
+                </ul>
+            </li>
+            <li><a href="feast.html">Feast</a></li>
+            <li><a href="staff.html">Staff</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-wrapper">
+        <h1>Martial Activities</h1>
+
+        <div class="info-card">
+            <h2>Pas de l'Oie Criarde</h2>
+            <p><em>Tournament of the Clamoring Goose</em></p>
+            <p>Let it be known to all knights, men-at-arms, and gentles of good will, that upon the twenty-first day of November, Anno Societatis LXI, the Canton of Salesberie Glen, in the Barony of the Sacred Stone, shall hold <strong>Le Pas de l'Oie Criarde</strong>, in celebration of St. Martin of Tours — that good soldier whose hiding place, legend says, was cried aloud by geese, and who has been honored ever since with feast, mirth, and a well-roasted bird.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>Combat & Field</h2>
+            <p>Armored and rapier combatants who would take the field are asked to seek counsel of <strong>Lord Giovanni DeMoncillis</strong> and <strong>Noble Ellie Fire Tender</strong>, who shall speak to the day's combat.</p>
+            <ul>
+                <li><strong>Heavy Combat:</strong> Pas de l'Oie Criarde (Tournament of the Clamoring Goose)</li>
+                <li><strong>Rapier Combat:</strong> Pas de l'Oie Criarde (Tournament of the Clamoring Goose)</li>
+                <li><strong>Archery:</strong> Details pending.</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h2>Arts & Sciences Note</h2>
+            <p>Those of gentler and quieter talents are asked to seek out <strong>Toth Eva Franciska</strong>, who shall serve as the day's Minister of Arts & Sciences, and who welcomes all who would bring work, word, or wonder to the populace.</p>
+        </div>
+        
+        <div class="info-card">
+            <h3>Marshal Information</h3>
+            <p>Questions regarding field safety or authorization may be directed to our Marshal in Charge. Please ensure all kit is inspected and up to date with Kingdom standards before stepping onto the field.</p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <nav class="footer-nav">
+                <a href="https://salesberieglen.atlantia.sca.org/" class="btn-footer">Salesberie Glen Home</a>
+                <a href="https://sacredstone.atlantia.sca.org/" class="btn-footer">Baronial Home</a>
+                <a href="https://atlantia.sca.org/" class="btn-footer">Kingdom Home</a>
+                <a href="https://www.sca.org/" class="btn-footer">SCA Home</a>
+                <a href="contact.html" class="btn-footer">Contact Us</a>
+            </nav>
+            <div class="footer-legal">
+                <p>Copyright &copy; 2026 Canton of Salesberie Glen, Barony of the Sacred Stone, SCA Inc.</p>
+            </div>
+        </div>
+    </footer>
+	
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
+    </script>
+
+</body>
+</html>

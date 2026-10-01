@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/badge_salesberie.ico">
+    <title>Home | St. Martin’s Proclamation</title>
+    <link rel="stylesheet" href="assets/css/martinmas_v2.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo-link">
+            <img src="assets/images/badge_salesberie.png" alt="Salesberie Glen Badge" class="nav-badge">
+            <div class="nav-logo">
+                <span class="logo-top">Salesberie Glen</span>
+                <span class="logo-bottom">St. Martin’s Proclamation</span>
+            </div>
+        </a>
+        
+        <!-- Adapted from the birthday site: No checkbox needed -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="registration.html">Registration</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li class="dropdown">
+                <a href="#">Activities ▾</a>
+                <ul class="dropdown-content">
+                    <li><a href="arts.html">Arts & Sciences</a></li>
+                    <li><a href="martial.html">Martial Activities</a></li>
+                </ul>
+            </li>
+            <li><a href="feast.html">Feast</a></li>
+            <li><a href="staff.html">Staff</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-wrapper">
+        <header>
+            <h2>A Season of Charity and Harvest</h2>
+        </header>
+
+        <main>
+            <!-- Invitation Section -->
+            <section id="event-welcome" class="info-card">
+                <h3>A Warm Welcome</h3>
+                <p>The Canton of Salesberie Glen invites you to join us in a friendly harvest festival. We welcome everyone into a warm hall to share light, friendship, and a day of relaxation before the busy holiday season kicks off.</p>
+            </section>
+
+            <section id="introduction">
+                <p>As the year wanes and the fields lie fallow, the folk of our Barony prepare to observe the Feast of St. Martin of Tours. It is a time marked by the cooling of the hearth and the gathering of kin, when we look back upon the bounty of the harvest and forward to the quietude of winter.</p>
+            </section>
+
+            <section id="lore">
+                <h3>Of the Holiday and its Observance</h3>
+                <p>St. Martin, soldier and servant, remains a beacon of humility for all who dwell within these borders. His act of dividing his own cloak to shield a freezing beggar serves as our charge for the coming month: to seek the needs of our neighbors and to practice charity in all our dealings.</p>
+                
+                <p>Historically, this day—the eleventh of the eleventh month—marks the threshold of the <em>Quadragesima Sancti Martini</em>, the season of restraint and reflection. We invite all to join in the quiet traditions of the season:</p>
+                <ul>
+                    <li><strong>The Lighting of Lanterns:</strong> Reflecting the illumination of the path during the darkest nights.</li>
+                    <li><strong>The Feasting of the Goose:</strong> A celebration of the final harvest before the winter stores are sealed.</li>
+                    <li><strong>The Settling of Accounts:</strong> Ensuring all debts, both material and social, are reconciled before the closing of the year.</li>
+                </ul>
+            </section>
+
+            <section id="archival-note">
+                blockquote>
+                    “In the season of St. Martin, the sage (<em>Salvia officinarum</em>) is harvested for the larder, and the roots of the earth are pulled from the soil. May our preparations be as steady as the turning of the seasons.”
+                </blockquote>
+            </section>
+
+            <aside id="metadata">
+                <h3>Event Details</h3>
+                <table>
+                    <tr>
+                        <td><strong>Event Date:</strong></td>
+                        <td>November 21, 2026</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gate Opens:</strong></td>
+                        <td>8:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Site Closes:</strong></td>
+                        <td>7:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Site Information:</strong></td>
+                        <td>
+                            <strong>Location:</strong> UAWW Local 3520, 2290 Salisbury HWY, Statesville, NC, 28677
+                        </td>
+                    </tr>
+                </table>
+            </aside>
+        </main>
+    </div> <!-- Close .content-wrapper here to keep layout isolated from the footer -->
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <nav class="footer-nav">
+                <a href="https://salesberieglen.atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Salesberie Glen Home</a>
+                <a href="https://sacredstone.atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Baronial Home</a>
+                <a href="https://atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Kingdom Home</a>
+                <a href="https://www.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">SCA Home</a>
+                <a href="contact.html" class="btn-footer">Contact Us</a>
+            </nav>
+            <div class="footer-legal">
+                <p>Copyright &copy; 2026 Canton of Salesberie Glen, Barony of the Sacred Stone, SCA Inc.</p>
+            </div>
+        </div>
+    </footer>
+	
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                // Toggles the panel visibility
+                navLinks.classList.toggle('active');
+                // Optional: Toggles the hamburger lines into an 'X'
+                mobileMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</body>
+</html>

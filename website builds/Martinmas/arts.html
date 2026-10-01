@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/badge_salesberie.ico">
+    <title>Home | St. Martin’s Proclamation</title>
+    <link rel="stylesheet" href="assets/css/martinmas_v2.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo-link">
+            <img src="assets/images/badge_salesberie.png" alt="Salesberie Glen Badge" class="nav-badge">
+            <div class="nav-logo">
+                <span class="logo-top">Salesberie Glen</span>
+                <span class="logo-bottom">St. Martin’s Proclamation</span>
+            </div>
+        </a>
+        
+        <!-- Adapted from the birthday site: No checkbox needed -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="registration.html">Registration</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li class="dropdown">
+                <a href="#">Activities ▾</a>
+                <ul class="dropdown-content">
+                    <li><a href="arts.html">Arts & Sciences</a></li>
+                    <li><a href="martial.html">Martial Activities</a></li>
+                </ul>
+            </li>
+            <li><a href="feast.html">Feast</a></li>
+            <li><a href="staff.html">Staff</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-wrapper">
+        <h1>Arts & Sciences</h1>
+
+        <div class="info-card">
+            <p>Martinmas is an ancient European harvest festival honoring St. Martin of Tours. Throughout the Middle Ages and up to the early-modern period, this feast marked the end of the harvest season and the beginning of winter. We ask our artisans to join us in celebration by bringing forth a project inspired by the life of St. Martin or the traditions of Martinmas.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>Thematic Challenges</h2>
+            <p><strong>The Cloak of Charity:</strong> St. Martin used his sword to cut his vibrant red cloak in half to share warmth with a beggar. Create an item in a rich red fabric.</p>
+            <p><strong>The Illumination:</strong> Martinmas is a time to bring light to the coming winter. Create a light source—an ancient lamp, a humble candle, or a handcrafted lantern.</p>
+            <p><strong>The Harvest Feast:</strong> The harvest is in; prepare a tasty offering worthy of giving thanks during this European Thanksgiving.</p>
+        </div>
+
+        <div class="info-card">
+            <h2>General Guidelines</h2>
+            <p>Documentation is appreciated but not required. If you are providing an edible entry, please at the least, provide an ingredient list to allow our friends to avoid allergens.</p>
+            <p><strong>Coming Soon:</strong> Details are also coming on a brewing challenge. Martinmas is celebrated as the time to taste newly made wines and beverages!</p>
+        </div>
+
+        <div class="info-card">
+            <h2>Open Display</h2>
+            <p>We will have dedicated space for an open display of all manner of period craft. Share your passion with us—no judgement required!</p>
+        </div>
+    </div>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <nav class="footer-nav">
+            <a href="https://salesberieglen.atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Salesberie Glen Home</a>
+            <a href="https://sacredstone.atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Baronial Home</a>
+            <a href="https://atlantia.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">Kingdom Home</a>
+            <a href="https://www.sca.org/" class="btn-footer" target="_blank" rel="noopener noreferrer">SCA Home</a>
+            <a href="contact.html" class="btn-footer">Contact Us</a>
+        </nav>
+        <div class="footer-legal">
+            <p>Copyright &copy; 2026 Canton of Salesberie Glen, Barony of the Sacred Stone, SCA Inc.</p>
+        </div>
+    </div>
+</footer>
+
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                // Toggles the panel visibility
+                navLinks.classList.toggle('active');
+                // Optional: Toggles the hamburger lines into an 'X'
+                mobileMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</body>
+</html>
