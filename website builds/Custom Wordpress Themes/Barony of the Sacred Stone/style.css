@@ -1,0 +1,1198 @@
+/*
+Theme Name: Barony of the Sacred Stone Minimalist
+Theme URI: https://sacredstone.atlantia.sca.org/
+Description: A hand-crafted, high-performance archival theme built for the Barony of the Sacred Stone.
+Version: 0.1.0
+Author: SCA Webministry
+Text Domain: sacred-stone
+*/
+
+/* --- 1. Global Reset & Variables --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --baronial-green: #004d26;
+    --baronial-gold: #d4af37;
+    --text-dark: #2b2b2b;
+    --bg-parchment: #F1E9D2; /* Rich Antique Ivory */
+    --border-color: #e6dfd3;
+}
+
+/* Clickable Header Banner Link */
+a.header-banner-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    background-color: #0b2219; /* Fallback deep green */
+    background-image: url('https://sacredstone.atlantia.sca.org/wp-content/uploads/2026/08/backround-scaled.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    color: var(--text-dark);
+    line-height: 1.7;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility Skip Link styling */
+.skip-link:focus {
+    background-color: var(--baronial-gold);
+    color: var(--baronial-green);
+    clip: auto !important;
+    clip-path: none !important;
+    height: auto !important;
+    left: 10px;
+    top: 10px;
+    padding: 10px 15px;
+    position: absolute !important;
+    width: auto !important;
+    z-index: 100000;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid var(--baronial-green);
+}
+
+/* --- 2. Structural Layout Containers --- */
+.container {
+    width: 100%;
+    max-width: 1510px; /* Locked mathematically to match the exact blueprint width of the banner */
+    margin: 0 auto;
+    padding: 0; /* Keeps layout lines sharp and flush against the background wallpaper */
+}
+
+/* --- 3. Header Styling --- */
+.site-header {
+    width: 100%;
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.site-header .container {
+    background-image: url('https://sacredstone.atlantia.sca.org/images/SS-header.png');
+    background-size: 100% 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 500px;
+    border-bottom: 4px solid var(--baronial-gold);
+}
+
+/* Accessible hidden text helper */
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+/* --- 4. Navigation Styling & Multi-Level Dropdowns --- */
+.navigation-wrap {
+    background: transparent; /* Lets background color fall onto the inner container */
+    margin-bottom: 0;
+}
+
+.navigation-wrap .container {
+    background-color: var(--baronial-green);
+    padding: 1rem 3rem; /* Adds padding inside the green bar so text isn't pressed against the edges */
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.main-navigation a {
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.main-navigation a:hover {
+    color: var(--baronial-gold);
+}
+
+/* Base Dropdown Setup */
+.main-navigation ul li {
+    position: relative;
+}
+
+/* 2nd-Level Sub-Menu (First Dropdown) */
+.main-navigation ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #0d3b1e; /* Dark baronial green */
+    min-width: 240px;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.35);
+}
+
+/* 3rd-Level Sub-Menu (Flies out horizontally to the RIGHT) */
+.main-navigation ul ul ul {
+    top: 0 !important;
+    left: 100% !important;
+    margin-left: 1px; /* Prevents mouse-gap flicker when transitioning */
+}
+
+/* Display 2nd-Level Dropdown on Parent Hover */
+.main-navigation ul li:hover > ul {
+    display: block;
+}
+
+/* Display 3rd-Level Fly-out on Sub-item Hover */
+.main-navigation ul ul li:hover > ul {
+    display: block;
+}
+
+/* Styling Dropdown Links */
+.main-navigation ul ul li a {
+    color: #f7f2dd !important;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+}
+
+.main-navigation ul ul li a:hover {
+    background-color: #1b5e20;
+    color: #ffffff !important;
+}
+
+/* Adds a right arrow (›) automatically to sub-menu items that have child menus */
+.main-navigation ul ul li:has(ul) > a::after {
+    content: " ›";
+    font-size: 1.1rem;
+    margin-left: 12px;
+    color: var(--baronial-gold);
+}
+
+/* --- 5. Main Content Area --- */
+.site-main {
+    background-color: var(--bg-parchment);
+    padding: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden; /* Contains wide floats and block images within the parchment box */
+}
+
+.entry-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Hide Page Title Site-Wide */
+.entry-header,
+body.home .entry-header {
+    display: none !important;
+}
+
+.entry-title {
+    font-size: 2.2rem;
+    color: var(--baronial-green);
+    font-weight: normal;
+}
+
+.entry-content p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Gutenberg block width constraints inside parchment */
+.entry-content > * {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- 6. Block Editor & Typography Styling --- */
+
+/* Styled Paragraph Links */
+.entry-content a {
+    color: var(--baronial-green);
+    text-decoration: underline;
+    text-decoration-color: var(--baronial-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.entry-content a:hover {
+    color: var(--baronial-gold);
+    text-decoration-color: var(--baronial-green);
+}
+
+/* Scroll Motto Banner Style */
+.motto-banner {
+    background-color: #f7f2e6 !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important; /* Soft rounded corners */
+    padding: 1rem 2rem !important;  /* Top/bottom and left/right padding */
+    margin: 1.5rem auto !important;
+    display: block;
+    text-align: center;
+}
+
+/* Decorative Headings */
+.entry-content h2, 
+.entry-content h3 {
+    color: var(--baronial-green);
+    font-weight: normal;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.entry-content h2 {
+    font-size: 1.8rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4rem;
+}
+
+/* Align buttons to bottom of columns */
+.wp-block-columns .wp-block-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.wp-block-columns .wp-block-buttons {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+/* Custom Archival Separator Rule */
+hr.wp-block-separator,
+.wp-block-separator {
+    border: none !important;
+    height: 3px !important;
+    background: linear-gradient(to right, transparent, var(--baronial-gold), transparent) !important;
+    margin: 2.5rem auto !important;
+    opacity: 0.8;
+}
+
+/* Callout Box / Scroll Cards */
+.wp-block-column.callout-card,
+.wp-block-group.callout-card,
+.wp-block-columns.callout-card {
+    background-color: #f7f2e6 !important; /* Slightly darker cream for card contrast */
+    border: 1px solid var(--border-color) !important;
+    border-left: 5px solid var(--baronial-green) !important;
+    padding: 1.5rem !important;
+    border-radius: 12px !important; /* Smooth rounded corners matching the motto banner */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden; /* Ensures background color respects rounded corners */
+}
+
+/* Compact spacing inside callout cards */
+.callout-card h3 {
+    margin-top: 1rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.callout-card p {
+    margin-bottom: 0.75rem !important;
+}
+
+/* Ensure the very first heading in the card aligns flush top */
+.callout-card > *:first-child {
+    margin-top: 0 !important;
+}
+
+/* Force Buttons to Stack Vertically Inside Columns */
+.wp-block-buttons.is-vertical,
+.wp-block-buttons.vertical-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    margin-top: 0.5rem !important; /* Pulls buttons directly up against heading */
+}
+
+.wp-block-buttons.is-vertical .wp-block-button,
+.wp-block-buttons.vertical-stack .wp-block-button {
+    width: 100% !important;
+    max-width: 280px;
+}
+
+.wp-block-buttons.is-vertical .wp-block-button__link,
+.wp-block-buttons.vertical-stack .wp-block-button__link {
+    text-align: center;
+    width: 100% !important;
+}
+
+/* Add Gap Between Horizontal Buttons */
+.wp-block-buttons:not(.is-vertical):not(.vertical-stack) {
+    gap: 2.0rem !important;
+}
+
+/* Native WordPress Buttons */
+.wp-block-button__link {
+    background-color: var(--baronial-green) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--baronial-gold) !important;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px !important; /* Smooth pill-rounded edges */
+    transition: all 0.2s ease !important;
+}
+
+.wp-block-button__link:hover {
+    background-color: var(--baronial-gold) !important;
+    color: var(--baronial-green) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove Extra Heading Bottom Spacing inside Tight Columns */
+.wp-block-column .entry-content h2,
+.wp-block-column h2 {
+    margin-bottom: 0.5rem !important;
+}
+
+/* Archival Blockquotes */
+blockquote, 
+.wp-block-quote {
+    border-left: 4px solid var(--baronial-gold);
+    background-color: rgba(212, 175, 55, 0.07);
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    font-style: italic;
+    color: #3d3d3d;
+}
+
+/* Responsive Block Media */
+.entry-content img,
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 2px;
+}
+
+/* Image Frames (Archival Gold Border Style Option) */
+.wp-block-image.is-style-bordered img,
+.entry-content img.framed {
+    border: 3px solid var(--baronial-gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Column Block Spacing */
+.wp-block-columns {
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Uniform Callout Card Image Sizing (Excludes full portrait images AND officer cards) */
+.callout-card:not(.officer-card) img:not(.coronet-photo img):not(.coronet-photo),
+.wp-block-column:not(.officer-card) .wp-block-image:not(.coronet-photo) img {
+    width: 100% !important;
+    height: 273px !important;
+    object-fit: cover !important; /* Crops standard card images cleanly without stretching */
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+/* Natural Aspect Ratio for Coronet Portrait & Custom Photos */
+.coronet-photo,
+.coronet-photo img,
+figure.wp-block-image.coronet-photo img,
+.callout-card .coronet-photo img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important; /* Overrides the 273px lock */
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    border-radius: 8px;
+}
+
+/* Clean Drop Cap Scaling */
+.has-drop-cap:not(:focus)::first-letter {
+    font-size: 3.5rem !important;
+    line-height: 0.8 !important;
+    margin-right: 0.5rem !important;
+    color: var(--baronial-green) !important;
+}
+
+/* Restore List Indentation */
+.entry-content ul,
+.entry-content ol {
+    margin-left: 2rem !important;
+    padding-left: 1rem !important;
+    margin-bottom: 1.5rem;
+}
+
+.entry-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Full-Width Embeds Inside Cards */
+.callout-card .wp-block-embed,
+.callout-card iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+}
+
+/* Custom Calendar Tabs Styling */
+.calendar-tab-container {
+    background-color: #2b2b2b;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 20px;
+}
+
+.calendar-tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+    justify-content: center;
+}
+
+.cal-tab-btn {
+    background-color: #3d3d3d;
+    color: #f7f2dd;
+    border: none;
+    padding: 8px 16px;
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.cal-tab-btn:hover {
+    background-color: #1b5e20;
+    color: #ffffff;
+}
+
+.cal-tab-btn.active {
+    background-color: #1b5e20 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.cal-tab-content {
+    display: none;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* --- Centered Medallion Award Card Layout --- */
+
+/* Force Media & Text container into a row flexbox with vertical centering */
+.award-card .wp-block-media-text,
+.callout-card.award-card .wp-block-media-text,
+.wp-block-column.award-card .wp-block-media-text {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important; /* Centers medallion vertically relative to text block */
+    justify-content: flex-start !important;
+    gap: 1.25rem !important;
+    height: 100% !important;
+}
+
+/* Fixed-width container for the medallion image */
+.award-card .wp-block-media-text__media,
+.callout-card.award-card .wp-block-media-text__media {
+    flex: 0 0 110px !important; /* Locks left column width strictly to 110px */
+    width: 110px !important;
+    max-width: 110px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    align-self: center !important; /* Ensures the wrapper itself centers vertically */
+}
+
+/* Enforce strict round medallion dimensions with zero distortion */
+.award-card .wp-block-media-text__media img,
+.award-card img,
+.callout-card.award-card img {
+    width: 110px !important;
+    height: 110px !important;
+    max-width: 110px !important;
+    max-height: 110px !important;
+    min-width: 110px !important;
+    min-height: 110px !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
+    border-radius: 50% !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* Right text container fills remaining space and aligns text */
+.award-card .wp-block-media-text__content,
+.callout-card.award-card .wp-block-media-text__content {
+    flex: 1 1 auto !important;
+    padding: 0 !important;
+    text-align: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+/* Uniform card container flex matching */
+.wp-block-column.award-card,
+.wp-block-group.award-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+/* --- Strict Uniformity for 3-Column Officer Cards --- */
+
+/* Equalize parent column height across rows */
+.wp-block-columns .wp-block-column.officer-card,
+.wp-block-columns .callout-card.officer-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+/* Outer Media & Text Container Lock */
+.officer-card .wp-block-media-text,
+.callout-card.officer-card .wp-block-media-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+/* 1. Badge Image Container & Roundel Lock */
+.officer-card .wp-block-media-text__media,
+.callout-card.officer-card .wp-block-media-text__media {
+    width: 90px !important;
+    height: 90px !important;
+    max-width: 90px !important;
+    max-height: 90px !important;
+    flex: 0 0 90px !important;
+    margin: 0 auto 0.75rem auto !important;
+    padding: 0 !important;
+}
+
+.officer-card .wp-block-media-text__media img,
+.officer-card img,
+.callout-card.officer-card img {
+    width: 90px !important;
+    height: 90px !important;
+    max-width: 90px !important;
+    max-height: 90px !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* Content Container Flex Layout */
+.officer-card .wp-block-media-text__content,
+.callout-card.officer-card .wp-block-media-text__content {
+    width: 100% !important;
+    padding: 0 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 0 auto !important;
+}
+
+/* 2. Office Title Block */
+.officer-card h3,
+.officer-card .wp-block-media-text__content h3 {
+    margin-top: 0 !important;
+    margin-bottom: 0.75rem !important;
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+    min-height: 2.8rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 3. Description Block (Equalized height forces names & emails to lock horizontal lines) */
+.officer-card .wp-block-media-text__content p:first-of-type {
+    min-height: 190px !important;
+    margin-bottom: 1rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    display: block !important;
+}
+
+/* 4. Name / Vacant Line (Pushed to bottom baseline) */
+.officer-card .wp-block-media-text__content p:nth-of-type(2) {
+    margin-top: auto !important;
+    margin-bottom: 0.4rem !important;
+    font-size: 1.05rem !important;
+    font-weight: bold !important;
+    color: var(--text-dark) !important;
+}
+
+/* 5. Email Link */
+.officer-card a[href^="mailto:"],
+.callout-card.officer-card a[href^="mailto:"] {
+    display: block !important;
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
+    color: var(--baronial-green) !important;
+    line-height: 1.3 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    margin-bottom: 0.25rem !important;
+}
+
+/* Direct style for native HTML details summary and plugin headers */
+details > summary,
+.wp-block-details > summary,
+.kt-blocks-accordion-header,
+.uagb-faq-questions-button,
+.gb-accordion-title {
+    font-size: 1.75rem !important;
+    font-weight: bold !important;
+    line-height: 1.3 !important;
+}
+
+/* Enlarges the disclosure arrow indicator to match */
+details > summary::marker {
+    font-size: 1.25rem !important;
+}
+
+/* --- Baronial Champions Card Grid & History Accordions --- */
+
+/* Grid container for current champions */
+/* 3-Column Champions Grid Desktop Layout */
+.champions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+/* Responsive collapse for tablets & mobile */
+@media (max-width: 992px) {
+    .champions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .champions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Current Champion Card (matches site callout-card aesthetic) */
+.champion-card {
+    background-color: #f7f2e6 !important;
+    border: 1px solid var(--border-color) !important;
+    border-left: 5px solid var(--baronial-gold) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Badge Roundel Container */
+.champion-badge-wrapper {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--baronial-gold);
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.champion-badge-wrapper img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* <--- Change this line */
+    border-radius: 50% !important;
+}
+
+.champion-title {
+    font-size: 1.3rem;
+    color: var(--baronial-green);
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+    font-weight: normal;
+}
+
+.champion-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 0.2rem;
+}
+
+.champion-date {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #555555;
+    margin-bottom: 0.75rem;
+}
+
+.champion-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0 !important;
+}
+
+/* Champions History Accordion Tables */
+.history-section {
+    margin-top: 2.5rem;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.history-table th, 
+.history-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-table th {
+    background-color: rgba(212, 175, 55, 0.15);
+    color: var(--baronial-green);
+    font-weight: bold;
+}
+
+.history-table tr:hover td {
+    background-color: rgba(212, 175, 55, 0.05);
+}
+
+/* Clean History Table - Borderless & Zebra Striped */
+.entry-content table.is-style-stripes,
+.entry-content .wp-block-table table,
+.history-table {
+    border: none !important;
+    border-collapse: collapse !important;
+}
+
+/* Remove all inner cell borders */
+.entry-content table.is-style-stripes td,
+.entry-content table.is-style-stripes th,
+.entry-content .wp-block-table td,
+.entry-content .wp-block-table th,
+.history-table td,
+.history-table th {
+    border: none !important;
+    padding: 0.85rem 1.25rem !important;
+}
+
+/* Header Row Styling */
+.entry-content .wp-block-table th,
+.history-table th {
+    background-color: var(--baronial-green) !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+}
+
+/* Alternating Row Colors (Zebra Striping) */
+.entry-content .wp-block-table tr:nth-child(odd) td,
+.history-table tr:nth-child(odd) td {
+    background-color: #f7f2e6 !important; /* Soft parchment tint */
+}
+
+.entry-content .wp-block-table tr:nth-child(even) td,
+.history-table tr:nth-child(even) td {
+    background-color: #fcfaf5 !important; /* Very light ivory tint */
+}
+
+/* Subtle hover highlight */
+.entry-content .wp-block-table tr:hover td,
+.history-table tr:hover td {
+    background-color: rgba(212, 175, 55, 0.18) !important; /* Gold highlight */
+}
+
+/* Open child submenus to the left for items tagged .flyout-left */
+.nav-menu li.flyout-left ul,
+.main-navigation li.flyout-left ul {
+    left: auto !important;
+    right: 100% !important;
+}
+
+/* --- 7. Footer Styling --- */
+.site-footer {
+    max-width: 1510px; /* Locked mathematically to match container width */
+    margin: 3rem auto 0 auto; /* Centers the footer box on the page */
+    background-color: rgba(18, 22, 20, 0.85); /* Dark charcoal/black tint */
+    border-top: 2px solid var(--baronial-gold); /* Gold rule spanning full parchment width */
+    border-bottom-left-radius: 12px;  /* Smooth bottom corners */
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    padding: 2.5rem 3rem 5rem 3rem; /* Matches 3rem horizontal padding of main content */
+    color: #e0dacb;
+}
+
+/* Reset inner container so it doesn't add extra side margins */
+.site-footer .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Desktop Grid: Col 1 (1 part), Col 2 (230px fixed), Col 3 (takes remaining space) */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 230px 2.5fr;
+    gap: 2.5rem;
+    padding: 0;
+    align-items: start;
+}
+
+.footer-col {
+    width: 100%;
+}
+
+.footer-heading {
+    color: var(--baronial-gold);
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-col p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    color: #e0dacb;
+}
+
+.footer-col a {
+    color: var(--baronial-gold);
+    text-decoration: underline;
+    text-decoration-color: var(--baronial-gold);
+    transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+    color: #ffffff;
+}
+
+/* Social & Community Links Column */
+.footer-social-links {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.footer-social-links li {
+    margin-bottom: 0.6rem !important;
+}
+
+.footer-social-links a {
+    color: #e0dacb !important;
+    text-decoration: none !important;
+    font-size: 0.95rem !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-social-links a:hover {
+    color: var(--baronial-gold) !important;
+    text-decoration: underline !important;
+}
+
+.sca-disclaimer {
+    color: #ccc5b5;
+    font-size: 0.85rem;
+}
+
+.webminister-credit {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #ccc5b5;
+}
+
+.footer-col .policy-notice {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #b8b0a0;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.copyright-line {
+    margin-top: 1rem;
+    color: #b8b0a0;
+    font-size: 0.8rem;
+}
+
+.back-to-top {
+    font-weight: bold;
+    color: var(--baronial-gold) !important;
+    text-decoration: none !important;
+}
+
+.back-to-top:hover {
+    text-decoration: underline !important;
+}
+
+.footer-badge {
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+/* --- 8. Mobile Responsiveness & Hamburger Menu --- */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #ffffff;
+}
+
+.hamburger-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .site-header .container {
+        height: 220px;
+        background-size: cover;
+    }
+
+    .site-main {
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .navigation-wrap .container {
+        padding: 0.75rem 1rem;
+        position: relative;
+    }
+
+    .callout-card:not(.officer-card) img:not(.coronet-photo img):not(.coronet-photo),
+    .wp-block-column:not(.officer-card) .wp-block-image:not(.coronet-photo) img {
+        height: auto !important;
+        max-height: 300px;
+        object-fit: contain !important;
+    }
+
+    .main-navigation {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .menu-toggle {
+        display: block; /* Show hamburger button on mobile screens */
+    }
+    
+    .champions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+
+    /* Force the menu list to be hidden completely by default on mobile */
+    .main-navigation ul#primary-menu {
+        display: none !important;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--baronial-green);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 9999;
+    }
+
+    /* Only display the menu when JavaScript adds the active class */
+    .main-navigation ul#primary-menu.active {
+        display: flex !important;
+    }
+
+    .main-navigation ul#primary-menu li {
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Adjust sub-menus for mobile view */
+    .main-navigation ul ul {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        box-shadow: none !important;
+        background-color: rgba(0,0,0,0.1) !important;
+        padding-left: 1rem !important;
+    }
+
+    /* Stack footer columns vertically on small screens */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1.5rem;
+    }
+
+    /* Unlock image height constraints for maps and cards on mobile */
+    .callout-card img,
+    .wp-block-column .wp-block-image img {
+        height: auto !important;
+        max-height: none !important;
+        object-fit: contain !important;
+    }
+
+    /* Make calendar embeds larger and fully responsive on mobile */
+    .callout-card iframe,
+    .entry-content iframe,
+    iframe[src*="calendar.google.com"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        height: 650px !important; /* Larger height so events are easily readable */
+    }
+
+    /* Reduce outer card padding on mobile so the calendar gets maximum width */
+    .wp-block-column.callout-card,
+    .wp-block-group.callout-card,
+    .wp-block-columns.callout-card {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    /* Stack calendar filter tabs neatly on mobile */
+    .calendar-tab-buttons {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .cal-tab-btn {
+        width: 100% !important;
+        text-align: center !important;
+    }
+}
+
+/* ==========================================================================
+   Archival Search Form Styling
+   ========================================================================== */
+
+/* Outer form wrapper */
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 500px;
+    margin: 1.5rem auto;
+}
+
+/* Search Input Field */
+.search-form .search-field,
+.search-form input[type="search"] {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-family: "Georgia", serif;
+    color: var(--text-dark);
+    background-color: #ffffff;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-form .search-field:focus,
+.search-form input[type="search"]:focus {
+    border-color: var(--baronial-green);
+    box-shadow: 0 0 8px rgba(0, 77, 38, 0.25);
+}
+
+/* Search Submit Button */
+.search-form .search-submit,
+.search-form input[type="submit"] {
+    background-color: var(--baronial-green);
+    color: #ffffff;
+    border: 1px solid var(--baronial-gold);
+    font-family: "Georgia", serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8rem 1.6rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-form .search-submit:hover,
+.search-form input[type="submit"]:hover {
+    background-color: var(--baronial-gold);
+    color: var(--baronial-green);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
