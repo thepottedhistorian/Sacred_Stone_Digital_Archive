@@ -1,0 +1,759 @@
+/*
+Theme Name: Canton of Middlegate Minimalist
+Theme URI: https://middlegate.atlantia.sca.org/
+Description: A hand-crafted, high-performance archival theme built for the Canton of Middlegate.
+Version: 0.1.0
+Author: SCA Webministry
+Text Domain: canton-middlegate
+*/
+
+/* --- 1. Global Reset & Variables --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --middlegate-red: #8B0000;    /* Deep heraldic red from the portcullis */
+    --middlegate-gold: #D4AF37;   /* Rich gold from the shield field */
+    --text-dark: #2b2b2b;
+    --bg-parchment: #F1E9D2;      /* Antique parchment ivory */
+    --border-color: #e6dfd3;
+}
+
+/* Clickable Header Banner Link */
+a.header-banner-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    background-color: #2b1212; /* Fallback deep tone */
+    background-image: url('http://middlegate.atlantia.sca.local/wp-content/uploads/2026/08/backround-scaled.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    color: var(--text-dark);
+    line-height: 1.7;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility Skip Link styling */
+.skip-link:focus {
+    background-color: var(--middlegate-gold);
+    color: var(--middlegate-red);
+    clip: auto !important;
+    clip-path: none !important;
+    height: auto !important;
+    left: 10px;
+    top: 10px;
+    padding: 10px 15px;
+    position: absolute !important;
+    width: auto !important;
+    z-index: 100000;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid var(--middlegate-red);
+}
+
+/* --- 2. Structural Layout Containers --- */
+.container {
+    width: 100%;
+    max-width: 1510px; /* Locked mathematically to match the exact blueprint width of the banner */
+    margin: 0 auto;
+    padding: 0; /* Keeps layout lines sharp and flush against the background wallpaper */
+}
+
+/* --- 3. Header Styling --- */
+.site-header {
+    width: 100%;
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.site-header .container {
+    background-image: url('https://middlegate.atlantia.sca.org/Images/middlegate header.png');
+    background-size: 100% 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 500px;
+    border-bottom: 4px solid var(--middlegate-gold);
+}
+
+/* Accessible hidden text helper */
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+/* --- 4. Navigation Styling & Multi-Level Dropdowns --- */
+.navigation-wrap {
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.navigation-wrap .container {
+    background-color: var(--middlegate-red);
+    padding: 1rem 3rem;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.main-navigation a {
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.main-navigation a:hover {
+    color: var(--middlegate-gold);
+}
+
+/* Base Dropdown Setup */
+.main-navigation ul li {
+    position: relative;
+}
+
+/* 2nd-Level Sub-Menu (First Dropdown) */
+.main-navigation ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #5c0000;
+    min-width: 240px;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.35);
+}
+
+/* 3rd-Level Sub-Menu */
+.main-navigation ul ul ul {
+    top: 0 !important;
+    left: 100% !important;
+    margin-left: 1px;
+}
+
+/* Display Dropdowns on Hover */
+.main-navigation ul li:hover > ul {
+    display: block;
+}
+
+.main-navigation ul ul li:hover > ul {
+    display: block;
+}
+
+/* Styling Dropdown Links */
+.main-navigation ul ul li a {
+    color: #f7f2dd !important;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+}
+
+.main-navigation ul ul li a:hover {
+    background-color: #730000;
+    color: #ffffff !important;
+}
+
+.main-navigation ul ul li:has(ul) > a::after {
+    content: " ›";
+    font-size: 1.1rem;
+    margin-left: 12px;
+    color: var(--middlegate-gold);
+}
+
+/* --- 5. Main Content Area --- */
+.site-main {
+    background-color: var(--bg-parchment);
+    padding: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.entry-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.entry-header,
+body.home .entry-header {
+    display: none !important;
+}
+
+.entry-title {
+    font-size: 2.2rem;
+    color: var(--middlegate-red);
+    font-weight: normal;
+}
+
+.entry-content p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.entry-content > * {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- 6. Block Editor & Typography Styling --- */
+.entry-content a {
+    color: var(--middlegate-red);
+    text-decoration: underline;
+    text-decoration-color: var(--middlegate-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.entry-content a:hover {
+    color: var(--middlegate-gold);
+    text-decoration-color: var(--middlegate-red);
+}
+
+.motto-banner {
+    background-color: #f7f2e6 !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    padding: 1rem 2rem !important;
+    margin: 1.5rem auto !important;
+    display: block;
+    text-align: center;
+}
+
+.entry-content h2, 
+.entry-content h3 {
+    color: var(--middlegate-red);
+    font-weight: normal;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.entry-content h2 {
+    font-size: 1.8rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4rem;
+}
+
+.wp-block-columns .wp-block-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.wp-block-columns .wp-block-buttons {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+hr.wp-block-separator,
+.wp-block-separator {
+    border: none !important;
+    height: 3px !important;
+    background: linear-gradient(to right, transparent, var(--middlegate-gold), transparent) !important;
+    margin: 2.5rem auto !important;
+    opacity: 0.8;
+}
+
+.wp-block-column.callout-card,
+.wp-block-group.callout-card,
+.wp-block-columns.callout-card {
+    background-color: #f7f2e6 !important;
+    border: 1px solid var(--border-color) !important;
+    border-left: 5px solid var(--middlegate-red) !important;
+    padding: 1.5rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden;
+}
+
+.callout-card h3 {
+    margin-top: 1rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.callout-card p {
+    margin-bottom: 0.75rem !important;
+}
+
+.callout-card > *:first-child {
+    margin-top: 0 !important;
+}
+
+.wp-block-buttons.is-vertical,
+.wp-block-buttons.vertical-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    margin-top: 0.5rem !important;
+}
+
+.wp-block-buttons.is-vertical .wp-block-button,
+.wp-block-buttons.vertical-stack .wp-block-button {
+    width: 100% !important;
+    max-width: 280px;
+}
+
+.wp-block-buttons.is-vertical .wp-block-button__link,
+.wp-block-buttons.vertical-stack .wp-block-button__link {
+    text-align: center;
+    width: 100% !important;
+}
+
+.wp-block-buttons:not(.is-vertical):not(.vertical-stack) {
+    gap: 2.0rem !important;
+}
+
+.wp-block-button__link {
+    background-color: var(--middlegate-red) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--middlegate-gold) !important;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px !important;
+    transition: all 0.2s ease !important;
+}
+
+.wp-block-button__link:hover {
+    background-color: var(--middlegate-gold) !important;
+    color: var(--middlegate-red) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.wp-block-column .entry-content h2,
+.wp-block-column h2 {
+    margin-bottom: 0.5rem !important;
+}
+
+blockquote, 
+.wp-block-quote {
+    border-left: 4px solid var(--middlegate-gold);
+    background-color: rgba(212, 175, 55, 0.07);
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    font-style: italic;
+    color: #3d3d3d;
+}
+
+.entry-content img,
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 2px;
+}
+
+.wp-block-image.is-style-bordered img,
+.entry-content img.framed {
+    border: 3px solid var(--middlegate-gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.wp-block-columns {
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.callout-card:not(.officer-card) img:not(.coronet-photo img):not(.coronet-photo),
+.wp-block-column:not(.officer-card) .wp-block-image:not(.coronet-photo) img {
+    width: 100% !important;
+    height: 273px !important;
+    object-fit: cover !important;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.coronet-photo,
+.coronet-photo img,
+figure.wp-block-image.coronet-photo img,
+.callout-card .coronet-photo img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    border-radius: 8px;
+}
+
+.has-drop-cap:not(:focus)::first-letter {
+    font-size: 3.5rem !important;
+    line-height: 0.8 !important;
+    margin-right: 0.5rem !important;
+    color: var(--middlegate-red) !important;
+}
+
+.entry-content ul,
+.entry-content ol {
+    margin-left: 2rem !important;
+    padding-left: 1rem !important;
+    margin-bottom: 1.5rem;
+}
+
+.entry-content li {
+    margin-bottom: 0.5rem;
+}
+
+.callout-card .wp-block-embed,
+.callout-card iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+}
+
+/* --- Footer Styling --- */
+.site-footer {
+    max-width: 1510px;
+    margin: 3rem auto 0 auto;
+    background-color: rgba(18, 14, 14, 0.85);
+    border-top: 2px solid var(--middlegate-gold);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    padding: 2.5rem 3rem 5rem 3rem;
+    color: #e0dacb;
+}
+
+.site-footer .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 230px 2.5fr;
+    gap: 2.5rem;
+    padding: 0;
+    align-items: start;
+}
+
+.footer-col {
+    width: 100%;
+}
+
+.footer-heading {
+    color: var(--middlegate-gold);
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-col p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    color: #e0dacb;
+}
+
+.footer-col a {
+    color: var(--middlegate-gold);
+    text-decoration: underline;
+    text-decoration-color: var(--middlegate-gold);
+    transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+    color: #ffffff;
+}
+
+.footer-social-links {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.footer-social-links li {
+    margin-bottom: 0.6rem !important;
+}
+
+.footer-social-links a {
+    color: #e0dacb !important;
+    text-decoration: none !important;
+    font-size: 0.95rem !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-social-links a:hover {
+    color: var(--middlegate-gold) !important;
+    text-decoration: underline !important;
+}
+
+.sca-disclaimer {
+    color: #ccc5b5;
+    font-size: 0.85rem;
+}
+
+.webminister-credit {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #ccc5b5;
+}
+
+.footer-col .policy-notice {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #b8b0a0;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.copyright-line {
+    margin-top: 1rem;
+    color: #b8b0a0;
+    font-size: 0.8rem;
+}
+
+.back-to-top {
+    font-weight: bold;
+    color: var(--middlegate-gold) !important;
+    text-decoration: none !important;
+}
+
+.back-to-top:hover {
+    text-decoration: underline !important;
+}
+
+.footer-badge {
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+/* --- Mobile Responsiveness --- */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #ffffff;
+}
+
+.hamburger-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .site-header .container {
+        height: 220px;
+        background-size: cover;
+    }
+
+    .site-main {
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .navigation-wrap .container {
+        padding: 0.75rem 1rem;
+        position: relative;
+    }
+
+    .main-navigation {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-navigation ul#primary-menu {
+        display: none !important;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--middlegate-red);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 9999;
+    }
+
+    .main-navigation ul#primary-menu.active {
+        display: flex !important;
+    }
+
+    .main-navigation ul#primary-menu li {
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .main-navigation ul ul {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        box-shadow: none !important;
+        background-color: rgba(0,0,0,0.1) !important;
+        padding-left: 1rem !important;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1.5rem;
+    }
+}
+
+/* --- Archival Search Form --- */
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 500px;
+    margin: 1.5rem auto;
+}
+
+.search-form .search-field,
+.search-form input[type="search"] {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-family: "Georgia", serif;
+    color: var(--text-dark);
+    background-color: #ffffff;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-form .search-field:focus,
+.search-form input[type="search"]:focus {
+    border-color: var(--middlegate-red);
+    box-shadow: 0 0 8px rgba(139, 0, 0, 0.25);
+}
+
+.search-form .search-submit,
+.search-form input[type="submit"] {
+    background-color: var(--middlegate-red);
+    color: #ffffff;
+    border: 1px solid var(--middlegate-gold);
+    font-family: "Georgia", serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8rem 1.6rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-form .search-submit:hover,
+.search-form input[type="submit"]:hover {
+    background-color: var(--middlegate-gold);
+    color: var(--middlegate-red);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Custom Calendar Tabs Styling --- */
+.calendar-tab-container {
+    background-color: #2b1212; /* Matches Middlegate dark framing */
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.calendar-tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+    justify-content: center;
+}
+
+.cal-tab-btn {
+    background-color: #3d1a1a;
+    color: var(--middlegate-gold);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 8px 16px;
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cal-tab-btn:hover {
+    background-color: var(--middlegate-red);
+    color: #ffffff;
+}
+
+.cal-tab-btn.active {
+    background-color: var(--middlegate-red) !important;
+    color: #ffffff !important;
+    border-color: var(--middlegate-gold) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.cal-tab-content {
+    display: none;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+}
