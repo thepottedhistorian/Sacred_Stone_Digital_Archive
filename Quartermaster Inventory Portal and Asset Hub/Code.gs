@@ -7,7 +7,7 @@
  * ==============================================================================
  */
 
-
+// force auth update
 /* ============================================================================
  * SECTION 1 — HTML ENTRYPOINT & ROUTING
  * ============================================================================
@@ -282,43 +282,79 @@ function submitCheckoutRequest(requestData) {
       logSheet = ss.insertSheet('Checkout Log');
       logSheet.appendRow([
         "Timestamp", "SCA Name", "Legal Name", "Email", 
-        "Sponsoring Group", "Event/Purpose", "Item ID", "Quantity", 
+        "Sponsoring Group", "Event/Purpose", "Item ID", "Item Name", "Quantity", 
         "Pickup Date", "Expected Return", "Status"
       ]);
     }
+
+    // Look up Master Inventory to get Item Name and Available Quantity at time of request
+    const masterSheet = ss.getSheetByName("Master Inventory");
+    let itemName = requestData.itemId;
+    let availableQty = "Unknown";
+    
+    if (masterSheet) {
+      const data = masterSheet.getDataRange().getValues();
+      for (let i = 1; i < data.length; i++) {
+        if (String(data[i][0]).trim() === String(requestData.itemId).trim()) {
+          itemName = data[i][1] ? String(data[i][1]).trim() : requestData.itemId;
+          const total = Number(data[i][6]) || 1;
+          const signedOut = Number(data[i][7]) || 0;
+          availableQty = Math.max(0, total - signedOut);
+          break;
+        }
+      }
+    }
+
+    // Get URL of the Checkout Log tab
+    const sheetId = ss.getId();
+    const logSheetId = logSheet.getSheetId();
+    const logTabUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=${logSheetId}`;
 
     logSheet.appendRow([
       new Date(),
       requestData.scaName,
       requestData.legalName,
       requestData.email,
-      requestData.group || "N/A",
+      "N/A",
       requestData.event,
       requestData.itemId,
+      itemName,
       requestData.quantity || 1,
       requestData.eventDate,
-      requestData.returnDate || "N/A",
+      "N/A",
       "Pending Approval"
     ]);
 
-    const quartermasterEmail = "quartermaster@sacredstone.atlantia.sca.org"; 
-    const subject = `[Quartermaster Request] ${requestData.itemId} — ${requestData.scaName}`;
+    const quartermasterEmail = "quartermaster@sacredstone.atlantia.sca.org";
+    const exchequerEmail = "exchequer@sacredstone.atlantia.sca.org";
+    const webministerEmail = "webminister@sacredstone.atlantia.sca.org";
+
+    const subject = `[Quartermaster Request] ${requestData.itemId} (${itemName}) — ${requestData.scaName}`;
 
     const qmBody = 
-      `Greetings Quartermaster,\n\n` +
+      `Greetings Officers,\n\n` +
       `A new baronial inventory checkout request has been submitted:\n\n` +
-      `• Item ID: ${requestData.itemId}\n` +
+      `• Item ID & Name: ${requestData.itemId} — ${itemName}\n` +
+      `• Available in Storage at Request: ${availableQty} unit(s)\n` +
+      `• Requested Quantity: ${requestData.quantity}\n` +
       `• SCA Name: ${requestData.scaName}\n` +
       `• Legal Name: ${requestData.legalName}\n` +
       `• Contact Email: ${requestData.email}\n` +
+      `• Phone: ${requestData.phone}\n` +
       `• Event / Location: ${requestData.event}\n` +
-      `• Date of Event: ${requestData.eventDate}\n\n` +
-      `Please review and process this request in the Checkout Log.\n\n` +
+      `• Date of Event: ${requestData.eventDate}\n` +
+      `• Special Notes: ${requestData.notes}\n\n` +
+      `Policy Confirmations:\n` +
+      `[ ✔ ] Confirmed reading Baronial Policies: https://sacredstone.atlantia.sca.org/baronial-policy/\n` +
+      `[ ✔ ] Confirmed reading Kingdom Exchequer / Branch Policies: https://exchequer.atlantia.sca.org/branchpolicy.php#SacredStone\n\n` +
+      `View Checkout Log: ${logTabUrl}\n\n` +
+      `Please review and process this request.\n\n` +
       `In Service,\n` +
       `Barony of the Sacred Stone Quartermaster System`;
 
     MailApp.sendEmail({
-      to: quartermasterEmail,
+      to: `${quartermasterEmail}, ${exchequerEmail}`,
+      cc: webministerEmail,
       subject: subject,
       body: qmBody
     });
@@ -326,12 +362,15 @@ function submitCheckoutRequest(requestData) {
     if (requestData.email) {
       const requesterBody = 
         `Unto ${requestData.scaName},\n\n` +
-        `Thank you for submitting a checkout request for Baronial inventory item ${requestData.itemId}.\n\n` +
+        `Thank you for submitting a checkout request for Baronial inventory item ${requestData.itemId} — ${itemName} (Qty: ${requestData.quantity}).\n\n` +
         `Request Details:\n` +
         `• Event/Purpose: ${requestData.event}\n` +
         `• Requested Date: ${requestData.eventDate}\n` +
-        `• Status: Pending Quartermaster Approval\n\n` +
-        `Your request has been logged and routed to the Baronial Quartermaster for review.\n\n` +
+        `• Status: Pending Quartermaster & Exchequer Approval\n\n` +
+        `Policy Acknowledgements:\n` +
+        `• Baronial Policies: https://sacredstone.atlantia.sca.org/baronial-policy/\n` +
+        `• Branch Financial Policies: https://exchequer.atlantia.sca.org/branchpolicy.php#SacredStone\n\n` +
+        `Your request has been logged and routed to the Baronial officers for review.\n\n` +
         `In Service,\n` +
         `Barony of the Sacred Stone Quartermaster Office`;
 
@@ -344,7 +383,7 @@ function submitCheckoutRequest(requestData) {
 
     return { 
       success: true, 
-      message: "Checkout request logged successfully. Confirmation emails sent to borrower and Quartermaster." 
+      message: "Checkout request logged successfully. Confirmation emails sent." 
     };
 
   } catch (err) {
