@@ -4,15 +4,22 @@
  * MODULE:      Master Inventory Synchronizer & Portal Controller (`Code.gs`)
  * PURPOSE:     Consolidates category inventory sheets into "Master Inventory",
  *              handles rich-text/URLs, serves Web App, and logs checkout requests.
+ * AUTHOR:      SCA Webministry / Quartermaster Office
  * ==============================================================================
  */
 
-// force auth update
 /* ============================================================================
  * SECTION 1 — HTML ENTRYPOINT & ROUTING
  * ============================================================================
  */
 
+/**
+ * Serves the primary single-page web app for the Quartermaster Portal.
+ * Sets title, responsive viewport, and iframe permissions.
+ * 
+ * @param {Object} e - Event parameters passed by Google Web App engine.
+ * @return {HtmlOutput} Rendered HTML page or error interface.
+ */
 function doGet(e) {
   try {
     return HtmlService.createHtmlOutputFromFile('Index')
@@ -32,18 +39,36 @@ function doGet(e) {
  * ============================================================================
  */
 
+/**
+ * Validates whether a given string is formatted as an HTTP/HTTPS or WWW web link.
+ * 
+ * @param {string} text - Raw text string to validate.
+ * @return {boolean} True if string matches URL pattern, false otherwise.
+ */
 function isLikelyUrl(text) {
   if (!text) return false;
   const t = String(text).trim();
   return /^https?:\/\//i.test(t) || /^www\./i.test(t);
 }
 
+/**
+ * Parses the target URL out of a `=HYPERLINK("url", "label")` formula string.
+ * 
+ * @param {string} formula - Raw cell formula string.
+ * @return {string} Extracted URL string or empty string.
+ */
 function extractUrlFromHyperlinkFormula(formula) {
   if (!formula) return "";
   const match = formula.match(/=HYPERLINK\("([^"]+)"/i);
   return match ? match[1] : "";
 }
 
+/**
+ * Parses the source image URL out of an `=IMAGE("url")` formula string.
+ * 
+ * @param {string} formula - Raw cell formula string.
+ * @return {string} Extracted image source URL string or empty string.
+ */
 function extractUrlFromImageFormula(formula) {
   if (!formula) return "";
   const match = formula.match(/=IMAGE\("([^"]+)"/i);
@@ -51,7 +76,13 @@ function extractUrlFromImageFormula(formula) {
 }
 
 /**
- * Extracts URL from Rich-Text, HYPERLINK(), IMAGE(), or plain text.
+ * Evaluates cell inputs to extract a clean URL from Rich-Text, `=HYPERLINK()`, 
+ * `=IMAGE()`, or plain text representations.
+ * 
+ * @param {Object} value - Plain cell value.
+ * @param {string} formula - Raw formula string.
+ * @param {RichTextValue} richText - Google Apps Script RichTextValue object.
+ * @return {string} Extracted valid URL string or empty string.
  */
 function getCellUrl(value, formula, richText) {
   try {
@@ -79,7 +110,11 @@ function getCellUrl(value, formula, richText) {
 }
 
 /**
- * Extracts TEXT from rich-text Item Name cells.
+ * Extracts plain text content from rich-text cells, stripping hyperlinked formatting.
+ * 
+ * @param {Object} value - Plain cell value.
+ * @param {RichTextValue} richText - Google Apps Script RichTextValue object.
+ * @return {string} Clean plain-text string representation.
  */
 function getRichTextOrValue(value, richText) {
   try {
@@ -98,6 +133,10 @@ function getRichTextOrValue(value, richText) {
  * ============================================================================
  */
 
+/**
+ * Aggregates data across all ten category tabs into the "Master Inventory" tab.
+ * Normalizes rich-text, formula links, photo URLs, and formatting across 18 columns.
+ */
 function updateMasterInventory() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
@@ -157,12 +196,15 @@ function updateMasterInventory() {
         const richText = rawRichText[r][c];
 
         if (c === 1) {
+          // Column B: Item Name
           row[c] = getRichTextOrValue(value, richText);
         }
         else if (c === 14 || c === 15) {
+          // Columns O & P: Photo URLs
           row[c] = getCellUrl(value, formula, richText);
         }
         else {
+          // Standard Values
           row[c] = value !== undefined && value !== null ? value : "";
         }
       }
@@ -199,6 +241,10 @@ function updateMasterInventory() {
  * ============================================================================
  */
 
+/**
+ * Re-initializes project triggers. Removes existing triggers and installs an
+ * `onChange` trigger on the active spreadsheet bound to `updateMasterInventory()`.
+ */
 function setupAutomationTrigger() {
   const triggers = ScriptApp.getProjectTriggers();
   triggers.forEach(t => ScriptApp.deleteTrigger(t));
@@ -217,6 +263,13 @@ function setupAutomationTrigger() {
  * ============================================================================
  */
 
+/**
+ * Formats standard JavaScript Date objects or text strings into `MM/dd/yyyy`.
+ * 
+ * @param {Object|string} val - Input date object or string.
+ * @param {string} tz - Target timezone identifier (defaults to "GMT").
+ * @return {string} Formatted date string.
+ */
 function formatDateValue(val, tz) {
   if (!val) return "";
   if (val instanceof Date) {
@@ -225,6 +278,12 @@ function formatDateValue(val, tz) {
   return String(val).trim();
 }
 
+/**
+ * Retrieves full array of inventory item objects from the "Master Inventory" tab
+ * for consumption by the client frontend script.
+ * 
+ * @return {Array<Object>} Array of inventory item objects.
+ */
 function getInventoryData() {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -271,13 +330,36 @@ function getInventoryData() {
 }
 
 /**
- * Handles incoming checkout form submissions from Index.html.
+ * Processes a checkout request for the Baronial Inventory System.
+ * Logs the entry to the 'Checkout Log' sheet, looks up available quantities 
+ * from 'Master Inventory', and routes notification emails to relevant officers and requesters.
+ * 
+ * @param {Object} requestData - Object containing checkout form field values.
+ * @return {Object} Response object indicating success status and result message.
  */
 function submitCheckoutRequest(requestData) {
   try {
+    // ==========================================
+    // 1. DATA SANITIZATION & DEFAULT VALUES
+    // ==========================================
+    const data = requestData || {};
+    const itemId = data.itemId || "Unknown ID";
+    const scaName = data.scaName || "Unknown Borrower";
+    const legalName = data.legalName || "N/A";
+    const email = data.email || "";
+    const phone = data.phone || "N/A";
+    const event = data.event || "N/A";
+    const eventDate = data.eventDate || "N/A";
+    const quantity = Number(data.quantity) || 1;
+    const notes = data.notes || "None";
+
+    // ==========================================
+    // 2. SHEET INITIALIZATION & VERIFICATION
+    // ==========================================
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     let logSheet = ss.getSheetByName('Checkout Log');
-    
+
+    // Auto-create log tab if missing
     if (!logSheet) {
       logSheet = ss.insertSheet('Checkout Log');
       logSheet.appendRow([
@@ -287,66 +369,74 @@ function submitCheckoutRequest(requestData) {
       ]);
     }
 
-    // Look up Master Inventory to get Item Name and Available Quantity at time of request
+    // ==========================================
+    // 3. MASTER INVENTORY LOOKUP
+    // ==========================================
     const masterSheet = ss.getSheetByName("Master Inventory");
-    let itemName = requestData.itemId;
+    let itemName = itemId;
     let availableQty = "Unknown";
-    
+
     if (masterSheet) {
-      const data = masterSheet.getDataRange().getValues();
-      for (let i = 1; i < data.length; i++) {
-        if (String(data[i][0]).trim() === String(requestData.itemId).trim()) {
-          itemName = data[i][1] ? String(data[i][1]).trim() : requestData.itemId;
-          const total = Number(data[i][6]) || 1;
-          const signedOut = Number(data[i][7]) || 0;
+      const sheetData = masterSheet.getDataRange().getValues();
+      // Iterate through records (skipping header row)
+      for (let i = 1; i < sheetData.length; i++) {
+        if (String(sheetData[i][0]).trim() === String(itemId).trim()) {
+          itemName = sheetData[i][1] ? String(sheetData[i][1]).trim() : itemId;
+          const total = Number(sheetData[i][6]) || 1;
+          const signedOut = Number(sheetData[i][7]) || 0;
           availableQty = Math.max(0, total - signedOut);
           break;
         }
       }
     }
 
-    // Get URL of the Checkout Log tab
+    // ==========================================
+    // 4. LOG ENTRY CREATION
+    // ==========================================
     const sheetId = ss.getId();
     const logSheetId = logSheet.getSheetId();
     const logTabUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=${logSheetId}`;
 
     logSheet.appendRow([
       new Date(),
-      requestData.scaName,
-      requestData.legalName,
-      requestData.email,
+      scaName,
+      legalName,
+      email,
       "N/A",
-      requestData.event,
-      requestData.itemId,
+      event,
+      itemId,
       itemName,
-      requestData.quantity || 1,
-      requestData.eventDate,
+      quantity,
+      eventDate,
       "N/A",
       "Pending Approval"
     ]);
 
+    // ==========================================
+    // 5. OFFICER NOTIFICATION EMAIL
+    // ==========================================
     const quartermasterEmail = "quartermaster@sacredstone.atlantia.sca.org";
     const exchequerEmail = "exchequer@sacredstone.atlantia.sca.org";
     const webministerEmail = "webminister@sacredstone.atlantia.sca.org";
 
-    const subject = `[Quartermaster Request] ${requestData.itemId} (${itemName}) — ${requestData.scaName}`;
+    const subject = `[Quartermaster Request] ${itemId} (${itemName}) — ${scaName}`;
 
     const qmBody = 
       `Greetings Officers,\n\n` +
       `A new baronial inventory checkout request has been submitted:\n\n` +
-      `• Item ID & Name: ${requestData.itemId} — ${itemName}\n` +
+      `• Item ID & Name: ${itemId} — ${itemName}\n` +
       `• Available in Storage at Request: ${availableQty} unit(s)\n` +
-      `• Requested Quantity: ${requestData.quantity}\n` +
-      `• SCA Name: ${requestData.scaName}\n` +
-      `• Legal Name: ${requestData.legalName}\n` +
-      `• Contact Email: ${requestData.email}\n` +
-      `• Phone: ${requestData.phone}\n` +
-      `• Event / Location: ${requestData.event}\n` +
-      `• Date of Event: ${requestData.eventDate}\n` +
-      `• Special Notes: ${requestData.notes}\n\n` +
+      `• Requested Quantity: ${quantity}\n` +
+      `• SCA Name: ${scaName}\n` +
+      `• Legal Name: ${legalName}\n` +
+      `• Contact Email: ${email}\n` +
+      `• Phone: ${phone}\n` +
+      `• Event / Location: ${event}\n` +
+      `• Date of Event: ${eventDate}\n` +
+      `• Special Notes: ${notes}\n\n` +
       `Policy Confirmations:\n` +
       `[ ✔ ] Confirmed reading Baronial Policies: https://sacredstone.atlantia.sca.org/baronial-policy/\n` +
-      `[ ✔ ] Confirmed reading Kingdom Exchequer / Branch Policies: https://exchequer.atlantia.sca.org/branchpolicy.php#SacredStone\n\n` +
+      `[ ✔ ] Confirmed reading Kingdom Exchequer / Branch Policies: https://exchequer.atlantia.sca.org/branchpolicy.php\n\n` +
       `View Checkout Log: ${logTabUrl}\n\n` +
       `Please review and process this request.\n\n` +
       `In Service,\n` +
@@ -359,24 +449,27 @@ function submitCheckoutRequest(requestData) {
       body: qmBody
     });
 
-    if (requestData.email) {
+    // ==========================================
+    // 6. REQUESTER CONFIRMATION EMAIL
+    // ==========================================
+    if (email) {
       const requesterBody = 
-        `Unto ${requestData.scaName},\n\n` +
-        `Thank you for submitting a checkout request for Baronial inventory item ${requestData.itemId} — ${itemName} (Qty: ${requestData.quantity}).\n\n` +
+        `Unto ${scaName},\n\n` +
+        `Thank you for submitting a checkout request for Baronial inventory item ${itemId} — ${itemName} (Qty: ${quantity}).\n\n` +
         `Request Details:\n` +
-        `• Event/Purpose: ${requestData.event}\n` +
-        `• Requested Date: ${requestData.eventDate}\n` +
+        `• Event/Purpose: ${event}\n` +
+        `• Requested Date: ${eventDate}\n` +
         `• Status: Pending Quartermaster & Exchequer Approval\n\n` +
         `Policy Acknowledgements:\n` +
         `• Baronial Policies: https://sacredstone.atlantia.sca.org/baronial-policy/\n` +
-        `• Branch Financial Policies: https://exchequer.atlantia.sca.org/branchpolicy.php#SacredStone\n\n` +
+        `• Branch Financial Policies: https://exchequer.atlantia.sca.org/branchpolicy.php\n\n` +
         `Your request has been logged and routed to the Baronial officers for review.\n\n` +
         `In Service,\n` +
         `Barony of the Sacred Stone Quartermaster Office`;
 
       MailApp.sendEmail({
-        to: requestData.email,
-        subject: `Confirmation: Baronial Inventory Request (${requestData.itemId})`,
+        to: email,
+        subject: `Confirmation: Baronial Inventory Request (${itemId})`,
         body: requesterBody
       });
     }
