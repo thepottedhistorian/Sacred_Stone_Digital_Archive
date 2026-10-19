@@ -10,14 +10,14 @@
          Purpose:
            This modal provides a place where the Webminister
            may review the weekly digest before sending it to the
-           Baronial Google Group. Both the subject line and the
-           digest body may be edited here without altering the
-           underlying engine.
+           Baronial Google Group or publishing to WordPress. Both
+           the subject line and the digest body may be edited here
+           without altering the underlying engine.
 
          Notes:
            The modal does not generate content. It simply displays
            the completed digest and offers tools for copying,
-           testing, and sending.
+           testing, sending, and publishing.
          ============================================================ -->
 
     <style>
@@ -73,6 +73,7 @@
       }
 
       .btn-copy { background: #5f6368; color: white; }
+      .btn-wp { background: #21759b; color: white; }
       .btn-test { background: #1565c0; color: white; }
       .btn-email { background: #2e7d32; color: white; }
 
@@ -105,7 +106,7 @@
          DIGEST CONTENT
          ------------------------------------------------------------
          The full digest text is presented here for review. Edits
-         made in this box will be reflected in the final email.
+         made in this box will be reflected in the final output.
          ============================================================ -->
     <label>Digest Content:</label>
     <div class="hint">Edit below if needed before copying or sending.</div>
@@ -118,6 +119,9 @@
          Copy Digest:
            Copies the digest text to the clipboard.
 
+         Publish to WP:
+           Sanitizes links and dispatches digest to WordPress.
+
          Test Email:
            Sends the digest to the Webminister test address.
 
@@ -126,6 +130,7 @@
          ============================================================ -->
     <div class="controls">
       <button class="btn-copy" id="copyBtn" onclick="copyToClipboard()">📋 Copy Digest</button>
+      <button class="btn-wp" id="wpBtn" onclick="publishToWordPress()">🌐 Publish to WP</button>
       <button class="btn-test" id="testBtn" onclick="sendTest()">🧪 Test Email (To Me)</button>
       <button class="btn-email" id="mainBtn" onclick="sendOfficial()">📧 Send to Group</button>
     </div>
@@ -148,6 +153,35 @@
         const originalText = btn.innerText;
         btn.innerText = "✅ Copied!";
         setTimeout(() => { btn.innerText = originalText; }, 2000);
+      }
+
+
+      /* ============================================================
+         PUBLISH TO WORDPRESS
+         ------------------------------------------------------------
+         Pulls the edited subject and digest body, then dispatches 
+         them to the server-side WordPress script.
+         ============================================================ */
+      function publishToWordPress() {
+        const subject = document.getElementById("subjectLine").value;
+        const content = document.getElementById("digestBox").value;
+        
+        const btn = document.getElementById("wpBtn");
+        btn.disabled = true;
+        btn.innerText = "Publishing...";
+
+        google.script.run
+          .withSuccessHandler(function(response) {
+            alert("Successfully sent to WordPress! Jetpack will handle publishing to your site and Facebook.");
+            btn.disabled = false;
+            btn.innerText = "🌐 Publish to WP";
+          })
+          .withFailureHandler(function(err) {
+            alert("Error publishing: " + err.message);
+            btn.disabled = false;
+            btn.innerText = "🌐 Publish to WP";
+          })
+          .sendDigestToWordPress(subject, content);
       }
 
 
@@ -181,29 +215,29 @@
          prompt ensures that the Webminister does not send it by
          accident.
          ============================================================ */
-function sendOfficial() {
-  if (!confirm("Send to official Google Group?")) return;
+      function sendOfficial() {
+        if (!confirm("Send to official Google Group?")) return;
 
-  var btn = document.getElementById('mainBtn');
-  btn.disabled = true;
-  btn.innerText = "Sending...";
+        var btn = document.getElementById('mainBtn');
+        btn.disabled = true;
+        btn.innerText = "Sending...";
 
-  google.script.run
-    .withSuccessHandler(function(res) {
-      alert(res);
-      google.script.host.close();
-    })
-    .withFailureHandler(function(err) {
-      alert("Error: " + err); // This will tell you if the server-side code failed
-      btn.disabled = false;
-      btn.innerText = "📧 Send to Group";
-    })
-    .sendToGroup(
-      document.getElementById("subjectLine").value,
-      document.getElementById("digestBox").value,
-      false
-    );
-}
+        google.script.run
+          .withSuccessHandler(function(res) {
+            alert(res);
+            google.script.host.close();
+          })
+          .withFailureHandler(function(err) {
+            alert("Error: " + err);
+            btn.disabled = false;
+            btn.innerText = "📧 Send to Group";
+          })
+          .sendToGroup(
+            document.getElementById("subjectLine").value,
+            document.getElementById("digestBox").value,
+            false
+          );
+      }
     </script>
 
   </body>
