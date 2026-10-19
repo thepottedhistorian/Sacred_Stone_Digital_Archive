@@ -108,9 +108,9 @@ function cleanOnlineDescription(desc) {
     /Virtual SCA/i, 
     /Sunday Night/i, 
     /TIME ZONE CALCULATOR/i,
-    /--\s*--/i,                          // Captures '-- --' horizontal dividers
-    /Event Accessibility/i,             // Captures accessibility boilerplate
-    /Zoom codes will be posted/i,       // Captures master schedule copy
+    /--\s*--/i,                      // Captures '-- --' horizontal dividers
+    /Event Accessibility/i,            // Captures accessibility boilerplate
+    /Zoom codes will be posted/i,      // Captures master schedule copy
     /Master Schedule/i
   ];
 
@@ -143,12 +143,12 @@ function cleanOnlineDescription(desc) {
     normalizedText = normalizedText.replace(rx, "\n\n" + h + ":\n");
   });
 
-  // Safe reflow/cleanup
+  // Safe reflow/cleanup (Preserves newlines)
   var final = normalizedText
     .replace(/&amp;/g, "&")
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/([0-9a-z])\.([A-Z])/g, "$1. $2")
-    .replace(/\s{2,}/g, " ")
+    .replace(/[ \t]{2,}/g, " ")
     .trim();
 
   return final;
@@ -160,7 +160,7 @@ function cleanOnlineDescription(desc) {
    Simple word-wrap that preserves existing paragraphs and bullets.
    Keeps lines at or under the provided width and avoids breaking
    words, while preserving leading bullet/number prefixes.
-   ------------------------------------------------------------ */
+   ============================================================ */
 function reflowText(text, width) {
   if (!text) return "";
   width = width || 78;
@@ -178,13 +178,13 @@ function reflowText(text, width) {
     var line = prefix ? prefix + " " : "";
     words.forEach(function(w) {
       if ((line + (line.trim() ? " " : "") + w).length > width) {
-        out.push(line.trimRight());
+        out.push(line.trimEnd());
         line = prefix ? prefix + " " + w : w;
       } else {
         line += (line.trim() ? " " : "") + w;
       }
     });
-    if (line) out.push(line.trimRight());
+    if (line) out.push(line.trimEnd());
     return out.join("\n");
   });
   return wrapped.join("\n\n");
@@ -212,7 +212,7 @@ function formatLocalDescription(desc) {
   text = text.replace(/(What to Expect:)\s*\n+/gi, "$1\n");
   text = text.replace(/(What to Bring:)\s*\n+/gi, "$1\n");
 
-  // 5. Remove blank lines between items in list sections (e.g., under "What to Bring:")
+  // 5. Remove blank lines between items in list sections
   text = text.replace(/(Outside food is allowed[^\n]*)\n+/gi, "$1\n");
   text = text.replace(/(Your favorite crafting supplies[^\n]*)\n+/gi, "$1\n");
 
@@ -263,7 +263,7 @@ function formatEventEntry(e) {
   var desc = formatLocalDescription(e.getDescription() || "");
   var flyer = extractEventFlyerLink(e.getDescription() || "");
   
-  var lowerLoc = location.toLowerCase();
+  var lowerLoc = (location || "").toLowerCase();
   var virtualTag = (lowerLoc.includes("zoom") || lowerLoc.includes("virtual") || lowerLoc.includes("online")) ? "Type: 💻 Virtual Event" : "";
 
   var output = "📌 " + title + "\n" +
@@ -299,7 +299,7 @@ function formatOnlineEvent(title, date, time, loc, desc) {
   var cleanDesc = cleanOnlineDescription(desc || "");
   var flyer = extractEventFlyerLink(desc || "");
   
-  var lowerLoc = location.toLowerCase();
+  var lowerLoc = (location || "").toLowerCase();
   var virtualTag = lowerLoc.includes("zoom") ? "Type: 💻 Virtual Event" : "";
 
   var output = "📌 " + emojiTitle + "\n" +
@@ -316,16 +316,6 @@ function formatOnlineEvent(title, date, time, loc, desc) {
 /* ============================================================
    SECTION IX: MAIN DIGEST FORMATTER
    ============================================================ */
-/**
- * Formats calendar events and online activities into structured sections for distribution.
- *
- * @param {Array<Object>} baronyEvents - Array of local Baronial event objects.
- * @param {Array<Object>} kingdomEvents - Array of Kingdom event objects.
- * @param {Date} start - Start date threshold for the digest period.
- * @param {Date} end - End date threshold for the digest period.
- * @param {string} platform - Target platform for formatting output.
- * @returns {Object} Formatted content strings split by section (header, barony, kingdom, online, footer).
- */
 function formatForSocialMedia(baronyEvents, kingdomEvents, start, end, platform) {
   var longDate = start.toLocaleDateString(undefined, { 
     month: "long", 
@@ -338,7 +328,9 @@ function formatForSocialMedia(baronyEvents, kingdomEvents, start, end, platform)
     "Check Out Upcoming Events for the Week of " + longDate + "!\n\n" +
     "📣 Help us keep our community informed!\n" +
     "Have an event or news to share? If you are hosting an activity or have a milestone to share, please click here to add it to the Baronial Calendar:\n" +
-    CONFIG.get("BARONIAL_EVENT_FORM_URL") + "\n\n\n";
+    CONFIG.get("BARONIAL_EVENT_FORM_URL") + "\n\n" +
+    "⚠️ Notice: Spot an error or discrepancy with any of the listings below? Please reach out to the Baronial Webminister at " + 
+    CONFIG.get("ADMIN_TEST_EMAIL") + " so the schedule can be updated right away.\n\n\n";
 
   // --- Footer Note & Signature ---
   var footerNote = "For SCA ONLINE ACTIVITIES (UNOFFICIAL) Events, Please Note:\n" +
@@ -390,7 +382,6 @@ function formatForSocialMedia(baronyEvents, kingdomEvents, start, end, platform)
       
       var startMs = (startObj && startObj.getTime) ? startObj.getTime() : new Date(startObj).getTime();
 
-      // If it's an all-day event, adjust UTC midnight offset to local start of day
       if (isAllDay && startObj) {
         var localDate = new Date(startObj.getUTCFullYear(), startObj.getUTCMonth(), startObj.getUTCDate(), 0, 0, 0);
         startMs = localDate.getTime();
@@ -596,12 +587,10 @@ function collectEventsFromCalendarIds(ids, start, end) {
 function launchThisWeekGG() {
   const today = new Date();
   
-  // Roll back to the most recent Monday (Day 1)
   const day = today.getDay();
-  const diffToMonday = day === 0 ? 6 : day - 1; // If Sunday (0), go back 6 days
+  const diffToMonday = day === 0 ? 6 : day - 1;
   const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() - diffToMonday);
   
-  // End on the following Sunday (7 full days total: Mon -> Sun)
   const end = new Date(start);
   end.setDate(end.getDate() + 7);
 
@@ -621,7 +610,7 @@ function launchThisWeekGG() {
   } catch (e) { }
 
   const baronyEvents = collectEventsFromCalendarIds(calIds, start, end);
-  const kingdomEvents = getICSEvents(start, end);
+  const kingdomEvents = typeof getICSEvents === "function" ? getICSEvents(start, end) : [];
 
   const digest = formatForSocialMedia(baronyEvents, kingdomEvents, start, end, "social");
   const fullBody = digest.header + digest.barony + digest.kingdom + digest.online + digest.footer;
@@ -632,12 +621,10 @@ function launchThisWeekGG() {
 function launchNextWeekGG() {
   const today = new Date();
   
-  // Find the upcoming Monday
   const day = today.getDay();
   const daysUntilNextMonday = day === 0 ? 1 : 8 - day;
   const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() + daysUntilNextMonday);
   
-  // End on the Sunday after that (7 full days)
   const end = new Date(start);
   end.setDate(end.getDate() + 7);
 
@@ -657,10 +644,185 @@ function launchNextWeekGG() {
   } catch (e) { }
 
   const baronyEvents = collectEventsFromCalendarIds(calIds, start, end);
-  const kingdomEvents = getICSEvents(start, end);
+  const kingdomEvents = typeof getICSEvents === "function" ? getICSEvents(start, end) : [];
 
   const digest = formatForSocialMedia(baronyEvents, kingdomEvents, start, end, "social");
   const fullBody = digest.header + digest.barony + digest.kingdom + digest.online + digest.footer;
 
   showDigestModal(fullBody, "Next Week Digest");
 }
+
+/* ============================================================
+   SECTION XII: AUTOMATED WEEKLY DISCORD DISPATCH
+   ============================================================ */
+function sendAutomatedWeeklyDigestToDiscord() {
+  const today = new Date();
+  
+  const day = today.getDay();
+  const diffToMonday = day === 0 ? 6 : day - 1;
+  const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() - diffToMonday);
+  
+  const end = new Date(start);
+  end.setDate(end.getDate() + 7);
+
+  var calIds = [];
+  calIds.push(CONFIG.get("BARONIAL_CALENDAR_ID"));
+  ['CANTON_AF_CALENDAR_ID','CANTON_CC_CALENDAR_ID','CANTON_SG_CALENDAR_ID','CANTON_MD_CALENDAR_ID'].forEach(function(k){ 
+    var v = CONFIG.get(k); 
+    if (v) calIds.push(v); 
+  });
+
+  try {
+    var includeMirror = (PropertiesService.getScriptProperties().getProperty('INCLUDE_MIRROR_IN_BARONY') || "").toString().toLowerCase() === 'true';
+    if (includeMirror) {
+      if (CONFIG.get('DISCORD_CALENDAR_ID')) calIds.push(CONFIG.get('DISCORD_CALENDAR_ID'));
+      if (CONFIG.get('MIRROR_CALENDAR_ID')) calIds.push(CONFIG.get('MIRROR_CALENDAR_ID'));
+    }
+  } catch (e) { }
+
+  const baronyEvents = collectEventsFromCalendarIds(calIds, start, end);
+  const kingdomEvents = typeof getICSEvents === "function" ? getICSEvents(start, end) : [];
+
+  const sections = formatForSocialMedia(baronyEvents, kingdomEvents, start, end, "social");
+
+  sendDiscordDigest(sections);
+}
+
+/* ============================================================
+   SECTION XIII: WORDPRESS REST API DISPATCH (DIRECT) - FIXED
+   ============================================================ */
+function sendDigestToWordPress(subject, content) {
+  if (!content) return "Error: Digest content was empty.";
+
+  var cleanContent = content
+    .replace(/(\/|\?)?\?utm_source=gemini(&.*)?$/gm, '')
+    .replace(/([?&])utm_source=gemini&?/g, '$1')
+    .replace(/\?$/gm, '');
+
+  if (cleanContent.indexOf("=== 🏰 BARONIAL & CANTON EVENTS ===") !== -1) {
+    cleanContent = cleanContent.substring(cleanContent.indexOf("=== 🏰 BARONIAL & CANTON EVENTS ==="));
+  }
+
+  // Extract dynamic date from subject (e.g. "Week of October 19, 2026") or fallback to current date
+  var weekDateMatch = subject.match(/Week of [A-Za-z]+ \d{1,2}, \d{4}/i);
+  var weekStr = weekDateMatch ? weekDateMatch[0] : "the Week of " + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "MMMM d, yyyy");
+
+  // 1. Build Top Greeting Banner Block
+  var topHeaderHtml = 
+    '<p style="font-size: 1.15em; font-weight: bold; margin-bottom: 12px;">Greetings Sacred Stone!</p>' +
+    '<p style="font-size: 1.1em; margin-bottom: 16px;">Check Out Upcoming Events for ' + weekStr + '!</p>' +
+    '<div style="background-color: #f7fafc; border-left: 4px solid #21759b; padding: 14px 16px; margin-bottom: 20px; border-radius: 4px;">' +
+      '<p style="margin: 0 0 8px 0; font-weight: bold; color: #2d3748;">📣 Help us keep our community informed!</p>' +
+      '<p style="margin: 0;">Have an event or news to share? If you are hosting an activity or have a milestone to share, please <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDuRrNr8HZSdQj4nuAZsib7xS060ykmLg43Yw4EjNRIbDYvg/viewform" target="_blank" rel="noopener" style="color: #21759b; text-decoration: underline;">click here to add it to the Baronial Calendar</a>.</p>' +
+    '</div>' +
+    '<div style="background-color: #fffaf0; border-left: 4px solid #dd6b20; padding: 12px 16px; margin-bottom: 25px; border-radius: 4px; font-size: 0.95em;">' +
+      '<strong>⚠️ Notice:</strong> Spot an error or discrepancy with any of the listings below? Please reach out to the Baronial Webminister at <a href="mailto:webminister@sacredstone.atlantia.sca.org" style="color: #21759b; text-decoration: underline;">webminister@sacredstone.atlantia.sca.org</a> so the schedule can be updated right away.' +
+    '</div>';
+
+  // 2. Transform Section Headers into Styled Callout Banners
+  var styled = cleanContent
+    .replace(/===\s*🏰\s*BARONIAL & CANTON EVENTS\s*===/gi, 
+      '<div style="background-color: #21759b; color: #ffffff; padding: 12px 16px; margin: 25px 0 15px 0; font-weight: bold; font-size: 1.1em; border-radius: 4px; border-left: 6px solid #134157;">🏰 BARONIAL & CANTON EVENTS</div>')
+    .replace(/===\s*👑\s*KINGDOM EVENTS\s*===/gi, 
+      '<div style="background-color: #21759b; color: #ffffff; padding: 12px 16px; margin: 30px 0 15px 0; font-weight: bold; font-size: 1.1em; border-radius: 4px; border-left: 6px solid #134157;">👑 KINGDOM EVENTS</div>')
+    .replace(/===\s*🌐\s*SCA ONLINE ACTIVITIES\s*\(UNOFFICIAL\)\s*===/gi, 
+      '<div style="background-color: #21759b; color: #ffffff; padding: 12px 16px; margin: 30px 0 15px 0; font-weight: bold; font-size: 1.1em; border-radius: 4px; border-left: 6px solid #134157;">🌐 SCA ONLINE ACTIVITIES (UNOFFICIAL)</div>');
+
+  // 3. Robust Event Card Formatter (Captures all events regardless of extra line fields or multi-line details)
+  var eventBlocks = styled.split(/(?=📌)/g);
+  var formattedBody = eventBlocks.map(function(block) {
+    if (!block.trim().startsWith("📌")) return block; // Return non-event text (like headers) as-is
+
+    var lines = block.trim().split("\n");
+    var title = lines[0].replace(/^📌\s*/, '').trim();
+    var metaLines = [];
+    var detailLines = [];
+    var inDetails = false;
+
+    for (var i = 1; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+
+      if (line.match(/^(📅|Time:|Type:|Location:|Submitted by:)/i)) {
+        if (!inDetails) {
+          metaLines.push(line);
+        } else {
+          detailLines.push(line);
+        }
+      } else if (line.match(/^Details:/i)) {
+        inDetails = true;
+        detailLines.push(line.replace(/^Details:\s*/i, ''));
+      } else {
+        detailLines.push(line);
+      }
+    }
+
+    var metaHtml = metaLines.map(function(m) { return '<div>' + m + '</div>'; }).join('');
+    var detailHtml = detailLines.length > 0 
+      ? '<div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cccccc; line-height: 1.5;">' + detailLines.join('<br>') + '</div>' 
+      : '';
+
+    return '<div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #21759b; padding: 16px; margin-bottom: 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">' +
+      '<h3 style="margin: 0 0 8px 0; color: #1a202c; font-size: 1.15em;">📌 ' + title + '</h3>' +
+      '<div style="font-size: 0.95em; color: #2d3748;">' + metaHtml + '</div>' +
+      detailHtml +
+    '</div>';
+  }).join('');
+
+  // 4. Format Inline URLs into Clickable Hyperlinks
+  formattedBody = formattedBody.replace(/(https?:\/\/[^\s<]+)/gi, function(url) {
+    var cleanUrl = url.replace(/[.,;)]+$/, '');
+    var punctuation = url.substring(cleanUrl.length);
+    return '<a href="' + cleanUrl + '" target="_blank" rel="noopener" style="color: #21759b; text-decoration: underline;">' + cleanUrl + '</a>' + punctuation;
+  });
+
+  // 5. Wrap Bottom Virtual Resources Footer cleanly
+  var noticeHeader = "For SCA ONLINE ACTIVITIES (UNOFFICIAL) Events, Please Note:";
+  if (formattedBody.indexOf(noticeHeader) !== -1) {
+    var parts = formattedBody.split(noticeHeader);
+    formattedBody = parts[0] + 
+      '<div style="background-color: #f7fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 4px; margin-top: 30px;"><strong style="color: #2d3748;">' + noticeHeader + '</strong>' + 
+      parts[1] + 
+      '</div>';
+  }
+
+  // Combine Greeting Header + Formatted Body
+  var htmlText = topHeaderHtml + formattedBody;
+
+  // Plain-Text Excerpt for Facebook
+  var customExcerpt = "📜 Weekly Announcements Digest\n\n" +
+    "Check out this week's full schedule of events across the Barony, Kingdom of Atlantia, and Known World virtual activities by clicking the article link below!\n\n" +
+    "📌 Note on Facebook Link Restrictions:\nMeta limits external links on Page posts. All official submission forms, calendar links, and Zoom codes remain fully accessible on the website post below.";
+
+  var wpDomain = "sacredstone.atlantia.sca.org"; 
+  var wpUsername = CONFIG.get("WP_USERNAME"); 
+  var wpAppPassword = CONFIG.get("WP_APP_PASSWORD"); 
+
+  var apiUrl = "https://" + wpDomain + "/wp-json/wp/v2/posts";
+  
+  var payload = {
+    title: subject,
+    content: htmlText,
+    excerpt: customExcerpt,
+    featured_media: 4119,
+    status: "publish"
+  };
+
+  var authHeader = "Basic " + Utilities.base64Encode(wpUsername + ":" + wpAppPassword);
+
+  var options = {
+    method: "post",
+    contentType: "application/json",
+    headers: { "Authorization": authHeader },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
+
+  var response = UrlFetchApp.fetch(apiUrl, options);
+  if (response.getResponseCode() === 201) {
+    return "Success";
+  } else {
+    throw new Error("WordPress API Error: " + response.getContentText());
+  }
+}
+
