@@ -2,7 +2,9 @@
 
 ![Platform](https://img.shields.io/badge/Platform-Google%20Apps%20Script-blue)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
-![License](https://img.shields.io/badge/License-SCA%20Internal-lightgrey)
+![Code License](https://img.shields.io/badge/Code-Apache%202.0-blue)
+![Assets License](https://img.shields.io/badge/Assets-CC%20BY--NC%204.0-green)
+
 
 A Google Apps Script (GAS) web application powering the Barony of the Sacred Stone's Master Inventory and Asset Request Hub. This portal bridges the live Master Inventory Google Spreadsheet with a responsive, mobile-friendly frontend to handle real-time item tracking, status filtering, photo previews, automated liability checkouts, and routed email notifications.
 
@@ -83,3 +85,85 @@ To prevent hardcoded credentials and maintain security, all environment targets 
     ├── Master Inventory Builder.gs
     ├── Master Inventory Sync.gs
     └── README.md
+```
+
+---
+
+## ⚖️ License & Attribution
+
+This project contains both software code and administrative documentation. Different asset types are licensed under different terms.
+
+### Code License
+
+All source code contained within this project, including but not limited to:
+
+- `Code.gs`
+- `Index.html`
+- `ImageLinker.gs`
+- `Changelog.gs`
+- `appsscript.json`
+- Supporting scripts and utilities
+
+is licensed under the **Apache License 2.0**.
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+```text
+Copyright (c) 2026 Rebecca Short
+(Ailís inghean Uí Riagáin) / Barony of the Sacred Stone
+
+Licensed under the Apache License, Version 2.0.
+```
+
+You are free to use, modify, distribute, and adapt the software in accordance with the Apache 2.0 License.
+
+---
+
+### Documentation & Non-Code Assets
+
+All documentation, written content, workflow descriptions, screenshots, diagrams, PDFs, instructional materials, and other non-code assets are licensed under:
+
+**Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**
+
+https://creativecommons.org/licenses/by-nc/4.0/
+
+You are free to:
+
+- **Share** the material in any medium or format.
+- **Adapt** and build upon the material.
+
+Under the following terms:
+
+- **Attribution** must be provided to the original creator.
+- **NonCommercial** use only unless explicit written permission is granted.
+
+---
+
+### SCA Heraldry & Intellectual Property Notice
+
+Names, heraldry, badges, arms, logos, and other protected insignia associated with:
+
+- The Barony of the Sacred Stone
+- The Kingdom of Atlantia
+- The Society for Creative Anachronism, Inc.
+
+remain the property of their respective owners and are reproduced here for official educational, historical, and administrative purposes.
+
+Use of SCA heraldic and organizational imagery does not grant permission for independent reproduction or commercial use.
+
+---
+
+## Attribution
+
+**Project Steward / Original Author**  
+Ailís inghean Uí Riagáin  
+Baronial Webminister, Barony of the Sacred Stone
+
+**Repository Maintainer**  
+Rebecca Short
+
+Contributions, modifications, and derivative works should retain attribution to the original project authors and the Barony of the Sacred Stone whenever practical.
+
+---
+
+*"Technology in service to the Dream."*
